@@ -1,0 +1,51 @@
+{
+  "name": "apikon",
+  "version": "1.0.0",
+  "description": "random videochat roulette",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=ws --host=localhost --port=3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Globik/apikon.git"
+  },
+  "keywords": [
+    "expressjs",
+    "nodejs",
+    "mariadb",
+    "chat-roulette"
+  ],
+  "author": "Alik Gafarov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Globik/apikon/issues"
+  },
+  "homepage": "https://github.com/Globik/apikon#readme",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.5.1",
+    "express-rate-limit": "^8.1.0",
+    "express-session": "^1.17.3",
+    "fast-xml-parser": "^4.5.0",
+    "google-auth-library": "^10.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.2.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-telegram-login": "^0.3.1",
+    "scmp": "^2.1.0",
+    "shortid": "^2.2.17",
+    "simple-xml-to-json": "^1.2.3",
+    "uuid": "^9.0.1",
+    "ws": "^8.18.2"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.9"
+  }
+}

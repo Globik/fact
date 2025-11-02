@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "ru.rouletka.pwa",
+        "sha256_cert_fingerprints": ["97:A6:F7:01:54:01:60:E3:A6:7E:17:0C:FF:47:09:55:8B:FE:DF:18:A1:4D:CC:BC:0F:37:D0:92:4F:75:D8:07","2B:C1:ED:0B:B4:CB:10:4B:E4:B7:C0:92:46:C5:07:8D:FC:5C:EF:E2:07:AE:E7:9D:5B:4F:45:4F:AB:27:25:D1"]
+      }
+    }]

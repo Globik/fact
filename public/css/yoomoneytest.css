@@ -1,0 +1,51 @@
+div{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+form.myyoomoney{
+	margin:0 auto;
+	width:50%;
+}
+form.ymform{
+	width:50%;
+	margin:0 auto;
+}
+input,textarea{
+	width: 40%;
+}
+input.number{
+	width:40px;
+}
+input.sub{
+	width:auto;
+}
+input{height:40px;}
+input[type=radio].input{
+	width:initial;
+	height:initial;
+}
+textarea{
+	height:70px;
+}
+#out{
+	border:1px solid green;
+}
+button{
+	color:lightgreen;
+	height:40px;
+	font-weight:bold;
+	background:white;
+	border:2px solid lightblue;
+}
+@media screen and (max-width: 452px) and (orientation: portrait){
+	form.ymform{
+		width:99%;
+	}
+	input,textarea{
+	width: 100%;
+}
+form.myyoomoney{
+	margin:0 auto;
+	width:100%;
+}
+}
