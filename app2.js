@@ -392,30 +392,7 @@ app.get('/photos', async(req,res)=>{
 })
 
 app.get(`/photos/:okno`, async(req, res)=>{
-	/*
-//	console.log('params ', req.params);
-//	https://yandex.<domain>/images-xml? [folderid=<folder_ID>]& [apikey=<API_key>]& [text=<search_query_text>]
-
-console.log("*** TEXT *** ", req.params.okno);
-let a;let jObj;
-try{
- a = await axios.get(url, { params:{folderid:folderid,apikey:apikey,text:text}})
-// console.log(a.data);
- jObj = parser.parse(a.data);
- if(jObj.yandexsearch.response.error){
-	 return res.status(404).send(jObj.yandexsearch.response.error);
- }
-}catch(e){
-	//console.log('error ', e);
-	return res.status(404).send(e);
-}
-
-	
-	//console.log('jObj ', jObj.yandexsearch.response.results.grouping.group);
-	//console.log(jObj.yandexsearch.response.results.grouping);
-	//console.log(JSON.stringify(jObj));
-	res.rendel('okno', { jObj: jObj, title: req.params.okno, lword: req.params.okno, items: seo[req.params.okno]?seo[req.params.okno].items:["No word"] });
-*/
+//oooo
 })
 
 app.post('/api/getMax', async(req, res)=>{
