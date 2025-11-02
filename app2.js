@@ -392,6 +392,7 @@ app.get('/photos', async(req,res)=>{
 })
 
 app.get(`/photos/:okno`, async(req, res)=>{
+	/*
 //	console.log('params ', req.params);
 //	https://yandex.<domain>/images-xml? [folderid=<folder_ID>]& [apikey=<API_key>]& [text=<search_query_text>]
 let url = 'https://yandex.ru/images-xml';
@@ -417,6 +418,7 @@ try{
 	//console.log(jObj.yandexsearch.response.results.grouping);
 	//console.log(JSON.stringify(jObj));
 	res.rendel('okno', { jObj: jObj, title: req.params.okno, lword: req.params.okno, items: seo[req.params.okno]?seo[req.params.okno].items:["No word"] });
+*/
 })
 
 app.post('/api/getMax', async(req, res)=>{
