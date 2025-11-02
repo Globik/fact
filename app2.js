@@ -395,10 +395,7 @@ app.get(`/photos/:okno`, async(req, res)=>{
 	/*
 //	console.log('params ', req.params);
 //	https://yandex.<domain>/images-xml? [folderid=<folder_ID>]& [apikey=<API_key>]& [text=<search_query_text>]
-let url = 'https://yandex.ru/images-xml';
-let apikey = 'AQVN0YlnPMjLYRxiynUSly0V06GDVLd0HNb0FJIw';
-let folderid = 'b1g5v0ihc6evi9fec0di';
-var text = req.params.okno;//el.word;
+
 console.log("*** TEXT *** ", req.params.okno);
 let a;let jObj;
 try{
