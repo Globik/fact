@@ -1322,7 +1322,7 @@ function verifyJWT(token, secret){
 	try{
 		return jwt.verify(token, secret);
 	}catch(err){
-		console.log(err);
+		//console.log(err);
 		return null;
 	}
 }

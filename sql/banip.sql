@@ -1,5 +1,5 @@
  -- source /home/globi/apikon/sql/banip.sql
--- source /root/chatik/api/sql/banip.sql
+-- source /root/fact/sql/banip.sql
 -- sudo mysql -u root -p
 -- use roulet
 

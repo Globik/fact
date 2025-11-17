@@ -1,5 +1,5 @@
 -- source /home/globi/apikon/sql/user.sql
--- source /root/chatik/api/sql/user.sql
+-- source /root/fact/sql/user.sql
 
 drop table if exists users cascade;
 CREATE TABLE IF NOT EXISTS users(

@@ -22,7 +22,7 @@ return `
 <html lang="${n.lang}">
   <head>
     <meta charset="utf-8">
-    <title>${lang=="ru"?"Чат-рулетка - видеочат для случайных знакомств в интернете":
+    <title>${lang=="ru"?"Чат рулетка - видео чат для случайных знакомств в интернете":
     lang=='en'?"Chatikon: Free Random Video Chat with Strangers":
     lang=='zh'?'聊天轮盘 - 在互联网上进行休闲约会的视频聊天':
     lang=='id'?'Rouletka: Obrolan Video Acak Gratis dengan Orang Asing':''}.</title>
@@ -51,12 +51,12 @@ return `
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		
-<meta name="description" content="${lang=="ru"?"Чат-рулетка — самый популярный русскоязычный чат. Ежедневно чат посещает более 500 тысяч пользователей из России и стран СНГ.":
+<meta name="description" content="${lang=="ru"?"Чат рулетка - видео чат для общения, знакомства онлайн":
 lang=='en'?"Chat roulette video chat dating online dating roulette random acquaintance casual viewer":
 lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   
  
-  <meta property="og:title" content="${lang=="ru"?"Чат-рулетка - анонимный видеочат (Русский аналог ChatRoulette)":
+  <meta property="og:title" content="${lang=="ru"?"Чат рулетка - анонимный видеочат (Русский аналог ChatRoulette)":
   lang=='en'?"Chat roulette: Free Random Video Chat with Strangers":
   lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   <meta property="og:type" content="website" />
@@ -75,13 +75,13 @@ lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
    lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
   
-  <meta itemprop="name" content="${lang=="ru"?"Чат-рулетка - анонимный видеочат (Русский аналог ChatRoulette)":"Chat Roulette"} />
-<meta itemprop="description" content="${lang=="ru"?"Чат-рулетка — самый популярный русскоязычный чат. Ежедневно чат посещает более 500 тысяч пользователей из России и стран СНГ.":
+ 
+<meta itemprop="description" content="${lang=="ru"?"Чат рулетка для пользователей со всего мира. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
 lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
 Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
 lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
-<meta name="description" content="${lang=="ru"?"Чат-рулетка — самый популярный русскоязычный чат. Ежедневно чат посещает более 500 тысяч пользователей из России и стран СНГ." :
+<meta name="description" content="${lang=="ru"?"Чат рулетка для пользователей со всего мира. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!" :
 lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
 Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
 lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
@@ -187,7 +187,7 @@ ${lang=='ru'?'':'<a href="/" hreflang="ru">'} <img alt="Русская верс�
 ${lang=='zh'?'':'<a href="/zh" hreflang="zh">'}<img title="Китай" alt="中文网站" src="/img/zh.png"  width="35" height="22">${n.ln=='zh'?'':'</a>'}
 
 </div>
-${lang=='ru'?`<h1>Анонимный видеочат</h1>
+${lang=='ru'?`<h1>Анонимная чат рулетка</h1>
 <h2>Весело провести время!</h2>
 <div class="terms">Нажимая кнопку «Начать..», я подтверждаю что мне <br>исполнилось 18 лет и я достиг совершеннолетия,<br> принимаю условия и политику конфеденциальности.</div>`:''}
                

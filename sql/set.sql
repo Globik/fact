@@ -1,5 +1,5 @@
 -- source /home/globi/apikon/sql/set.sql
--- source /root/apikon/sql/set.sql
+-- source /root/fact/sql/set.sql
 -- sudo mysql -u root -p
 -- use roulet
 

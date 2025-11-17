@@ -1,5 +1,5 @@
  -- source /home/globi/apikon/sql/ban.sql
--- source /root/chatik/api/sql/ban.sql
+-- source /root/fact/sql/ban.sql
 -- sudo mysql -u root -p
 -- use roulet
 
