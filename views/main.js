@@ -162,16 +162,16 @@ ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=103428143", "ym");
 
-   ym(95229410, "init", {
+   ym(103428143, "init", {
         clickmap:true,
         trackLinks:true,
         accurateTrackBounce:true,
-        webvisor:true
+        ssr:true
    });
 </script>`}
-<noscript><div><img src="https://mc.yandex.ru/watch/95229410" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
 <!-- /Yandex.Metrika counter -->
 <!--
     <script src="/pwabuilder-sw-register.js"></script> -->
@@ -180,6 +180,7 @@ ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
   </head>
   <body><!-- ${n.VK} -->
     <noscript>
+    <div><img src="https://mc.yandex.ru/watch/103428143" style="position:absolute;left:-9999px;" alt=""/></div>
       <strong>We're sorry but chatroulette doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <section id="langbox">
