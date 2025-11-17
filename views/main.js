@@ -22,7 +22,7 @@ return `
 <html lang="${n.lang}">
   <head>
     <meta charset="utf-8">
-    <title>${lang=="ru"?"Чат рулетка - видео чат для случайных знакомств в интернете":
+    <title>${lang=="ru"?"Чат рулетка":
     lang=='en'?"Chatikon: Free Random Video Chat with Strangers":
     lang=='zh'?'聊天轮盘 - 在互联网上进行休闲约会的视频聊天':
     lang=='id'?'Rouletka: Obrolan Video Acak Gratis dengan Orang Asing':''}.</title>
@@ -32,6 +32,7 @@ return `
     <meta name="google-signin-client_id" content="670345469807-00tg40l1deqkmqqkc9db01r76tva6ien.apps.googleusercontent.com">
     <meta name="google-signin-use_fdcm" content="true">
     <link rel="icon" href="/favicon.ico">
+    <!--
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -45,18 +46,18 @@ return `
 		<link rel="icon" type="image/png" sizes="144x144"  href="/android-icon-144x144.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
 		<!-- <link rel="manifest" href="/manifest.json"> -->
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		
-<meta name="description" content="${lang=="ru"?"Чат рулетка - видео чат для общения, знакомства онлайн":
+<meta name="description" content="${lang=="ru"?"Чат рулетка - видео чат для общения с украинцами, знакомства онлайн":
 lang=='en'?"Chat roulette video chat dating online dating roulette random acquaintance casual viewer":
 lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   
  
-  <meta property="og:title" content="${lang=="ru"?"Чат рулетка - анонимный видеочат (Русский аналог ChatRoulette)":
+  <meta property="og:title" content="${lang=="ru"?"Чат рулетка - анонимный видеочат с украинцами (Русский аналог ChatRoulette)":
   lang=='en'?"Chat roulette: Free Random Video Chat with Strangers":
   lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   <meta property="og:type" content="website" />
@@ -69,19 +70,19 @@ lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
 <link rel="alternate" href="https://chatikon.ru" hreflang="ru" />
 <link rel="alternate" href="https://chatikon.ru/zh" hreflang="zh" />
 
-  <meta property="og:description" content="${lang=="ru"?"Чат-рулетка для русскоязычных пользователей. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
+  <meta property="og:description" content="${lang=="ru"?"Чат-рулетка для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
   lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business.
    Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
    lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
   
  
-<meta itemprop="description" content="${lang=="ru"?"Чат рулетка для пользователей со всего мира. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
+<meta itemprop="description" content="${lang=="ru"?"Чат рулетка для для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
 lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
 Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
 lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
-<meta name="description" content="${lang=="ru"?"Чат рулетка для пользователей со всего мира. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!" :
+<meta name="description" content="${lang=="ru"?"Чат рулетка для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!" :
 lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
 Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
 lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
