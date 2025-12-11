@@ -2533,7 +2533,7 @@ return imgdata22;
 	//console.error("amap", amap, IPS);
 	//alert((fingerPrint?fingerPrint.substring(0,40):'finger'));
 		wsend({ type:'search-peer', nick: (NICK?NICK:'Anon'), src: imgdata , ignores: [...IPS], fingerPrint: (fingerPrint?fingerPrint.substring(0,40):'finger') });
-	}, 3000);
+	}, 10);
 	someInterval = setInterval(doScreenshot, 60*1000 );
 		somespinner.className="show";
 		mobileloader.className="active";
