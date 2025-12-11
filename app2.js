@@ -1354,7 +1354,7 @@ app.post("/turn", async(req,res)=>{
 		return res.json({ username: 'salik', password: '1234'});
 	}
 	const timestamp = Math.floor(Date.now() / 1000)+3600;
-	const username = `${timestamp}:rouletka.ru`;
+	const username = `${timestamp}:chatikon.ru`;
 	const password = crypto.createHmac('sha1', 'abba41,c').update(username).digest('base64');
 	
 	res.json({ username, password });

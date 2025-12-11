@@ -3156,14 +3156,14 @@ async  function createPeerConnection () {
 		"urls":[
 		//"stun:127.0.0.1:3478",
 		"stun:stun.l.google.com:19302",
-		"stun:5.35.88.151:3479"
+		"stun:chatikon.ru:3479"
 		]
 		//stun:45.12.18.172:3479
 		},
 	{
 		urls:[
 	//"turn:127.0.1:3478",
-		"turn:5.35.88.151:3479", 
+		"turn:chatikon:3479", 
 		//"turn:5.35.88.151:3479?transport=tcp", 
 		//"turn:rouletka.ru:5348",
 		//"turn:rouletka.ru:5348?transport=tcp" ,
