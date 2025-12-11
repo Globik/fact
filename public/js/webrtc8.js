@@ -1042,14 +1042,14 @@ async function createInkognitoAnswer(obj){
 		"urls":[
 		//"stun:127.0.0.1:3478",
 		"stun:stun.l.google.com:19302",
-		"stun:rouletka.ru:3479"
+		"stun:5.35.88.151:3479"
 		]
 		//stun:45.12.18.172:3479
 		},
 	{
 		urls:[
 	//"turn:127.0.1:3478",
-		"turn:rouletka.ru:3479?transport=tcp", 
+		"turn:5.35.88.151:3479?transport=tcp", 
 		//"turn:rouletka.ru:5348",
 		//"turn:rouletka.ru:5348?transport=tcp" //no stun
 		]
@@ -3146,7 +3146,7 @@ async  function createPeerConnection () {
 	let reqi = await fetch('/turn', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({ tok: gid("TOK").value })});
 	if(reqi.ok){
 		let config = await reqi.json();
-		console.log(config.username + ' ' + config.password);
+		console.log('config ', config.username + ' ' + config.password);
 	let servers = {
 	//	iceTransportPolicy:"relay",
 	"iceServers":[
@@ -3156,14 +3156,14 @@ async  function createPeerConnection () {
 		"urls":[
 		//"stun:127.0.0.1:3478",
 		"stun:stun.l.google.com:19302",
-		"stun:chatikon.ru:3479"
+		"stun:5.35.88.151:3479"
 		]
 		//stun:45.12.18.172:3479
 		},
 	{
 		urls:[
 	//"turn:127.0.1:3478",
-		"turn:chatikon.ru:3479?transport=udp", 
+		"turn:5.35.88.151:3479", 
 		//"turn:5.35.88.151:3479?transport=tcp", 
 		//"turn:rouletka.ru:5348",
 		//"turn:rouletka.ru:5348?transport=tcp" ,
