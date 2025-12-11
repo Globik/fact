@@ -1340,12 +1340,12 @@ app.post("/turn", async(req,res)=>{
 	}
 	const origin = req.get('origin');
 	if(process.env.DEVELOPMENT === 'yes'){}else{
-	if(!origin || !origin.includes('rouletka.ru')){
+	if(!origin || !origin.includes('chatikon.ru')){
 		console.log('origin ', origin);
 	var gridi = '887539364';
 	
 	sendTelega({grid:gridi, txt: origin });
-		return res.json({ username: 'alik', password: '1234'});
+		return res.json({ username: 'realik', password: '1234'});
 	}
 	
 }
