@@ -2917,7 +2917,7 @@ window.addEventListener("online", function(e) {
 			 setTimeout(function(){
 			  let imgdata3 = Screenshot();
 			  //let lala = IPS
-			//  wsend( { type:'search-peer', nick: (NICK?NICK:"Anoni"), src: imgdata3, ignores: [...IPS]});
+		 wsend( { type:'search-peer', nick: (NICK?NICK:"Anoni"), src: imgdata3, ignores: [...IPS]});
 		  }, 0);
 		 }else{
 			 console.warn("CONNECTED");
