@@ -1336,7 +1336,7 @@ app.post("/faketurn", limiter, async(req, res)=>{
 app.post("/turn", async(req,res)=>{
 	let { tok } = req.body;
 	if(!tok){
-		return res.json({ username: 'alik', password: '1234'});
+		return res.json({ username: 'valik', password: '1234'});
 	}
 	const origin = req.get('origin');
 	if(process.env.DEVELOPMENT === 'yes'){}else{
@@ -1351,7 +1351,7 @@ app.post("/turn", async(req,res)=>{
 }
 	const decoded = verifyJWT(tok, jwtsecret);
 	if(!decoded){
-		return res.json({ username: 'alik', password: '1234'});
+		return res.json({ username: 'salik', password: '1234'});
 	}
 	const timestamp = Math.floor(Date.now() / 1000)+3600;
 	const username = `${timestamp}:rouletka.ru`;
