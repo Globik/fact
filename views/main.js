@@ -42,13 +42,13 @@ return `
 		<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
 		<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
 		<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png"> -->
 		<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
 		<link rel="icon" type="image/png" sizes="144x144"  href="/android-icon-144x144.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
-		<!-- <link rel="manifest" href="/manifest.json"> -->
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> 
+	 <link rel="manifest" href="/manifest.json"> 
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
@@ -173,8 +173,8 @@ ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
 </script>`}
 
 <!-- /Yandex.Metrika counter -->
-<!--
-    <script src="/pwabuilder-sw-register.js"></script> -->
+
+    <script src="/pwabuilder-sw-register.js"></script> 
     <script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
   </head>
@@ -182,14 +182,14 @@ ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
     <noscript>
     <div><img src="https://mc.yandex.ru/watch/103428143" style="position:absolute;left:-9999px;" alt=""/></div>
       <strong>We're sorry but chatroulette doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+    </noscript><!--
     <section id="langbox">
     <div class="langs">
 ${lang=='en'?'':'<a href="/en" hreflang="en">'} <img title="English Version" alt="English Version" src="/img/en.png" width="35" height="22"> ${n.ln=='en'?'':'</a>'}
 ${lang=='ru'?'':'<a href="/" hreflang="ru">'} <img alt="Русская версия" src="/img/ru.png"  width="35" height="22">${n.ln=='ru'?'':'</a>'}
 ${lang=='zh'?'':'<a href="/zh" hreflang="zh">'}<img title="Китай" alt="中文网站" src="/img/zh.png"  width="35" height="22">${n.ln=='zh'?'':'</a>'}
 
-</div>
+</div> --><!--
 ${lang=='ru'?`<h1>Анонимная чат рулетка</h1>
 <h2>Весело провести время!</h2>
 <div class="terms">Нажимая кнопку «Начать..», я подтверждаю что мне <br>исполнилось 18 лет и я достиг совершеннолетия,<br> принимаю условия и политику конфеденциальности.</div>`:''}
@@ -202,7 +202,7 @@ ${lang=='ru'?`<h1>Анонимная чат рулетка</h1>
 ${lang=='en'?`<h1>Free Random Video Chat</h1>
 <h2>LOOKING FOR A GOOD TIME?</h2>
 <div class="terms">Pressing start i certify I am at least 18-years old and <br>have reached the age of majority where I live, <br> and I accept our Terms and Privacy Policy.</div>`:''}
-</section>
+</section> -->
     <input type="hidden" id="BAN" value="${BAN==1?'1':'0'}" />
    <input type="hidden" id="isLogin" value="${n.user?true:false}"/>
     <input type="hidden" id="userId" value="${n.user?n.user.id:0}">
@@ -288,10 +288,11 @@ function confirm_agenot(ev){
 }
 showSomething();
 	function showSomething(){
+	//alert(1)
    var cat = localStorage.getItem("myCat");
    if(!cat && cat !=="Tom"){
 	   console.warn("NO REGELN");
-    //location.href="#regeln";
+    location.href="#regeln";
     const faka = document.querySelector('.overlay:target');
 if(faka){
 	faka.addEventListener('click', function(e){
@@ -662,12 +663,12 @@ lang=='en'?'About us':
 lang=='zh'?'关于我们':
 lang=='id'?'tentang kami':''}</a> -->
 <!--
-<div><a href="https://t.me/share/url?url=${encodeURI('https://rouletka.ru/about')}&text=${encodeURI('Чат Рулетка')}">
+<div><a href="https://t.me/share/url?url=${encodeURI('https://chatikon.ru')}&text=${encodeURI('Чат Рулетка')}">
 <img style="display:inline;transform:translateY(2px);padding-left:5px;" src="/img/telega.png" width="22px" height="20px"/></a>
 <b style="display:inline-block;margin:3px;line-height:1.3;padding-bottom:1px;transform:translateY(-2px);color:blue;font-size:0.9rem;">Share</b></div>
 <div style="margin-left:4px;"><script>document.write(VK.Share.button(false,{type:"round",text:"Share"}));</script></div>
 -->
-<div class="ya-share2" data-curtain data-size="m" data-shape="round"  data-services="vkontakte,telegram,odnoklassniki" data-url="https://rouletka.ru/about" data-image="https://rouletka.ru/og_image.png"></div>
+<div class="ya-share2" data-curtain data-size="m" data-shape="round"  data-services="vkontakte,telegram,odnoklassniki" data-url="https://chatikon.ru" data-image="https://chatikon.ru/og_image.png"></div>
 </div></div>
 ${n.VK?`<div id="chatruleslink"><a href="#regeln">Правила чата</a></div>`:''}
 <script>
@@ -729,6 +730,7 @@ if(gid("giftbox2"))gid('giftbox2').style.display='none';
 </script>
     </section>
     </article>
+    <!--
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>
 <p>Want to meet people from the other side of the world? It's easier than you think. All you need to start Chatikon and hundreds of new acquaintances will be available to chat in a single click. Our video chat feature is a godsend for making friends, online dating, chit-chats, and in-depth conversations about everything under the sun. Get to know so many interesting people from all across the globe with random connections via Chatikon.</p>
@@ -747,8 +749,8 @@ ${lang=='zh'?`<h1>什么是Chatikon</h1>
 
 <p>您永远不会知道我们的算法下一次会连接您与谁。也许是邻家女孩，也许是住在数千英里之外的人。你永远不会知道，直到你尝试它。随时随地为与陌生人的惊喜对话做好准备。打开自己，迎接新的刺激冒险！</p>
 
-<p>成千上万个愉快的约会在前方等待着。你准备好了吗？不要犹豫，现在就加入我们友好的Chatikon社区。</p>`:''}
-<div class="pfooter">(c) 2025</div></section>
+<p>成千上万个愉快的约会在前方等待着。你准备好了吗？不要犹豫，现在就加入我们友好的Chatikon社区。</p>`:''} -->
+<!-- <div class="pfooter">(c) 2025</div></section> -->
  <!-- <div id="yandex_rtb_R-A-12098170-1"></div> -->
    ${process.env.DEVELOPMENT==="yes"?'<script>function getReklama(){}</script>':`<script>
      // https://yandex.ru/support2/partner/ru/web/units/sizes
@@ -1156,7 +1158,7 @@ window.addEventListener("load", () => {
 }, { once: true })
 </script>
     
-    <footer id="pfooter">(c)2025</footer>
+   <!-- <footer id="pfooter">(c)2025</footer> -->
  
     
        </body>
