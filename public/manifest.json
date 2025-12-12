@@ -1,12 +1,12 @@
 {
   "background_color": "#ffffff",
-  "description": "Chatikon.Ru",
+  "description": "Чат рулетка",
   "dir": "ltr",
   "display": "standalone",
   "name": "chatikon",
   "orientation": "portrait",
   "scope": "/",
-  "short_name": "Chatikon.Ru",
+  "short_name": "Chatikon",
   "start_url": "https://chatikon.ru",
   "theme_color": "#204a87",
  "icons": [
