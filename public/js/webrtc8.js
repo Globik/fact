@@ -3163,7 +3163,7 @@ async  function createPeerConnection () {
 	{
 		urls:[
 	//"turn:127.0.1:3478",
-		"turn:chatikon:3479", 
+		"turn:chatikon.ru:3479", 
 		//"turn:5.35.88.151:3479?transport=tcp", 
 		//"turn:rouletka.ru:5348",
 		//"turn:rouletka.ru:5348?transport=tcp" ,
