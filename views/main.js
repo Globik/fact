@@ -984,7 +984,7 @@ window.yaContextCb.push(()=>{
     <script src="/js/whosonline.js"></script>
     <script src="/js/soupi444.js"></script>
    <!-- <script src="/js/mediasoupadmin.js"></script> -->
-    <script src="/js/vkapp.js"></script>
+    
     
     <script>
 window.addEventListener("load", () => {

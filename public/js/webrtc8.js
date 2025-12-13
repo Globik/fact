@@ -2423,6 +2423,7 @@ someInterval = null;
 	txtvalue.value="";
 	txtvalue2.value="";
 	mobileChat.className="hide";
+	mobileloader.className="";
 	mobChat = false;
 	somespinner.className="";
 		somehello.className="";
@@ -2892,6 +2893,7 @@ function iceConnectionStateChangeHandler (event) {
     SUECH = false;
     //CONNECTED = true;
    // vax('post','/zartoone', { value: 300, id: gid('userId').value }, on_zar, on_zar_error, null, false);
+   /*
    setTimeout(function(){
 	   pc.getStats().then(function(stats){
 		   stats.forEach(function(report){
@@ -2900,7 +2902,7 @@ function iceConnectionStateChangeHandler (event) {
 			   }
 		   });
 	   });
-   }, 2000);
+   }, 2000);*/
     break;
     case 'complete':
       connectionState = 'open'
