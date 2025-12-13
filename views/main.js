@@ -51,7 +51,7 @@ return `
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
-		<link rel="canonical" href="https://chatikon.ru" />
+		<link rel="canonical" href="https://chatikon.ru${lang=='ru'?'':lang=='zh'?'/zh':'/en'}" />
 		<link rel="alternate" href="https://chatikon.ru" hreflang="ru" />
 		<link rel="alternate" href="https://chatikon.ru/en" hreflang="en" />
 		<link rel="alternate" href="https://chatikon.ru/zh" hreflang="zh" />
