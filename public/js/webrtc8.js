@@ -2784,28 +2784,7 @@ if(l2){
 
 	
 	
-	  var iceServers2 = {"iceServers": [ 
-	  {
-        urls: 'stun:stun.l.google.com:19302'
-      },
-      { urls: 'turn:relay1.expressturn.com:3478', username: 'efZIKNPZ0Y17GFG3WZ', credential: 'HIYNupkIAHFXSgW8'},
- { urls: "stun:stun.relay.metered.ca:80", },
-{ urls: "turn:a.relay.metered.ca:80", username: "33c88ed716afa1a802b5116a", credential: "YlI1/qfkEWya3Q4p", }, 
-{ urls: "turn:a.relay.metered.ca:80?transport=tcp", username: "33c88ed716afa1a802b5116a", credential: "YlI1/qfkEWya3Q4p", },
-  { urls: "turn:a.relay.metered.ca:443", username: "33c88ed716afa1a802b5116a", credential: "YlI1/qfkEWya3Q4p", }, 
-  { urls: "turn:a.relay.metered.ca:443?transport=tcp", username: "33c88ed716afa1a802b5116a", credential: "YlI1/qfkEWya3Q4p", }
-  ]};
-  var iceServers = {
-	  "iceServers":[
-	  {
-        urls: 'stun:stun.l.google.com:19302'
-      }
-	  ]
-	  };
   
-  if(ICESERVERS){
- iceServers  = ICESERVERS;
-}
 
 
 window.addEventListener("offline", function(e) {
@@ -2818,52 +2797,9 @@ window.addEventListener("online", function(e) {
   note({ content: "online", type: "info", time: 5 });
 });
 
-//notes.play(261.63, nows);
    function next(el, bool, ignores, isIgnore){
-	  // if(Prem.value=="n")getReklama();
-	//   if(SUECH) return;
-	//   SUECH = true;
+	 
 	   console.log('next');
-	 //  return;
-	  // let booli = false;
-	  //  ignores = false;
-	 //  isIgnore = false;
-	   //next(nextbtn, true, amma, false);
-	   //pl();
-	   if(HELP == 4){
-		//   window.location.href="#helproject";
-		/*
-		try{
-		if(vkBridge){
-			vkBridge.send('VKWebAppShowBannerAd',{banner_location:'bottom'})
-			.then(data=>{
-				if(data.result){
-					console.log('reklama');
-					setTimeout(function(){
-						vkBridge.send('VKWebAppHideBannerAd').then(d=>{}).catch(er=>{console.error(er)});
-					},1000*4);
-				}
-			}).catch(err=>{
-				console.error(err);
-			});
-		}
-	}catch(e){}
-		*/
-		
-		
-		
-	
-	
-	   }else if(HELP == 5){
-	//	if(Prem.value=="n")   window.location.href = "#myGame";
-	// if(Prem.value=="n")getReklama();
-	// HELP = 0;
-		//window.location.href = "#ozeniteHREF";
-	   }else if(HELP == 6){
-		 //  window.location.href = "#ozeniteHREF";
-		   HELP = 0;
-	   }else{}
-	   HELP++;
 	  
 	   el.disabled = true;
 	   CONNECTED = false;
@@ -2873,8 +2809,7 @@ window.addEventListener("online", function(e) {
 		unsubscribe = true;
 	}
       let imgdata = Screenshot();
-     // alert(JSON.stringify({a: [...ignores]}));
-    // console.warn('imgdata ', imgdata);
+    
      if(!INCOGNITOWAIT)wsend( { type:'search-peer', nick: (NICK?NICK:"Anon"), src: imgdata, ignores: [...IPS] });
       chatbox.innerHTML="";
 	  chatbox2.innerHTML="";

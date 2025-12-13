@@ -18,7 +18,7 @@ function main(n){
 	const namealik='suka';
 	//console.log('buser2 ', bur);
 return `
- <!DOCTYPE html><!-- ${n.VK} -->
+ <!DOCTYPE html>
 <html lang="${n.lang}">
   <head>
     <meta charset="utf-8">
@@ -29,8 +29,7 @@ return `
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <meta name="viewport" content="width=device-width,initial-scale=1.0"> -->
     <meta name="viewport" content="width=device-width,user-scalable=no" />
-    <meta name="google-signin-client_id" content="670345469807-00tg40l1deqkmqqkc9db01r76tva6ien.apps.googleusercontent.com">
-    <meta name="google-signin-use_fdcm" content="true">
+   
     <link rel="icon" href="/favicon.ico">
     <meta name="yandex-verification" content="ce1d7ca1f03c0f9c"/>
     <!--
@@ -52,13 +51,16 @@ return `
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
-		
-<meta name="description" content="${lang=="ru"?"Чат рулетка - видео чат для общения с украинцами, знакомства онлайн":
-lang=='en'?"Chat roulette video chat dating online dating roulette random acquaintance casual viewer":
+		<link rel="canonical" href="https://chatikon.ru" />
+		<link rel="alternate" href="https://chatikon.ru" hreflang="ru" />
+		<link rel="alternate" href="https://chatikon.ru/en" hreflang="en" />
+		<link rel="alternate" href="https://chatikon.ru/zh" hreflang="zh" />
+<meta name="description" content="${lang=="ru"?"Чатикон — это чат-рулетка с видеосвязью для знакомств и общения в реальном времени. Находи новых друзей со всего мира случайным образом — просто включи камеру и начни чат!":
+lang=='en'?"Chatikon is a video chat roulette for real-time meetups and conversations. Meet new friends from around the world instantly—just turn on your camera and start chatting!":
 lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   
  
-  <meta property="og:title" content="${lang=="ru"?"Чат рулетка - анонимный видеочат с украинцами (Русский аналог ChatRoulette)":
+  <meta property="og:title" content="${lang=="ru"?"Чатикон — чат-рулетка":
   lang=='en'?"Chat roulette: Free Random Video Chat with Strangers":
   lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   <meta property="og:type" content="website" />
@@ -67,95 +69,36 @@ lang=='zh'?'Chatikon - 与陌生人进行的随机视频聊天轮盘':''}" />
   <meta property="og:site_name" content="${lang=="ru"?"Чат-рулетка":
   lang=='en'?"Chat roulette":
   lang=='zh'?'Chat':''}" />
-  <link rel="alternate" href="https://chatikon.ru/en" hreflang="en" />
-<link rel="alternate" href="https://chatikon.ru" hreflang="ru" />
-<link rel="alternate" href="https://chatikon.ru/zh" hreflang="zh" />
+  
 
-  <meta property="og:description" content="${lang=="ru"?"Чат-рулетка для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
+  <meta property="og:description" content="${lang=="ru"?"Чатикон — это чат-рулетка с видеосвязью для знакомств и общения в реальном времени. Находи новых друзей со всего мира случайным образом — просто включи камеру и начни чат!":
   lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business.
    Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
    lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
   
  
-<meta itemprop="description" content="${lang=="ru"?"Чат рулетка для для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!":
+<meta itemprop="description" content="${lang=="ru"?"Чатикон — это чат-рулетка с видеосвязью для знакомств и общения в реальном времени. Находи новых друзей со всего мира случайным образом — просто включи камеру и начни чат!":
 lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
 Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
 lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
 	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}" />
-<meta name="description" content="${lang=="ru"?"Чат рулетка для всех, общение с украинцами. Случайные знакомства в видеочате. Есть веб-камера? Найди пару в чат рулетке!" :
-lang=='en'?`Open the world of communication and new acquaintances both for body and soul, and for commercial business. 
-Choose the language of the interlocutor, country, city and plunge into the world of full contact with the interlocutor, selected at random according to your criteria.`:
-lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chatikon上与来自世界各地的陌生人交友和交流！",
-	"key":"聊天輪盤視頻聊天交友網戀輪盤隨機相識隨機查看器`:''}"/>
+
 <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Organization", "url": "https://chatikon.ru", "logo": "https://chatikon.ru/og_image.png" } </script>
   
 		<link href="/css/main22.css" rel="stylesheet">
 		<link href="/css/login.css" rel="stylesheet">
 		<link href="/css/mediabox2.css" rel="stylesheet">
 		<link href="/css/coin.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    
 <script src="/js/globalik.js"></script>
 
-<!-- <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script> -->
  <script src="/js/adapter-latest.js"></script> 
 <!-- <script src="/js/sound.js"></script> -->
- ${process.env.DEVELOPMENT=="yes"?'':`
- 
- <script src="https://unpkg.com/@vkid/sdk@2.3.0/dist-sdk/umd/index.js"></script>
- <script>
 
-const VK_APP_ID = 52271555;
-const VKID = window.VKIDSDK;
-VKID.Config.init({
-	app: VK_APP_ID,
-	redirectUrl:'https://rouletka.ru/about',
-	state:'mamamia',
-	codeVerifier:"${n.uuid}",
-	scope:'email',
-	mode:VKID.ConfigAuthMode.InNewTab
-});
-</script>
-
-
-`}
-
- ${n.settings.env=="production"?`<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script> `:''}
-<!-- <script src="https://vk.com/js/api/share.js?93"></script> -->
 <script async src="https://yastatic.net/share2/share.js"></script>
 
-<script>
-var VK_USER = false;
-var FLAGVK = false;
-var FLAGisAged = false;
-// fff
-${n.settings.env=="production"?`vkBridge.send('VKWebAppInit').then(data=>{
-	if(data.result){
-		FLAGVK=true;
-		vkBridge.send('VKWebAppStorageGet', { keys: ['slide'] }).then(function(result){
-			console.log('storage get ', result);
-			if(result.keys && result.keys[0].value=="y"){
-				console.log('result ', result);
-			}else{
-				showSlides();
-			}
-		}).catch(function(er){
-			console.log(er);
-		});
-		}}).catch(function(er){}) `:''}
-		// vk ${n.VK}
-</script>
 
-
-<!-- Google tag (gtag.js) -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-QG900MX52X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QG900MX52X');
-</script> -->
 ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -178,18 +121,18 @@ ${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
     <script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
   </head>
-  <body><!-- ${n.VK} -->
+  <body>
     <noscript>
     <div><img src="https://mc.yandex.ru/watch/103428143" style="position:absolute;left:-9999px;" alt=""/></div>
       <strong>We're sorry but chatroulette doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript><!--
+    </noscript>
     <section id="langbox">
     <div class="langs">
 ${lang=='en'?'':'<a href="/en" hreflang="en">'} <img title="English Version" alt="English Version" src="/img/en.png" width="35" height="22"> ${n.ln=='en'?'':'</a>'}
 ${lang=='ru'?'':'<a href="/" hreflang="ru">'} <img alt="Русская версия" src="/img/ru.png"  width="35" height="22">${n.ln=='ru'?'':'</a>'}
 ${lang=='zh'?'':'<a href="/zh" hreflang="zh">'}<img title="Китай" alt="中文网站" src="/img/zh.png"  width="35" height="22">${n.ln=='zh'?'':'</a>'}
 
-</div> --><!--
+</div> 
 ${lang=='ru'?`<h1>Анонимная чат рулетка</h1>
 <h2>Весело провести время!</h2>
 <div class="terms">Нажимая кнопку «Начать..», я подтверждаю что мне <br>исполнилось 18 лет и я достиг совершеннолетия,<br> принимаю условия и политику конфеденциальности.</div>`:''}
@@ -201,8 +144,8 @@ ${lang=='ru'?`<h1>Анонимная чат рулетка</h1>
 <div class="terms">点击开始，我声明我至少18岁，<br>已达到我所在地的法定年龄，<br>并接受我们的条款和隐私政策。</div>`:``}
 ${lang=='en'?`<h1>Free Random Video Chat</h1>
 <h2>LOOKING FOR A GOOD TIME?</h2>
-<div class="terms">Pressing start i certify I am at least 18-years old and <br>have reached the age of majority where I live, <br> and I accept our Terms and Privacy Policy.</div>`:''}
-</section> -->
+<div class="terms">Pressing start I certify I am at least 18-years old and <br>have reached the age of majority where I live, <br> and I accept our Terms and Privacy Policy.</div>`:''}
+</section> 
     <input type="hidden" id="BAN" value="${BAN==1?'1':'0'}" />
    <input type="hidden" id="isLogin" value="${n.user?true:false}"/>
     <input type="hidden" id="userId" value="${n.user?n.user.id:0}">
@@ -224,7 +167,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
    
     
     ${!n.user?`<script>
-   // alert("UNDEFINED");
+   //alert("UNDEFINED");
     var NICK = "anon";
    // window.location.href='#banned';
     //location.href="#login2"
@@ -289,6 +232,7 @@ function confirm_agenot(ev){
 showSomething();
 	function showSomething(){
 	//alert(1)
+	return;
    var cat = localStorage.getItem("myCat");
    if(!cat && cat !=="Tom"){
 	   console.warn("NO REGELN");
@@ -425,59 +369,11 @@ window.onhashchange = function(ev){
     `}
    
     <script>
-  //  var ICESERVERS =n.stun?n.stun:null
- // vkBridge.send('VKWebAppInit').then(data=>{}).catch(function(er){})
-  const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";
- 
-  var ICESERVERS = {
-  iceTransportPolicy:"relay",
-	"iceServers":[
-	{
-      "urls": "stun:stun.l.google.com:19302"
-    },
-	{
-		"urls":[
-		"stun:rouletka.ru:3479",
-		"stun:rouletka.ru:5348"
-		]
-		//stun:45.12.18.172:3479
-		},
-	{urls:[
-	"turn:rouletka.ru:3479",
-		//"turn:rouletka.ru:3479?transport=tcp", 
-		"turn:rouletka.ru:5348",
-		//"turn:rouletka.ru:5348?transport=tcp" //no stun
-		]
-		,username:"alik4",credential:"43212"}]};
-		
-		var ICESERVERS4 = {
-iceTransportPolicy:"relay",
-iceServers:
-[
-{urls:"stun:stun.l.google.com:19302"},
-{
-urls:["turn:turn00.natpro.ru:3478","turn:turn00.natpro.ru:5349"],
-username:"test_09", credential:"test_09"
-}
-],
-
-};
-
-  
-     </script>
+  const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
      <script>
      var partnernick = "${n.imgData&&n.imgData.img_data?n.imgData.nick:''}";
      </script>
-   <!--  <div id="yandex_rtb_R-A-12098170-1"></div>
-     <script>
-     // https://yandex.ru/support2/partner/ru/web/units/sizes
-     window.yaContextCb.push(()=>{
-		 Ya.Context.AdvManager.render({
-			 "blockId":"R-A-12098170-1",
-			 "renderTo":"yandex_rtb_R-A-12098170-1"
-		 })
-	 })
-	 </script> -->
+  
 	 <script>
 	 function getTop(){
 	 if(Brole.value==="admin") return;
@@ -662,22 +558,11 @@ ${n.VK?'':`<!-- <div id="giftbox">
 lang=='en'?'About us':
 lang=='zh'?'关于我们':
 lang=='id'?'tentang kami':''}</a> -->
-<!--
-<div><a href="https://t.me/share/url?url=${encodeURI('https://chatikon.ru')}&text=${encodeURI('Чат Рулетка')}">
-<img style="display:inline;transform:translateY(2px);padding-left:5px;" src="/img/telega.png" width="22px" height="20px"/></a>
-<b style="display:inline-block;margin:3px;line-height:1.3;padding-bottom:1px;transform:translateY(-2px);color:blue;font-size:0.9rem;">Share</b></div>
-<div style="margin-left:4px;"><script>document.write(VK.Share.button(false,{type:"round",text:"Share"}));</script></div>
--->
-<!-- <div class="ya-share2" data-curtain data-size="m" data-shape="round"  data-services="vkontakte,telegram,odnoklassniki" 
-data-url="https://chatikon.ru" data-image="https://chatikon.ru/og_image.png"></div> -->
+
+ <div class="ya-share2" data-curtain data-size="m" data-shape="round"  data-services="vkontakte,telegram,odnoklassniki" 
+data-url="https://chatikon.ru" data-image="https://chatikon.ru/og_image.png"></div>
 </div></div>
-${n.VK?`<div id="chatruleslink"><a href="#regeln">Правила чата</a></div>`:''}
-<script>
-if(isVK.value=="true"){
-	gid("foot").style.display="none";
-	if(gid("giftbox"))gid("giftbox").style.display="none";
-}
-</script>
+
 <!-- COMPUTER VERSION -->
 <div id="sectionChat">
 	<div id="znakChat">
@@ -717,21 +602,11 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
  <div class="send" data-publish="none" data-send="one" onclick="sendi(this);" value="papa" ><img style="cursor:pointer;" src="/img/send1.svg"/></div> 
 </div>
 </section>
-</div><div id="foot2"><a href="/"> ${lang=='ru'?'О проекте':
-lang=='en'?'About us':
-lang=='zh'?'关于我们':
-lang=='id'?'tentang kami':''}</a></div>
-${n.VK?`<div id="chatruleslink2"><a href="#regeln">Правила чата</a></div>`:''}
-<a href="/photos" style="color:inherit;font-size:0.1em;">Fotos</a>
-<script>
-if(FLAGVK){
-gid("foot2").style.display = "none";
-if(gid("giftbox2"))gid('giftbox2').style.display='none';
-}
-</script>
+</div>
+
     </section>
     </article>
-    <!--
+    
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>
 <p>Want to meet people from the other side of the world? It's easier than you think. All you need to start Chatikon and hundreds of new acquaintances will be available to chat in a single click. Our video chat feature is a godsend for making friends, online dating, chit-chats, and in-depth conversations about everything under the sun. Get to know so many interesting people from all across the globe with random connections via Chatikon.</p>
@@ -750,8 +625,8 @@ ${lang=='zh'?`<h1>什么是Chatikon</h1>
 
 <p>您永远不会知道我们的算法下一次会连接您与谁。也许是邻家女孩，也许是住在数千英里之外的人。你永远不会知道，直到你尝试它。随时随地为与陌生人的惊喜对话做好准备。打开自己，迎接新的刺激冒险！</p>
 
-<p>成千上万个愉快的约会在前方等待着。你准备好了吗？不要犹豫，现在就加入我们友好的Chatikon社区。</p>`:''} -->
-<!-- <div class="pfooter">(c) 2025</div></section> -->
+<p>成千上万个愉快的约会在前方等待着。你准备好了吗？不要犹豫，现在就加入我们友好的Chatikon社区。</p>`:''} 
+
  <!-- <div id="yandex_rtb_R-A-12098170-1"></div> -->
    ${process.env.DEVELOPMENT==="yes"?'<script>function getReklama(){}</script>':`<script>
      // https://yandex.ru/support2/partner/ru/web/units/sizes
@@ -1158,8 +1033,8 @@ window.addEventListener("load", () => {
     renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
 }, { once: true })
 </script>
-    
-   <!-- <footer id="pfooter">(c)2025</footer> -->
+    <br><br><br>
+   <footer id="pfooter">(c)2025</footer> 
  
     
        </body>
