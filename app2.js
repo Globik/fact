@@ -249,7 +249,9 @@ app.get("/", async(req, res)=>{
 	botMessage("jemand on /");
 	res.rendel('main', { tok: token, ip: ip, mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
-
+app.get("/demospace", async(req, res)=>{
+	res.rendel('demospace',{});
+})
 
  // verteidigen key fM8VjwulM3xw9cJhFDIq
  

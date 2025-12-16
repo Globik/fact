@@ -1,0 +1,11 @@
+version:  '3.8'
+services:
+  janus-gateway: 
+    image:  'sucwangsr/janus-webrtc-gateway-docker:latest'
+    command: ["/usr/local/bin/janus", "-F", "/usr/local/etc/janus"]
+    network_mode: "host"
+    volumes:
+      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/janus.transport.http.jcfg"
+      - "./conf/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
+      - "./conf/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
+    restart: always

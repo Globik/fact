@@ -606,7 +606,7 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
 
     </section>
     </article>
-    
+    <div><a href="/demospace">demo</a></div>
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>
 <p>Want to meet people from the other side of the world? It's easier than you think. All you need to start Chatikon and hundreds of new acquaintances will be available to chat in a single click. Our video chat feature is a godsend for making friends, online dating, chit-chats, and in-depth conversations about everything under the sun. Get to know so many interesting people from all across the globe with random connections via Chatikon.</p>
