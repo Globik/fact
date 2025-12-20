@@ -14,8 +14,8 @@ services:
       - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
       - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/jansus.transport.http.jgfg"
       #- "./janus-plugins:/opt/janus/lib/janus/plugins:ro"
-    ports:
-      - "5.35.88.151:8188:8188"
+    #ports:
+    #  - "5.35.88.151:8188:8188"
     
     restart: always
 #sudo docker run --rm -v $(pwd)/janus-plugins:/target sucwangsr/janus-webrtc-gateway-docker:latest cp -r /usr/local/lib/janus/plugins/ /target/
