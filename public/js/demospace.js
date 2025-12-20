@@ -181,7 +181,7 @@ function getJanus(){
 Janus.init({debug: "all", callback: function() {
 	janus = new Janus(
 				{
-					server: "ws://"+ window.location.hostname + ":8188/janus",
+					server: server,
 					iceServers: null,
 					// Should the Janus API require authentication, you can specify either the API secret or user token here too
 					//		token: "mytoken",
@@ -373,7 +373,7 @@ function fuck(){
 Janus.init({debug: "all", callback: function() {
 	janus = new Janus(
 				{
-					server: "ws://"+ window.location.hostname + ":8188/janus",
+					server: server,
 					iceServers: null,
 					// Should the Janus API require authentication, you can specify either the API secret or user token here too
 					//		token: "mytoken",
