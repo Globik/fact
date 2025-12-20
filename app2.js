@@ -24,7 +24,8 @@ const render = require('./libs/render.js');
 const shortid = require('shortid');
 const admin = require('./router/admin.js');
 const pay = require('./router/pay.js');
-const rateLimit = require('express-rate-limit')
+const rateLimit = require('express-rate-limit');
+const { createProxyMiddleware}=require('http-proxy-middleware')
 //console.log('shortid', shortid())
 
 //const { handleMediasoup, ev , handleAdminMedia } = require("./libs/mediasoup_help.js")
@@ -106,7 +107,14 @@ app.use(session({
 	},
 	maxAge: 24 * 60 * 60 * 1000
 }))
-
+app.use('/janus', createProxyMiddleware({ //8989
+	target:'ws://localhost:8188',
+	ws:true,
+	changeOrigin:true,
+	pathRewrite:{
+		'^/janus':''
+	}
+}))
 var stun = null;
 var testshopid;
 var testshopsecret;

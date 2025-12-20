@@ -24,7 +24,7 @@ general: {
 						# requests with an application/json payload. In case
 						# authentication is required to contact the backend, set
 						# the credentials as well (basic authentication only).
-	backend = "https://chatikon.ru/januscb"
+	backend = "http://localhost:3000/januscb"
 	#backend_user = "myuser"
 	#backend_pwd = "mypwd"
 

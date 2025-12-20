@@ -2,6 +2,7 @@ version:  '3.8'
 services:
   janus-gateway: 
     image:  'sucwangsr/janus-webrtc-gateway-docker:latest'
+    container_name:  janus-gateway
     command: ["/usr/local/bin/janus", "-F","/usr/local/etc/janus"]
     #command: ["sh","-c","mkdir -p /opt/janus/lib/janus/plugins &&  ln -sf /usr/local/lib/janus/plugins/* /opt/janus/lib/janus/plugins/ 2>/dev/null || true && /usr/local/bin/janus", "-F", "/usr/local/etc/janus"]
     network_mode: "host"
@@ -13,5 +14,8 @@ services:
       - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
       - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/jansus.transport.http.jgfg"
       #- "./janus-plugins:/opt/janus/lib/janus/plugins:ro"
+    ports:
+      - "127.0.0.1:8188:8188"
+    
     restart: always
 #sudo docker run --rm -v $(pwd)/janus-plugins:/target sucwangsr/janus-webrtc-gateway-docker:latest cp -r /usr/local/lib/janus/plugins/ /target/
