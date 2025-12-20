@@ -252,7 +252,31 @@ app.get("/", async(req, res)=>{
 app.get("/demospace", async(req, res)=>{
 	res.rendel('demospace',{});
 })
-
+app.post("/januscb", async(req,res)=>{
+	console.log(req.body);
+	res.json({message:'ok'});
+})
+const devlovetok = "ulC59bAUDtkH_pXtfO5Zvg_IJECp242NcfmMcfrPxRZGnehZXjHGLgDBaAPbJdXO";
+// key e9483027fb324eb2
+// iv B853ACD2950AF9E1
+// cb url https://chatikon.ru/cb/love
+app.post('/lovetoken', async(req, res)=>{
+	let { uid, uname } = req.body;
+	if(!uid || !uname){
+		return res.json({ error: true, message: 'no data' });
+	}
+	try{
+		const result=await axios.post("https://api.lovense-api.com/api/basicApi/getToken",{
+			token:devlovetok,
+			uid: uid,
+			uname: uname
+		});
+		console.log('data ', result.data);
+		res.json({message: result.data.message,authToken:result.data.data.authToken });
+	}catch(e){
+		return res.json({ error: true, message: e });
+	}
+})
  // verteidigen key fM8VjwulM3xw9cJhFDIq
  
  const obj6={
