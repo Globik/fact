@@ -108,7 +108,7 @@ app.use(session({
 	maxAge: 24 * 60 * 60 * 1000
 }))
 app.use('/janus', createProxyMiddleware({ //8989
-	target:'ws://5.35.88.151:8188',
+	target:'ws://0.0.0.0:8188',
 	ws:true,
 	changeOrigin:true,
 	pathRewrite:{
