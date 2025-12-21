@@ -1,7 +1,7 @@
 # WebSockets stuff: whether they should be enabled, which ports they
 # should use, and so on.
 general: {
-	#events = true					# Whether to notify event handlers about transport events (default=true)
+	events = true					# Whether to notify event handlers about transport events (default=true)
 	json = "indented"				# Whether the JSON messages should be indented (default),
 									# plain (no indentation) or compact (no indentation and no spaces)
 	#pingpong_trigger = 30			# After how many seconds of idle, a PING should be sent
@@ -9,11 +9,12 @@ general: {
 
 	ws = true						# Whether to enable the WebSockets API
 	ws_port = 8188					# WebSockets server port
-	ws_interface = "0.0.0.0"			# Whether we should bind this server to a specific interface only
+	#ws_interface = "0.0.0.0"			# Whether we should bind this server to a specific interface only
 	#ws_ip = "192.168.0.1"			# Whether we should bind this server to a specific IP address only
 	#ws_unix = "/run/ws.sock"		# Use WebSocket server over UNIX socket instead of TCP
-	wss = false						# Whether to enable secure WebSockets
-	wss_port = 8989				# WebSockets server secure port, if enabled
+	wss = true						# Whether to enable secure WebSockets
+	wss_port = 8989	
+	#wss_interface = "0.0.0.0"			# WebSockets server secure port, if enabled
 	#wss_interface = "eth0"			# Whether we should bind this server to a specific interface only
 	#wss_ip = "192.168.0.1"			# Whether we should bind this server to a specific IP address only
 	#wss_unix = "/run/wss.sock"		# Use WebSocket server over UNIX socket instead of TCP
@@ -65,8 +66,12 @@ cors: {
 # 'ciphers' property accordingly (no limitation by default).
 # Examples of recommended cipher strings at https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
 certificates: {
-     cert_pem = "/etc/letsencrypt/live/chatikon.ru/fullchain.pem"
-	cert_key = "/etc/letsencrypt/live/chatikon.ru/privkey.pem"
+     #cert_pem = "/etc/letsencrypt/live/chatikon.ru/fullchain.pem"
+	#cert_key = "/etc/letsencrypt/live/chatikon.ru/privkey.pem"
+	cert_pem = "/etc/janus/certs/fullchain.pem"
+	cert_key = "/etc/janus/certs/privkey.pem"
 	#cert_pwd = "secretpassphrase"
 	#ciphers = "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256"
+	# sudo chown $USER:$USER /home/globi/fact/privkey.pem
+	# sudo chmod 777 /home/globi/fact/privkey.pem  sudo chmod 777 /home/globi/fact/fullchain.pem
 }

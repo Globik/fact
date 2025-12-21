@@ -107,6 +107,7 @@ app.use(session({
 	},
 	maxAge: 24 * 60 * 60 * 1000
 }))
+/*
 app.use('/janus', createProxyMiddleware({ //8989
 	target:'ws://0.0.0.0:8188',
 	ws:true,
@@ -114,7 +115,7 @@ app.use('/janus', createProxyMiddleware({ //8989
 	pathRewrite:{
 		'^/janus':''
 	}
-}))
+}))*/
 var stun = null;
 var testshopid;
 var testshopsecret;

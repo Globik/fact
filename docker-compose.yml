@@ -13,9 +13,14 @@ services:
       - "./conf/janus.plugin.videoroom.jcfg:/usr/local/etc/janus/janus.plugin.videoroom.jcfg"
       - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
       - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/jansus.transport.http.jgfg"
+      - "./certs:/etc/janus/certs:ro"
+    environment:
+      - JANUS_CERT_PEM=/etc/janus/certs/fullchain.pem
+      - JANUS_CERT_KEY=/etc/janus/certs/privkey.pem  
       #- "./janus-plugins:/opt/janus/lib/janus/plugins:ro"
-    ports:
-      - "0.0.0.0:8188:8188"
+    #ports:
+     # - "0.0.0.0:8188:8188"
     
     restart: always
 #sudo docker run --rm -v $(pwd)/janus-plugins:/target sucwangsr/janus-webrtc-gateway-docker:latest cp -r /usr/local/lib/janus/plugins/ /target/
+#openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=US/ST=State/L=City/O=Organisation/CN=localhost"
