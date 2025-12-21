@@ -760,10 +760,7 @@ window.yaContextCb.push(()=>{
     </output> -->
      
    
-    <input type="hidden" id="isEnter" value="${n.user?n.user.heart==0?'true':'false':'true'}" />
-    <a href="#."  class="overlay" id="purchaseHREFI"></a>
-    <output id="purchaseoutput" class="popi">
-    <section id="heartsContainer">
+  
 	
 	<form id="purchaseForm2" method="post" action="https://yoomoney.ru/quickpay/confirm" name="ordertodo">
 <p class="intro">Чтобы предотвратить попадание несовершеннолетних в рулетку, мы вынуждены брать с вновь прибывших членский взнос в размере 50 рублей. 
@@ -933,7 +930,7 @@ window.yaContextCb.push(()=>{
             <label for="name">${lang=='ru'?'Пароль':lang=='en'?'Password':lang=='zh'?'密码':lang=='id'?'kata sandi':''}</label>
             <input  name="userpassword" type="password" autocomplete="on" placeholder="${lang=='ru'?'Введите пароль':lang=='en'?'password':lang=='zh'?'密码':lang=='id'?'kata sandi':''}" id="password" required minlength="2" maxlength="20">
 			 <button  class="login-button" id="btnlogin">${lang=='ru'?'Войти':lang=='en'?'Login':lang=='zh'?'登录':lang=='id'?'Gabung':''}</button>
-          <!--  <button class="register-button" id="btnregister">${lang=='ru'?'Зарегистрироваться':lang=='en'?'Sign up':lang=='zh'?'报名':lang=='id'?'mendaftar':''}</button> -->
+            <button class="register-button" id="btnregister">${lang=='ru'?'Зарегистрироваться':lang=='en'?'Sign up':lang=='zh'?'报名':lang=='id'?'mendaftar':''}</button> 
            
           </form> 
     </output>

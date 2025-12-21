@@ -1,4 +1,4 @@
--- source /home/globi/apikon/sql/user.sql
+-- source /home/globi/fact/sql/user.sql
 -- source /root/fact/sql/user.sql
 
 drop table if exists users cascade;
