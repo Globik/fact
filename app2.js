@@ -81,7 +81,7 @@ const pool = mariadb.createPool({
     password: process.env.DB_PASSWORD,
     connectionLimit: 5 ,
    // trace: true,
-    database:'roulet'
+    database:'chatikon'
 });
 const app = express();
 const suka = "./public";
