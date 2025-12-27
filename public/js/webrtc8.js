@@ -610,40 +610,7 @@ function setSignal(){
 //window.onpagehide=function(){alert('open')}
 function get_socket() {
 	
-	/* if(gid('isLogin').value === "false"){
-		// sock.close();
-		let s = L()=="ru"?"Залогиньтесь!":L()=='en'?"You should log in!":
-		L()=='zh'?'您应该登录！':
-		L()=='id'?'Anda harus masuk':'';
-		 note({content: s, type: "warn", time: 5 });
-		 window.location.href="#login";
-	const faka = document.querySelector('.overlay:target');
-	 if(faka){
-	faka.onclick=function(e){
-		e.preventDefault();
-	}
-		  return;
-	  }}*/
-	//  alert(ifEnter());
-	/*
-	if(ifEnter() && Brole.value !="admin"){
-		window.location.href='#purchaseHREFI';
-		 const faka = document.querySelector('.overlay:target');
-	 if(faka){
-	faka.onclick=function(e){
-		e.preventDefault();
-	}
-}
-window.onhashchange = function(ev){
-	console.log('hashchanged');
-	window.location.href='#purchaseHREF';
-}
-return window.location.href='#purchaseHREF';
-
-}else{
-	window.onhashchange = null;
-}
-*/ 
+	
  if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + "/gesamt");
 
   sock.onopen = function () {
@@ -855,6 +822,8 @@ function on_msg(msg) {
        // alert('dynamic');
         handleDynamic(msg);
         break;
+        case 'janus':
+        handleJanus(msg);
         case 'error':
         note({ content: msg.err, type: "error", time: 5 });
         break;

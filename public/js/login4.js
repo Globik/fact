@@ -180,7 +180,7 @@ return;
 	//alert(err);
 }
 }
-
+/*
 async function onTelega(user){
 	//alert(JSON.stringify(user));
 	console.log(user);
@@ -226,14 +226,7 @@ window.location.href="#."
 	}
 	//el.style.backGround="green";
 	}
-	/*
-const VKID = window.VKIDSDK;
-VKID.Config.init({
-	app: VK_APP_ID,
 	
-})
-OAuthList
-*/ 
 try{
 const oauthList = new VKID.OAuthList();
 const containervk = gid("VkIdSdkOAuthList");
@@ -263,7 +256,9 @@ let c = paramStr.get('code');
 let d = paramStr.get('device_id');
 //alert('device_id '+d+' code '+c)
 if(c && d){
+	
 	async function ati(){
+		return;
 		try{
 			//alert('device3 ', d);
 			//await fetch('/newfucker', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({code: c, device: d })});
@@ -315,12 +310,7 @@ window.location.href="#."
 //location.reload();
 }
 }catch(e){
-	/*
-	userName.value = "Uknown";
-	isLogin.value="true";
-	userId.value="X";
-	console.error(e);
-	*/ 
+	
 	alert("Что-то пошло не так. Попробуйте войти через телеграм");
 	//await fetch('/newfucker', {method: "POST",headers: {"Content-Type": "application/json",}, body: JSON.stringify(e) });
 	//await fetch('/newfucker', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({txt:"some text",code: c, device: d })});
@@ -330,7 +320,7 @@ window.location.href="#."
 
 	}
 }
-ati();
+//ati();
 }
 
 }
@@ -379,7 +369,7 @@ return;
 	
 }
 
-
+*/
 
 
 

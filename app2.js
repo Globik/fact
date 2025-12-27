@@ -24,6 +24,7 @@ const render = require('./libs/render.js');
 const shortid = require('shortid');
 const admin = require('./router/admin.js');
 const pay = require('./router/pay.js');
+const stream = require('./router/stream.js')
 const rateLimit = require('express-rate-limit');
 const { createProxyMiddleware}=require('http-proxy-middleware')
 //console.log('shortid', shortid())
@@ -219,6 +220,7 @@ app.use((req, res, next)=>{
 	next();
 })
 app.use('/admin', admin);
+app.use('/stream', stream);
 app.use('/pay', pay);
 var imgData = {};
 const getUservkUrl = `https://api.vk.com/method/users.get`;
@@ -380,7 +382,12 @@ app.get('/lolo', async(req,res)=>{
 //const {convertXML, createAST} = require("simple-xml-to-json")
 
 //const myJson = convertXML(myXMLString)
-
+/*
+app.get('/stream/:id/:streamid', async(req, res)=>{
+	console.log('params ', req.params);
+	res.rendel('stream',{});
+})
+*/
 app.post('/checkip', async(req, res)=>{
 	//console.log(req.body);
 	let { ip } = req.body;
@@ -2065,6 +2072,7 @@ function doWas(obj){
 	imgData.value = obj.value;
 	imgData.publishedId = obj.publishedId;
 }
+var janusonline = new Map();
 /*
  ev.on('producer_published', doWas);
  ev.on("producer_unpublished", function doWas2(){
@@ -2097,7 +2105,7 @@ socket.isAlive = true;
 	socket.VK = false;
   const ip = req.socket.remoteAddress;
   
-  
+  console.log('req.url ', req.url);
   const re = /([0-9]{1,3}[\.]){3}[0-9]{1,3}/;
 	if(process.env.DEVELOPMENT == "yes"){
 	let r3 = "23.23.22.35";	
@@ -2128,7 +2136,7 @@ wsend(socket, { type:'vip', vip: r })
   
  // if(onLine.size !=0)wsend(socket, { type: "dynamic", sub: "total", cams: [...onLine] });
   
-  
+  if(janusonline.size !=0)broadcast_gesamt({type:"janus", who: [...janusonline ], subtype: "all"});
   
  
   
@@ -2152,6 +2160,9 @@ if(msg.request == "mediasoup"){
 	return;
 }else if(msg.request == 'mediasoup2'){
 	//handleAdminMedia(socket, msg, WebSocket, wsServer, pool).mediadmin();
+	return;
+}else if(msg.request == 'janus'){
+	handleJanus(socket, msg, WebSocket, wsServer, pool);
 	return;
 }
     switch (msg.type) {
@@ -2251,6 +2262,7 @@ socket.on('error', function(e){
     broadcasti({ type: 'online', online: wsServer.clients.size })
     
     hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
+    janusclose(socket);
     /* handleMediasoup.*/
  // handleMediasoup(socket, msg, WebSocket, wsServer, pool).cleanUpPeer(socket.pubId);
    // handleAdminMedia(socket, msg, WebSocket, wsServer, pool).cleanMedia();
@@ -2378,4 +2390,90 @@ let r = a[0];
 ws.vip = r;
 wsend(ws, { type: "vip", vip: ws.vip })
 }
+}
+function handleJanus(socket, msg, WebSocket, wsServer, pool){
+	if(msg.subtype  == "owner"){
+		socket.owner = true;
+		socket.roomid = msg.roomid;
+		socket.streamid = msg.streamid;
+		if(!janusonline.has(socket.roomid)) {
+
+	
+	 janusonline.set(socket.roomid, { roomid: socket.roomid, streamid: msg.streamid, src: msg.src, nick: msg.nick, views: 0 });
+	// broadcast({ type: "dynamic", sub: "add", id: socket.id, nick: socket.nick, status: 'free', camcount: onLine.size });
+	let a = janusonline.get(socket.roomid);
+	console.log('a.views ', a.views);
+	broadcast_gesamt({type:'janus', subtype: 'add', roomid: msg.roomid, src:msg.src,nick:msg.nick,userid:msg.userid, streamid: msg.streamid, views: a.views}); 
+}
+	}else if(msg.subtype == "remove"){
+		console.log('on remove ', msg);
+		janusclose(socket);
+	}else if(msg.subtype == "subscriber"){
+		socket.streamid = msg.streamid;
+		socket.roomid = msg.userid
+		if(janusonline.has(msg.userid)){
+			let a = janusonline.get(msg.userid);
+			let b = Number(a.views);
+			
+			b.views = b.views + 1;
+			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.roomid, views: b.views, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b.views, streamid: socket.streamid });
+		}
+	}else if(msg.subtype == "unsubscriber"){
+		if(janusonline.has(msg.roomid)){
+			let a = janusonline.get(msg.roomid);
+			let b = Number(a);
+			b.views = b.views - 1;
+			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.roomid, views: b.views, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b.views, streamid: socket.streamid , userid:msg.roomid});
+			socket.roomid = 0;
+			socket.streamid = 0;
+			
+		}
+	}
+}
+function broadcast_gesamt(obj){
+
+	for (let el of wsServer.clients) {
+		if(el.burl == "/gesamt"){
+		console.log('brooadcast gesant' , obj);
+		wsend(el, obj);
+	}
+	}
+}
+function clear_roomid(streamid){
+	for (let el of wsServer.clients) {
+		if(el.streamid === streamid){
+			el.streamid = 0;
+		}
+	}
+}
+function broadcast_streamid(obj){
+	for (let el of wsServer.clients) {
+		if(el.streamid === obj.streamid){
+			wsend(obj);
+		}}
+		}
+function janusclose(socket){
+	if(socket.owner){
+		if(janusonline.has(socket.roomid)){
+			broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
+			janusonline.delete(socket.roomid);
+			clear_roomid(socket.streamid);
+			//broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
+			socket.owner = false;
+			socket.roomid = 0;
+			socket.streamid = 0;
+			
+		}
+	}else{
+		if(janusonline.has(socket.roomid)){
+			let a = janusonline.get(socket.roomid);
+			let b = Number(a);
+			b.views = b.views - 1;
+			broadcast_gesamt({ type: "janus", subtype: "onviews", views: b.views, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_streamid({ type: "janus", subtype:"onviews", views: b.views, streamid: socket.streamid });
+			
+		}
+	}
 }

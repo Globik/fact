@@ -1,0 +1,132 @@
+article.slot{
+				width:99.9%;
+				height:90vh;
+				border:1px solid #445d71;
+				border-radius:10px;
+	
+				display:grid;
+				
+				grid-template-columns:50% 50%;
+		
+			}
+			footer#foot{
+	background:brown;
+	height:100px;
+	width:100%;
+	display:flex;
+	aign-items: center;
+				justify-content: end;
+				
+}
+footer#pdf{
+	background:blue;
+	width:100%;
+	height:100px;
+	position:relative;
+	display:flex;
+	
+				justify-content: end;
+				
+}
+aside#slotinfo{
+							bckground:rgba(0,23,45,0.5);
+							hight:100%;
+							height:calc(100% - 100px);
+							mx-height:calc(100% - 100px);
+							
+						}
+						aside#boxinfo{
+						position:relative;
+							bacground:red;
+							width:99.9%;
+							height:100%;
+							hight:calc(100% - 100px);
+							mx-height:calc(100% - 100px);;
+							lign-self: flex-end;
+							order:1px solid green;
+							overflow:auto;
+						}
+					
+				#chatbox{
+				bckground:#df9b9b;
+				width:100%;
+				height:calc(100% - 100px);
+				overflow:auto;
+				position:relative;
+				display:block;
+				
+				}
+			
+			div.msg{
+				padding:10px;
+				line-height:1.2;
+				font-size:1.5rem;
+			}	
+#videobox{
+	position:relative;
+	display:block;
+	width:100%;
+	height:100%;
+	background: rgba(4,45,34,0.5);
+}
+#local{
+	width:100%;
+	backgrund:red;
+	hight:100%;
+}
+.panelbtn{
+	height:88%;
+	background: green;
+	font-weight:bold;
+	line-height:1.7;
+	font-size:20px;
+	padding:5px;
+	margin-right:10px;
+	width:150px;
+}
+#glas{
+	position:absolute;
+	left:20px;
+	bottom:5px;
+	display:grid;
+			backround:red;	
+				grid-template-columns:50% 50%;
+	width:60px;
+	height:30px;
+}
+#glas div{
+	width:50%;
+	height:100%;
+	pading:8px;
+	display:flex;
+	align-items: center;
+				justify-content: center;
+				color:white;
+}
+div img{
+	width:30px;
+	height:30px;
+	bckground:blue;
+}
+@media screen and (max-width: 452px) and (orientation: portrait){
+	article.slot{
+		display: block;
+		width:100%;
+		border:1px solid red;
+		height:800px;
+	}
+	aside#slotinfo{
+		height: 300px;
+		display:block;
+		position:relative;
+	}
+	aside#boxinfo{
+	border:1px solid green;
+		height:400px;
+		margin-top:100px;
+		position:relative;
+	}
+		footer#foot{
+			
+		}
+}

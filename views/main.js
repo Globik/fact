@@ -4,6 +4,7 @@ const { zar } = require('./zar.js')
 const { whosonline } = require('./whosonline.js')
 const { banus } = require('./banus.js')
 const { banip } = require('./banip.js')
+const { login } = require('./login.js');
 function main(n){
 	const BAN = 0;
 	let istestheart = (n.istestheart==1?true:false);
@@ -393,20 +394,15 @@ window.onhashchange = function(ev){
 	 </script> 
      <article id="mediabox">
     <nav id="navpanel"><div class="nav"><b>Онлайн: <span id="onlineCount">0</span></b>&nbsp;&nbsp;&nbsp; <b id="VKUSERNAME">${n.user?n.user.name:'anon'}</b>
-    
-  <!-- &nbsp;&nbsp;&nbsp;<b style="font-size:18px;">&#x1F441;</b>&nbsp;&nbsp;&nbsp;
-   <span id="vV" style="color:orange;font-weight:bold;">${n.imgData && n.imgData.img_data?n.imgData.value:0}</span> -->
+ 
    ${n.user && n.user.prem=="y"? '&nbsp;&nbsp;&nbsp;<span style="color:#d5a8a8;">Premium &nbsp;&nbsp;&#x1F451;</span>':''} 
     </div>
     
     <div id="settings" class="ita" onclick="panelOpen(this);">
  <img class="setimg" src="/img/set2.svg">
 </div>
-<script>
-if(isVK.value == "true"){
-//	gid("settings").style.display = "none";
-}
-</script>
+
+
 <div id="settingspanel">
 ${n.user && n.user.brole=='admin'?'<div class="settingspanel" onclick="toAdminPanel(this);">В админку</div>':''}
 <!-- <div class="settingspanel" data-current="" id="camToggle" onclick="toggleCam(this);">${lang=='ru'?'Переключить камеру':
@@ -606,7 +602,9 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
 
     </section>
     </article>
-    <div><a href="/demospace">demo</a></div>
+    <div><a href="/demospace">demo</a></div><br>
+    <div id="startTr"><button onclick="startTrans(this);">Начать трансляцию</button></div>
+		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>
 <p>Want to meet people from the other side of the world? It's easier than you think. All you need to start Chatikon and hundreds of new acquaintances will be available to chat in a single click. Our video chat feature is a godsend for making friends, online dating, chit-chats, and in-depth conversations about everything under the sun. Get to know so many interesting people from all across the globe with random connections via Chatikon.</p>
@@ -762,23 +760,7 @@ window.yaContextCb.push(()=>{
    
   
 	
-	<form id="purchaseForm2" method="post" action="https://yoomoney.ru/quickpay/confirm" name="ordertodo">
-<p class="intro">Чтобы предотвратить попадание несовершеннолетних в рулетку, мы вынуждены брать с вновь прибывших членский взнос в размере 50 рублей. 
-Тем самым вы подтверждаете, что вы совершеннолетний. Вы будете преренаправлены в yoomoney</p>
-	<div id="heartswrapper">
-	 <div><input type="hidden" id="receiver" placeholder="Получатель yoomoney" name="receiver" value="${n.yacount}" required/> </div>
-	<input type="hidden" name="label" value="id=${n.user?n.user.id:'0'}&enti=50"/>
-    <input type="hidden" name="quickpay-form" value="button" />
-    <input type="hidden" name="successURL" value="https://rouletka.ru/about" />
-    <input type="hidden" name="formcomment" value="Покупка" />
-    <input type="hidden" name="targets" value="Confirm" />
-    <div><input class="number"  type="hidden"  name="sum" value="50.00" required data-type="number"/></div>
-   <input  class="input" type="hidden" checked name="paymentType" value="PC" /></div>
-   <div><input  class="input" type="hidden" name="paymentType" value="AC" /></div>
-   <div><input type="submit" id="duckersubmit" value="Да, мне 18, и я \n \nготов(а) заплатить 50 руб"/></div>
 	
-	</div>
-	</form>
 	</section> 
 	</output>
 	<!--4100118676103827 me 410016439442251  er -->
@@ -909,31 +891,8 @@ window.yaContextCb.push(()=>{
         </div>
       
     </output>
-    <a href="#."  class="overlay" id="login"></a>
-    <output id="loginoutput" class="popi">
-        <div class="modal-header">
-          ${lang=='ru'?'Авторизация / Регистрация':lang=='en'?'Login / Sign up':lang=='zh'?'授权/注册':lang=='id'?'Masuk / daftar':''}
-          <span class="model-header-label" onclick="isOpenModal();">
-            ${lang == 'ru'?'Правила чата':lang=='en'?'Chat rules':lang=='zh'?'聊天规则':lang=='id'?'aturan obrolan':''}
-          </span>
-        </div>
-       <br> <b style="color:black;">${lang=='ru'?'Добро пожаловать в чат рулетку':lang=='en'?
-            'Welcome to chat roulette':
-            lang=='zh'?'欢迎聊天轮盘赌':
-            lang=='id'?'Selamat datang di obrolan rolet':''}!</b><br>
-        <div class="modal-body">
-          <div class="error-message" id="errormsg"></div>
-         <form name="formlogin" id="myform">
-            <label for="name" style="margin-top: 5px;">${lang=='ru'?'Имя':lang=='en'?'Nick' :lang=='zh'?'姓名':lang=='id'?'nama':''} </label>
-            <input  name="username" type="text" placeholder="${lang=='ru'?'Введите Логин':lang=='en'?'Login':lang=='zh'?'姓名':lang=='id'?'nama':''}" id="name" required minlength="2" maxlength="20">
-
-            <label for="name">${lang=='ru'?'Пароль':lang=='en'?'Password':lang=='zh'?'密码':lang=='id'?'kata sandi':''}</label>
-            <input  name="userpassword" type="password" autocomplete="on" placeholder="${lang=='ru'?'Введите пароль':lang=='en'?'password':lang=='zh'?'密码':lang=='id'?'kata sandi':''}" id="password" required minlength="2" maxlength="20">
-			 <button  class="login-button" id="btnlogin">${lang=='ru'?'Войти':lang=='en'?'Login':lang=='zh'?'登录':lang=='id'?'Gabung':''}</button>
-            <button class="register-button" id="btnregister">${lang=='ru'?'Зарегистрироваться':lang=='en'?'Sign up':lang=='zh'?'报名':lang=='id'?'mendaftar':''}</button> 
-           
-          </form> 
-    </output>
+   
+    ${login(n)}
     
     <!-- 410016439442251 er
     me 4100118676103827
@@ -980,6 +939,7 @@ window.yaContextCb.push(()=>{
     <script src="/js/webrtc8.js"></script>
     <script src="/js/whosonline.js"></script>
     <script src="/js/soupi444.js"></script>
+    <script src="/js/hjanus.js"></script>
    <!-- <script src="/js/mediasoupadmin.js"></script> -->
     
     

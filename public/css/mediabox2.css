@@ -7,6 +7,60 @@ html,body{
 		:root {
     --mobilewidth: 452px;/*452px;*/
 }
+
+
+
+.glas{
+	position:absolute;
+	left:20px;
+	bottom:5px;
+	display:grid;
+			backround:red;	
+				grid-template-columns:50% 50%;
+	width:60px;
+	height:30px;
+}
+.glas div{
+	width:50%;
+	height:100%;
+	pading:8px;
+	display:flex;
+	align-items: center;
+				justify-content: center;
+				color:white;
+}
+.imgbox{
+	width:100px;
+	height:100px;
+	position:relative;
+}
+.imgbox img{
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	bckground:blue;
+}
+#streamsection{
+	display:flex;
+	align-items: center;
+				justify-content: center;
+				color:white;
+				background:violet;
+				min-height:100px;
+}
+.whobox{
+	width:100px;
+	height:100px;
+	position:relative;
+	display:block;
+}
+
+
+
+
+
+
+
 #langbox{
 	background: white;
 	position:relative;
@@ -828,8 +882,9 @@ background-image: linear-gradient(315deg, #13f74fcc 0%, #ddebeb 74%);
 	 bckground:red;
 	 margin-top:0px;
  }
-	.ita{
-dsplay:block;
+	
+.ita svg{
+	dsplay:block;
 	position:relative;
 	color:orange;
 	justify-self: center;
@@ -837,9 +892,6 @@ dsplay:block;
 margin-right:10px;
 object-fit:cover;
 width:90%;
-}
-.ita svg{
-	
 }
 #settingspanel{
 	display: none;

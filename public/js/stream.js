@@ -3,6 +3,74 @@ var janus=null;
 var authT;
 var basicSdkInstance;
 let localStream=null;
+var loc1 = location.hostname + ":" + location.port;
+var loc2 = location.hostname;
+var loc3 = loc1 || loc2;
+isOpen = false;
+var sock = null;
+var new_uri;
+var mystreamId = null;
+function letStart(el){
+	//alert('suka');
+	if(userid.value == "0") return;
+	el.disabled = true;
+	getJanus(el);
+}
+
+function panelOpen(el){
+			
+			var settingspanel = document.getElementById("settingspanel");
+			if(!isOpen){
+			settingspanel.className = "open";
+			isOpen = true;	
+			}else{
+				 
+				settingspanel.className = "";
+				isOpen = false;
+			}
+		}
+		if (window.location.protocol === "https:") {
+  new_uri = "wss:";
+} else {
+  new_uri = "ws:";
+}
+
+		function get_socket() {
+	//alert(2);
+	
+ if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + "/stream");
+
+  sock.onopen = function () {
+	 console.log("websocket opened");
+	 
+	
+  };
+  sock.onerror = function (e) {
+   // note({ content: "Websocket error: " + e, type: "error", time: 5 });
+  };
+  
+  sock.addEventListener('message', function (evt) {
+	  
+    let a;
+    try {
+      a = JSON.parse(evt.data);
+      on_msg(a);
+    } catch (e) {
+      note({ content: e, type: "error", time: 5 });
+    }
+  });
+  sock.onclose = function () {
+    
+  };
+}
+get_socket();
+function on_msg(d){
+	if(d.type==='janus'){
+		if(d.subtype == 'onviews'){
+			spanViews.textContent = d.views;
+		}
+	}
+}
 async function getToken(){
 	try{
 		 let reqi = await fetch('/lovetoken', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({ uid: '12345', uname:'alik' })});
@@ -85,7 +153,7 @@ function createRoom(){
 	//alert(roomnum.value);
 	let checkroom={
 		request:"join",
-		room: Number(roomnum.value),
+		room: Number(userid.value),
 		ptype:"publisher",
 		"is_private": false,
 		notify_joining:true
@@ -93,7 +161,8 @@ function createRoom(){
     sfutest.send({message:checkroom});
     //alert(a);
 }
-function getJanus(){
+
+function getJanus(el){
 Janus.init({debug: "all", callback: function() {
 	janus = new Janus(
 				{
@@ -103,13 +172,13 @@ Janus.init({debug: "all", callback: function() {
 					//		token: "mytoken",
 					//	or
 					//		apisecret: "serversecret",
-					error:function(m){alert(m);},
+					error:function(m){alert('2 '+ m);},
 					success:function(){
-						getAttach();
+						getAttach(el);
 						}})}})
 				}
 
-function getAttach(){
+function getAttach(el){
 // 1. Прикрепляем плагин (предполагается, что сессия `janus` уже создана)
 janus.attach({
     plugin: "janus.plugin.videoroom",
@@ -120,21 +189,25 @@ janus.attach({
         let joinRequest = {
             request: "create",
             display: "Ведущий",
-            "room": Number(roomnum.value),
+            "room": Number(userid.value),
 		     "ptype":"publisher",
 		"is_private": false,
 		"secret":"suka"
         };
-        pluginHandle.send({ message: joinRequest });
-
+     //   pluginHandle.send({ message: joinRequest });
+        sfutest.send({ message: joinRequest });
+        createRoom();
+//alert(3)
         // 3. Назначаем обработчики
         pluginHandle.onmessage = function(msg, jsep) {
+			//alert(4);
             console.log("Получено сообщение:", msg);
 
             // 3.1. Успешный вход в комнату - ТОЛЬКО ТЕПЕРЬ запрашиваем медиа
             if (msg.videoroom === "joined") {
                 console.log("✅ Вошли в комнату с ID:", msg.id);
-             idvalue.value=msg.id;
+            // idvalue.value=msg.id;
+            mystreamId = msg.id;
                 // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: getUserMedia вызывается здесь
                 navigator.mediaDevices.getUserMedia({ audio: true, video: true })
                     .then(function(stream) {
@@ -192,6 +265,18 @@ janus.attach({
 			},
 			webrtcState: function(on) {
 				console.log("Janus says this WebRTC PeerConnection (remote feed) is " + (on ? "up" : "down") + " now");
+				if(on){
+					//alert('sex');
+					el.disabled = false;
+					el.textContent = "Stop";
+					el.setAttribute('onclick',"destroy(this);");
+					setTimeout(function(){
+					let imgdata = Screenshot();
+					//alert('userid '+userid.value);
+					wsend({ request: 'janus', subtype: "owner", roomid: userid.value, userid:userid.value,nick: username.value, streamid: mystreamId, src: imgdata });
+					note({ content: "on air", type:'info', time:5 });
+				}, 3000);
+				}
 			},
 });
 }
@@ -234,15 +319,52 @@ function freeLocalStream(){
                         
               }         
 
+function Screenshot() {
+	if(!local.srcObject) return;
+    let cnv = document.createElement('canvas');
+    let w = 80;
+    let h = 50;
+  // cnv.width = w;
+   // cnv.height = h;
+    let c = cnv.getContext('2d');
+    var ww = local.videoWidth/4;
+    var hh = local.videoHeight/4;
+     cnv.width = ww;
+    cnv.height = hh;
+    c.drawImage(local, 0, 0, ww, hh);
+    var imgdata = cnv.toDataURL('image/jpeg', 5.0);
+    cnv.remove();
+    return imgdata;
+    
+}
 
-
-function destroy(){
+function destroy(el){
 	if(!sfutest)return;
-	sfutest.send({message:{request:'destroy', secret:'suka', room:Number(roomnum.value)}});
+	sfutest.send({message:{request:'destroy', secret:'suka', room:Number(userid.value)}});
+	el.textContent = "Start";
+	el.setAttribute("onclick","letStart(this);");
+	wsend({ request: "janus", subtype: "remove", roomid:Number(userid.value) , streamid: mystreamId });
 }
 
 
-
+function Screenshot() {
+	if(!local.srcObject) return;
+    let cnv = document.createElement('canvas');
+    let w = 80;
+    let h = 50;
+  // cnv.width = w;
+   // cnv.height = h;
+    let c = cnv.getContext('2d');
+    var ww = local.videoWidth/4;
+    var hh = local.videoHeight/4;
+     cnv.width = ww;
+    cnv.height = hh;
+    c.drawImage(local, 0, 0, ww, hh);
+    var imgdata = cnv.toDataURL('image/jpeg', 5.0);
+    cnv.remove();
+    return imgdata;
+    
+}
 
 
 function isexits(){
@@ -280,11 +402,12 @@ function leave(){
 	sfutest.send({message:{request:"leave"}});
 }
 
-function unsubscribe(){
+function unsubscribe(el){
 	if(!sfutest)return;
-	sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(idvalue.value)}]}});
+	sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(streamId.value)}]}});
+	wsend({ request: "janus", subtype: "unsubscriber", streamid: streamId.value, roomid: userid.value });
 }
-function fuck(){
+function pfuck(el){
 
 Janus.init({debug: "all", callback: function() {
 	janus = new Janus(
@@ -295,13 +418,13 @@ Janus.init({debug: "all", callback: function() {
 					//		token: "mytoken",
 					//	or
 					//		apisecret: "serversecret",
-					error:function(m){alert(m);},
-					success: function() {subscribeToStream(Number(roomnum.value),Number(idvalue.value));}
+					error:function(m){alert('4 '+ m);},
+					success: function() {subscribeToStream(Number(userid.value),Number(streamId.value), el);}
 				})}})
 
 }
 
-function subscribeToStream(roomId, publisherId) {
+function subscribeToStream(roomId, publisherId, el) {
     janus.attach({
         plugin: "janus.plugin.videoroom",
         success: function(pluginHandle) {
@@ -313,15 +436,15 @@ function subscribeToStream(roomId, publisherId) {
                 request: "join",
                 room: roomId,
                 ptype: "subscriber", // Ключевой параметр для зрителя!
-                streams:[{feed:Number(idvalue.value)}]
+                streams:[{feed:Number(streamId.value)}]
             };
             
             pluginHandle.send({ message: joinRequest });
            //  pluginHandle.onremotestream = function(stream) {
-				 pluginHandle.onremotetrack = function(track,mid,on) {
+				 pluginHandle.onremotetrack = function(track, mid, on) {
 				//alert('fuck');
                 console.log("🎬 Получен удалённый видеопоток!");
-                let videoElement = document.getElementById('remoteVideo');
+                let videoElement = document.getElementById('local');
                 // Отображаем поток в элементе <video>
                 if(!on){
 					 videoElement.srcObject = null;
@@ -348,8 +471,12 @@ function subscribeToStream(roomId, publisherId) {
         } else {
             videoElement.srcObject.addTrack(track);
         }
-
+        el.disabled = false;
+        el.textContent = "Stop";
+        el.setAttribute("onclick", "unsubscribe(this);");
+ wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: userid.value });
         videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
+        
     }
                 
                 
@@ -399,7 +526,7 @@ function subscribeToStream(roomId, publisherId) {
                     // 3. Отправляем запрос "start" для начала приёма медиа
                     let startRequest = {
                         request: "start",
-                        room: roomId,
+                        room: Number(userid.value),
                         feed: targetPublisherId // ID публикующего, на которого подписываемся
                     };
                     pluginHandle.send({ message: startRequest });
@@ -418,7 +545,7 @@ function subscribeToStream(roomId, publisherId) {
                             // Отправляем наш answer обратно на сервер
                             let startRequest = {
                                 request: "start",
-                                room: roomId
+                                room: Number(streamId.value)
                             };
                             pluginHandle.send({ 
                                 message: startRequest, 
@@ -463,8 +590,26 @@ function subscribeToStream(roomId, publisherId) {
           
     });
 }
-function subscribe(){
-	fuck();
+function subscribe(el){
+	el.disabled = true;
+	pfuck(el);
 	//subscribeToStream(roomnum.value);
 }
 
+function insertMessage(txt){
+				
+				let div = document.createElement("div");
+				div.className = "msg";
+				div.innerHTML = '<b>' + txt + '</b>';
+				chatbox.appendChild(div);
+				chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
+			}
+function wsend(obj){
+	if(!sock) return;
+	let d;
+	//obj.from = MYSOCKETID;
+	try{
+		d = JSON.stringify(obj);
+		if(sock.readyState == WebSocket.OPEN)sock.send(d);
+	}catch(e){}
+}

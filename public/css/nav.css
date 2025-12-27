@@ -1,0 +1,77 @@
+#navpanel{
+		width:100%;
+		height:50px;
+		background-color:#000000;
+        background-image: linear-gradient(315deg, #35bd46 0%, #32b5bf 74%);
+		display:grid;
+		grid-template-columns:1fr 50px;
+		align-self:center;
+		position:relative;
+	}
+	#settings{
+	position:absolute;
+	top:0;
+	right:0;
+		height:50px;
+		width:50px;
+	}
+	.ita{
+dsplay:block;
+	position:relative;
+	color:orange;
+	background: violet;
+	justify-self: center;
+	align-self:center;
+margin-right:10px;
+object-fit:cover;
+width:90%;
+}
+	.nav{
+	jstify-self: center;
+	align-self:center;
+	padding-left:10px;
+	}
+	#settingspanel{
+	display: none;
+	position:absolute;
+	right:0px;
+	top:51px;
+	width:100vw;
+	bckground:brown;
+	z-index:9999;
+	color:blue;
+	
+	
+	height: 0;
+	border-bottom-right-radius:10px 10px;
+	border-bottom-left-radius: 10px 10px;
+	ont-size:1.5rem;
+	
+}
+#settingspanel.open{
+	display:block;
+	z-index:10000;
+	height:auto;
+}
+.settingspanel{
+	width:100vw;
+	background:rgba(106,201,199,0.96);
+	line-height:1.2;
+	font-size:1.5rem;
+	padding:10px;
+	color:black;
+	border-bottom:1px solid #d7d090;
+	z-index:1000;
+	height:50px;
+}
+.settingspanel:hover{
+background:rgb(255,255,255);
+}
+.setimg{
+	width:90%;
+	padding-top:10px;
+	padding-left:10px;
+}
+.nav b{
+	color:white;
+}

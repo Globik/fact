@@ -139,7 +139,7 @@ if(useri.length==0) {
 	//console.log("Not found user");
 	let a = await pbkdf2(Buffer.from(password), SALT, 10000, 64, 'sha512');	
 	let b64 = a.toString('base64');
-	let qu = await db.query('insert into users(name, password) values(?,?)',[ username,  b64]);
+	let qu = await db.query('insert into users(name, password) values(?,?)',[ username,  /*b64*/password ]);
 //	console.log('qu: ', qu);
 	return done(null, qu.insertId.toString(), { username: username, status: 200, message: "Success!" });
 }else{
