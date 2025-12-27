@@ -42,7 +42,7 @@ function startTrans(el){
 	if(isLogin.value === "false"){
 		window.location.href="#login";
 	}else{
-		alert(userId.value);
+		//alert(userId.value);
 		window.location.href = "/stream/"+userId.value;
 	}
 }
