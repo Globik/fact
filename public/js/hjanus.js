@@ -23,9 +23,13 @@ function handleJanus(obj){
 			//div.setAttribute("onclick", `gofuck({roomid:${obj.roomid}, streamid:${obj.streamid} })`);
 			div.innerHTML = `<a href="/stream/${obj.roomid}/${obj.streamid}">
 			<div class="imgbox"><img src="${obj.src}">
-			<div class="glas"><div><img src="/img/eye2.svg"></div>&nbsp;<div><span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></div></div>
+			<div class="glas">
+			<div><img src="/img/eye2.svg"></div>
+			&nbsp;<div><span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></div>
+			
 			</div>
-			</a>`
+			</div>
+			</a>`;
 			streamsection.appendChild(div);
 	
 }else if(obj.subtype == "remove"){
