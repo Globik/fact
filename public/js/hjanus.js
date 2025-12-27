@@ -9,7 +9,7 @@ function handleJanus(obj){
 			//alert(el[1].roomid);
 			div.innerHTML = `<a href="/stream/${el[1].roomid}/${el[1].streamid}">
 			<div class="imgbox"><img src="${el[1].src}">
-			<div class="glas"><div><img src="/img/eye2.svg"></div><div><span data-nowroomid="${el[1].roomid}" class="spanViews">${el[1].views}</span></div></div>
+			<div class="glas"><div><img src="/img/eye2.svg"></div><div>&nbsp;<span data-nowroomid="${el[1].roomid}" class="spanViews">${el[1].views}</span></div></div>
 			</div>
 			</a>`
 			streamsection.appendChild(div);
@@ -23,7 +23,7 @@ function handleJanus(obj){
 			//div.setAttribute("onclick", `gofuck({roomid:${obj.roomid}, streamid:${obj.streamid} })`);
 			div.innerHTML = `<a href="/stream/${obj.roomid}/${obj.streamid}">
 			<div class="imgbox"><img src="${obj.src}">
-			<div class="glas"><div><img src="/img/eye2.svg"></div><div><span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></div></div>
+			<div class="glas"><div><img src="/img/eye2.svg"></div>&nbsp;<div><span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></div></div>
 			</div>
 			</a>`
 			streamsection.appendChild(div);

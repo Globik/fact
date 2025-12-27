@@ -603,7 +603,7 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
     </section>
     </article>
     <div><a href="/demospace">demo</a></div><br>
-    <div id="startTr"><button onclick="startTrans(this);">Начать трансляцию</button></div>
+    <div id="startTr"><button id="transbtn" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>

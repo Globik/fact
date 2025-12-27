@@ -22,8 +22,8 @@ passport.deserializeUser(async function(user, cb){
 	//console.log("deserialize user", user);
 		try{
 			//let useri = await db.query('select id,name, brole,heart,theart,prem,mon,grund from users left join ban on users.id=ban.usid where users.id=(?)', [ user ]);
-			let useri = await db.query('select id,name, brole from users', [ user ]);
-			//console.log("USERI ", useri[0]);
+			let useri = await db.query('select id,name, brole from users where users.id=(?)', [ user ]);
+	//		console.log("USERI ", useri[0]);
 		return cb(null, useri[0]);
 	}catch(er){
 		//console.log(er);
@@ -102,7 +102,7 @@ passport.use('local-signup', new LocalStrategy({usernameField: 'name', passReqTo
 //	console.log("username , paswword: ", username, password);
 //	console.log('***BODY*** ', req.body);
 	let ty = req.body.type;
-	console.log('ty ', ty);
+//	console.log('ty ', ty, username,password);
 	
 		if(ty=="gewohn"){
 	if(!req.body.name || !password){return done(null,false,{error: true, message: "Missing credentials", status: 401 })}	
@@ -126,10 +126,11 @@ try{
 		let ad = ipaddress.match(reg);
 let rip = ad[0];
 //console.log("*** IP2 *** ", rip);
+/*
 let resultat = await db.query(`select * from ban where ip=(?)`, [ rip ]);
 if(resultat.length  > 0){
 	return done(null, false, { message: "Вы забанены", grund: resultat[0].grund, usid: resultat[0].usid, status: 409 });
-}
+}*/
 	}
 
 var useri = await db.query('select*from users where name=(?)', [ username ]);
@@ -137,10 +138,12 @@ var useri = await db.query('select*from users where name=(?)', [ username ]);
 //console.log('USER.rows[0]: ', useri)
 if(useri.length==0) {
 	//console.log("Not found user");
-	let a = await pbkdf2(Buffer.from(password), SALT, 10000, 64, 'sha512');	
-	let b64 = a.toString('base64');
+	//let a = await pbkdf2(Buffer.from(password), SALT, 10000, 64, 'sha512');	
+	//let b64 = a.toString('base64');
 	let qu = await db.query('insert into users(name, password) values(?,?)',[ username,  /*b64*/password ]);
-//	console.log('qu: ', qu);
+	//let suka = await db.query('select id from users where name=(?)',[username]);
+	//console.log('qu: ', suka[0], username, password);
+	//return done(null, suka[0].id, { username: username, status: 200, message: "Success!" });
 	return done(null, qu.insertId.toString(), { username: username, status: 200, message: "Success!" });
 }else{
 return done(null, false, {error:true, message: "Ник " + username + " уже есть!", status: 404 })
