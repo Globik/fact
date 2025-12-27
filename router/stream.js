@@ -12,7 +12,7 @@ app.get('/:id/:streamid', async(req, res)=>{
 		}
 	}
 	//console.log('user ', req.user);
-	res.rendel('stream',{ owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid });
+	res.rendel('stream',{ owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
 
 app.get('/:id', async(req, res)=>{
@@ -24,6 +24,6 @@ app.get('/:id', async(req, res)=>{
 		}
 	}
 	console.log('user ', req.user);
-	res.rendel('stream',{ owner:owner, lang: 'ru' , userid: req.params.id });
+	res.rendel('stream',{ owner:owner, lang: 'ru' , userid: req.params.id, user:req.user });
 })
 module.exports = app;

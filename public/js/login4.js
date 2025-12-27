@@ -155,7 +155,7 @@ var r=await fetch('/logout', {
       },
     body: JSON.stringify({user:'user'})
     });
-    
+   // alert('logout');
   console.log('res ', r);
     if(r.ok){
 		console.log('ok');

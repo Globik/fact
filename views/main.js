@@ -9,6 +9,7 @@ function main(n){
 	const BAN = 0;
 	let istestheart = (n.istestheart==1?true:false);
 	const { lang , buser, user } = n;
+	//console.log('da da user ', n);
 	//console.log("N ",n);
 	//console.log("ENVIRONMENT ",n.settings.env, "n.VK ", n.VK, ' n.buser.vkid: ', n.buser);
 	//console.log("^^^ USER ****", user);
@@ -435,7 +436,7 @@ ${lang=='ru' && !n.VK ? `<!-- <div class="settingspanel" ><a href="#ozeniteHREF"
  ${!n.VK?`<!-- <div class="settingspanel"  id="donatis">Помочь проекту<br>
  <iiiframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=AWVMCQLpAcY.240125&" width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe></div> --> `:''}
 <!-- ${n.user?`<div class="settingspanel"><a href="#setPrem" onclick="panelOpen();">Премиум аккаунт</a></div> `:''} -->
-${n.user && !n.VK?`<div class="settingspanel" onclick="logout(this);">${lang=='ru'?'Выйти':lang=='en'?'Logout':lang=='zh'?'登出':lang=='id'?'keluar':''}</div>`:
+${n.user?`<div class="settingspanel" onclick="logout(this);">${lang=='ru'?'Выйти':lang=='en'?'Logout':lang=='zh'?'登出':lang=='id'?'keluar':''}</div>`:
 `${!n.VK ? `<div class="settingspanel"><a href="#login" onclick="panelOpen();">${lang=='ru'?'Войти':lang=='en'?'Log in':lang=='zh'?'登录':
 	lang=='id'?'Gabung':''}</a></div>`:''}`}
 <!-- <div class="settingspanel"><button onclick="mach();">mach</button></div> -->

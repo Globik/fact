@@ -483,6 +483,7 @@ app.post('/api/auth', (req, res, next)=>{
 	})(req, res, next);
 })
 app.post('/logout', (req, res)=>{
+	console.log('logout');
 	req.logOut((err)=>{
 		if(err){
 			res.json({message:err, status:300});

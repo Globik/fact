@@ -3,6 +3,7 @@ const { nav } = require('./nav.js')
 const { videochat } = require('./videochat.js')
 const stream = function(n){
 	const { lang , buser, user } = n;
+//	console.log('da user ', n);
 	return ` <!DOCTYPE html>
 <html lang="ru">
   <head>
