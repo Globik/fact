@@ -2,6 +2,7 @@ const express = require('express')
 const axios = require('axios').default;
 const router = express.Router();
 const app = express()
+const VIDEOCHAT_TG_ID = '-1002494074502';
 
 app.get('/:id/:streamid', async(req, res)=>{
 	//console.log('params ', req.params);
@@ -12,6 +13,7 @@ app.get('/:id/:streamid', async(req, res)=>{
 		}
 	}
 	//console.log('user ', req.user);
+	botMessage('on streaming');
 	res.rendel('stream',{ owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
 
@@ -27,3 +29,16 @@ app.get('/:id', async(req, res)=>{
 	res.rendel('stream',{ owner:owner, lang: 'ru' , userid: req.params.id, user:req.user });
 })
 module.exports = app;
+async function botMessage(txt){
+	if(process.env.DEVELOPMENT == 'yes')return;
+	try{
+		await axios.post(`https://api.telegram.org/bot${tg_api}/sendMessage`, {
+    chat_id: VIDEOCHAT_TG_ID,
+    text: txt,
+    parse_mode: 'html',
+    disable_notification: false
+  });
+	}catch(e){
+		console.log(e);
+		}
+}
