@@ -3,6 +3,7 @@ const axios = require('axios').default;
 const router = express.Router();
 const app = express()
 const VIDEOCHAT_TG_ID = '-1002494074502';
+const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
 async function botMessage(txt){
 	if(process.env.DEVELOPMENT == 'yes')return;
 	try{
