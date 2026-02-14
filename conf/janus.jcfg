@@ -287,8 +287,8 @@ media: {
 # if you do not enable ICE Lite as well), choose which interfaces should
 # be used for gathering candidates.
 nat: {
-	#stun_server = "stun.voip.eutelia.it"
-	#stun_port = 3478
+	stun_server = "stun.voip.eutelia.it"
+	stun_port = 3478
 	#nice_debug = "nice_debug option is NOT SUPPORTED ANYMORE! Please set NICE_DEBUG and G_MESSAGES_DEBUG env vars when starting Janus"
 	#full_trickle = true
 	#ice_nomination = "regular"

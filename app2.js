@@ -263,6 +263,9 @@ app.get("/", async(req, res)=>{
 app.get("/demospace", async(req, res)=>{
 	res.rendel('demospace',{});
 })
+app.get("/jstream", async(req, res)=>{
+	res.rendel('jstream',{});
+})
 app.post("/januscb", async(req,res)=>{
 	console.log(req.body);
 	res.json({message:'ok'});
