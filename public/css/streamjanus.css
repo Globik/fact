@@ -1,0 +1,80 @@
+article.slot{
+				width:99.9%;
+				height:90vh;
+				border:1px solid #445d71;
+				border-radius:10px;
+	bckground:green;
+				display:grid;
+				
+				grid-template-columns:50% 50%;
+		
+			}
+			#videocontainer{
+				background:black;
+				height:100%;
+			}
+			#chatcontainer{
+				ackground:brown;
+				height:100%;
+			}
+			video{
+				height:auto;
+				width:100%;
+				 background: #000 url('/img/tvpic.jpg') no-repeat center center;
+                 background-size: cover;
+			}
+			#chatpanel{
+				bakground:blue;
+				display:flex;
+				justify-content: center;
+				align-items: center;
+				height:40px;
+				width:100%;
+				text-align:center;
+				line-height:1.8;
+			}
+			#chatbox{
+				width:100%;
+				background:white;
+				height:calc(100% - 40px - 40px);
+				overflow:auto;
+			}
+			div.msg{
+				padding:4px;
+				line-height:1.2;
+				font-size:1.2rem;
+			}	
+			#txtcontainer{
+			display:block;
+				position:relative;
+				height:40px;
+				width:100%;
+				background:pink;
+			}
+			#txtcontainer button{
+				display:inline-block;
+				position:absolute;
+				right:0px;
+				top:0px;
+				height:40px;
+			}
+			#txtcontainer textarea{
+				display:inline-block;
+				height:40px;
+				width:100%;
+			}
+			@media screen and (max-width: 452px) and (orientation: portrait){
+				article.slot{
+					display:block;
+					height:90vh;
+				}
+				#videocontainer{
+					height:45vh;
+				}
+				#chatcontainer{
+					height:45vh;
+				}
+			}
+			
+				
+

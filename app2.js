@@ -264,6 +264,7 @@ app.get("/demospace", async(req, res)=>{
 	res.rendel('demospace',{});
 })
 app.get("/jstream", async(req, res)=>{
+	botMessage('see alik');
 	res.rendel('jstream',{});
 })
 app.post("/januscb", async(req,res)=>{
@@ -1429,6 +1430,26 @@ let a = await db.query(`update sets set testshopid=(?),testshopsecret=(?)`, [ te
 app.get('/api/getTest', checkAuth, checkRole(['admin']), async(req, res)=>{
 	res.json({ content: res.compile('ytest', {})});
 })
+app.get('/getMessages', async(req,res)=>{
+	let db = req.db;
+	try{
+		await db.query(`DELETE FROM chat_messages 
+WHERE created_at < (
+    SELECT created_at FROM (
+        SELECT created_at 
+        FROM chat_messages 
+        ORDER BY created_at DESC 
+        LIMIT 1 OFFSET 39
+    ) AS tmp
+);`);
+		let result = await db.query('select message from chat_messages');
+	
+
+		res.json({result:result});
+	}catch(e){
+		res.json({error:true, error: e});
+	}
+})
 app.post('/removePrizrak', async(req, res)=>{
 	let { id } = req.body;
 	if(id){
@@ -2110,6 +2131,10 @@ socket.isAlive = true;
   const ip = req.socket.remoteAddress;
   
   console.log('req.url ', req.url);
+  if(req.url==="/janusstream"){
+	 let ni = getJanusCount();
+	 broadcast_janus(socket,{type:"januscount", count: ni });
+  }
   const re = /([0-9]{1,3}[\.]){3}[0-9]{1,3}/;
 	if(process.env.DEVELOPMENT == "yes"){
 	let r3 = "23.23.22.35";	
@@ -2208,6 +2233,9 @@ if(msg.request == "mediasoup"){
         case 'introduce':
         socket.nick = msg.nick;
         break
+        case "janusstream":
+        broadcast_janus(socket, msg);
+        break
         case "messagepublished":
       //  console.log('publish ', msg);
         broadcast_publish(socket, msg)
@@ -2267,6 +2295,10 @@ socket.on('error', function(e){
     
     hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
     janusclose(socket);
+   // if(req.url==="/janusstream"){
+	 let ni = getJanusCount();
+	 broadcast_janus(socket,{type:"januscount", count: ni });
+  //}
     /* handleMediasoup.*/
  // handleMediasoup(socket, msg, WebSocket, wsServer, pool).cleanUpPeer(socket.pubId);
    // handleAdminMedia(socket, msg, WebSocket, wsServer, pool).cleanMedia();
@@ -2354,6 +2386,29 @@ function broadcast_admin(obj){
 	}
 }
 
+async function broadcast_janus(ws, obj){
+	//console.log('obj ', obj);
+	for (let el of wsServer.clients) {
+		if(el.burl == "/janusstream"){
+		
+			wsend(el, obj);
+		}
+	}
+	try{
+	if(obj.value)	await pool.query('insert into chat_messages(message) values(?)', [obj.value]);	
+		}catch(e){
+			//console.log(e);
+			}	
+}
+function getJanusCount(){
+	let n = 0;
+	for (let el of wsServer.clients) {
+		if(el.burl == "/janusstream"){
+			n++;
+		}
+	}
+	return n;
+}
 function sendtotarget(obj){
 	for (let el of wsServer.clients) {
 		if(el.id == obj.target){

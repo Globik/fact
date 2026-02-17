@@ -604,7 +604,7 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
     </section>
     </article>
     <div><a href="/demospace">demo</a></div><br>
-    <a href="/jstream"> rtp stream</a><br>
+    <a href="/jstream" style="font-size:3pem;">Live video from a badroom round o'clock</a><br>
     <div id="startTr"><button id="transbtn" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
 		<section >FUCK <a href="https://tglinks.ru/Psyheya_XXI_vek">gruppe</a></section>
