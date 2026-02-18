@@ -427,20 +427,20 @@ async function getMessages(){
 }
 getMessages();
 window.addEventListener("beforeunload",  function(ev){
-	ev.preventDefault();
-	alert(1);
+	//ev.preventDefault();
+	//alert(1);
 	let body = { request: "stop" };
 	sfutest.send({ message: body });
 	sfutest.hangup();
 });
 document.addEventListener('visibilitychange', function(ev){
-	alert(3);
+	//alert(3);
 	let body = { request: "stop" };
 	sfutest.send({ message: body });
 	sfutest.hangup();
 });
 window.addEventListener("pagehide", async function(ev){
-	alert(2);
+	//alert(2);
 		 	let body = { request: "stop" };
 	sfutest.send({ message: body });
 	sfutest.hangup();
