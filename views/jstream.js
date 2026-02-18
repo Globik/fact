@@ -12,6 +12,9 @@ const jstream = function(n){
 	<input type="hidden" id="TOK" value="${n.tok}"/>
 	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>
 	<h3>Круглосуточный видео стрим прям из спальни</h3>
+	<p>Если вы нажали на треугольник и ничего не происходит, то весьма вероятно, что
+	либо я оффлайн, либо вы перешли по ссылке из Телеграм. Пожалуйста, скопируйте 
+	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
 	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video></div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
