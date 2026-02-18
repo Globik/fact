@@ -51,6 +51,11 @@ console.error(er);
 async function start(el){
 	let serv = await getservers();
 	Janus.init({debug: "all", callback: function() {
+		if(!Janus.isWebrtcSupported()) {
+			alert("No WebRTC support...");
+				note({ content: "No WebRTC support... Зайдите с рабочего браузера Chrome или Firefox", type:"error", time: 5});
+				return;
+			}
 	janus = new Janus(
 				{
 					server: server,

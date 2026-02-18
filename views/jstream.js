@@ -10,7 +10,7 @@ const jstream = function(n){
 	<script src="/js/janus.js"></script>
 	</head><body>
 	<input type="hidden" id="TOK" value="${n.tok}"/>
-	<a href="/">back</a><br><br>
+	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>
 	<h3>Круглосуточный видео стрим прям из спальни</h3>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
 	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video></div>

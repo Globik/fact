@@ -82,7 +82,7 @@ article.slot{
 				height:40px;
 				width:100%;
 			}
-			@media screen and (max-width: 452px) and (orientation: portrait){
+			@media screen and (max-width: 600px) and (orientation: portrait){
 				article.slot{
 					display:block;
 					height:90vh;
