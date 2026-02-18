@@ -9,23 +9,63 @@ if(window.location.protocol === 'http:'){
 }
 
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
-
-function start(el){
+async function getservers(){
+	 try{
+	let reqi = await fetch('/turn', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({ tok: gid("TOK").value })});
+	if(reqi.ok){
+		let config = await reqi.json();
+		console.log('config ', config.username + ' ' + config.password);
+	let servers = {
+	//	iceTransportPolicy:"relay",
+	"iceServers":[
+	{
+		"urls":[
+		//"stun:127.0.0.1:3478",
+		"stun:stun.l.google.com:19302",
+		"stun:chatikon.ru:3479"
+		]
+		
+		},
+	{
+		urls:[
+	//"turn:127.0.1:3478",
+		"turn:chatikon.ru:3479", 
+		//"turn:5.35.88.151:3479?transport=tcp", 
+		//"turn:rouletka.ru:5348",
+		//"turn:rouletka.ru:5348?transport=tcp" ,
+		//"turn:rouletka.ru:5348?transport=udp"//no stun
+		],
+		username: config.username, credential:config.password 
+		//username:"alik",credential:"123456"
+		}]
+	}
+	return servers.iceServers;
+}
+return undefined;
+}catch(er){
+	alert(er);
+console.error(er);
+	return undefined;
+}
+}
+async function start(el){
+	let serv = await getservers();
 	Janus.init({debug: "all", callback: function() {
 	janus = new Janus(
 				{
 					server: server,
-					iceServers: null,
+					iceServers: (serv?serv:null),
 					// Should the Janus API require authentication, you can specify either the API secret or user token here too
 					//		token: "mytoken",
 					//	or
 					//		apisecret: "serversecret",
 					error:function(m){alert(m);},
 					success:function(){
+						el.style.display="none";
 						getAttach();
 						}})}})
 				}
-				start();
+				//start();
 function getAttach(){
 // 1. Прикрепляем плагин (предполагается, что сессия `janus` уже создана)
 janus.attach({
@@ -381,3 +421,23 @@ async function getMessages(){
 	  }
 }
 getMessages();
+window.addEventListener("beforeunload",  function(ev){
+	ev.preventDefault();
+	alert(1);
+	let body = { request: "stop" };
+	sfutest.send({ message: body });
+	sfutest.hangup();
+});
+document.addEventListener('visibilitychange', function(ev){
+	alert(3);
+	let body = { request: "stop" };
+	sfutest.send({ message: body });
+	sfutest.hangup();
+});
+window.addEventListener("pagehide", async function(ev){
+	alert(2);
+		 	let body = { request: "stop" };
+	sfutest.send({ message: body });
+	sfutest.hangup();
+
+});

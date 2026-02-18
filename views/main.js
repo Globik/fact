@@ -604,11 +604,11 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
     </section>
     </article>
     <div><a href="/demospace">demo</a></div><br>
-    <a href="/jstream" style="font-size:3pem;">Live video from a badroom round o'clock</a><br>
+    <a href="/jstream"  class="jstream">Live video from a badroom round o'clock</a><br><br><br><br>
     <div id="startTr"><button id="transbtn" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
-		<section >FUCK <a href="https://tglinks.ru/Psyheya_XXI_vek">gruppe</a></section>
-		<br><a href="https://tglinks.ru/Globik2">Globik2</a>
+	
+		<br>
     <section id="texterst">
   ${lang=='en'?`<h1>What Is Chatikon</h1>
 <p>Want to meet people from the other side of the world? It's easier than you think. All you need to start Chatikon and hundreds of new acquaintances will be available to chat in a single click. Our video chat feature is a godsend for making friends, online dating, chit-chats, and in-depth conversations about everything under the sun. Get to know so many interesting people from all across the globe with random connections via Chatikon.</p>
@@ -995,7 +995,7 @@ window.addEventListener("load", () => {
 }, { once: true })
 </script>
     <br><br><br>
-   <footer id="pfooter">(c)2025</footer> 
+   <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;<a href="https://tglinks.ru/Globik2">@Globik2</a></footer> 
  
     
        </body>

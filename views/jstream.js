@@ -9,10 +9,11 @@ const jstream = function(n){
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.3/adapter.min.js" ></script>
 	<script src="/js/janus.js"></script>
 	</head><body>
+	<input type="hidden" id="TOK" value="${n.tok}"/>
 	<a href="/">back</a><br><br>
 	<h3>Круглосуточный видео стрим прям из спальни</h3>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
-	<article class="slot"><div id="videocontainer"><video id="remotevideo" autoplay ></video></div>
+	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video></div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
 	<div id="chatfooter"><div id="txtcontainer"><textarea id="txtarea" maxlength="150" placeholder="Your message"></textarea><button onclick="send(this);">send</button></div></div></div>
 	</article>

@@ -106,7 +106,13 @@ body{
     color: brown;
 }
 
-
+.jstream{
+	font-size:1.2rem;
+	color:blue;
+	text-decoration:underline;
+	padding:10px;
+	bordr:1px solid blue;
+}
 /* message_box */
 #out_box {
     width: 50%;

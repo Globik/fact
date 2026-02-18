@@ -264,8 +264,9 @@ app.get("/demospace", async(req, res)=>{
 	res.rendel('demospace',{});
 })
 app.get("/jstream", async(req, res)=>{
+	let token = createJWT({ mama: shortid()}, jwtsecret );
 	botMessage('see alik');
-	res.rendel('jstream',{});
+	res.rendel('jstream',{ tok: token });
 })
 app.post("/januscb", async(req,res)=>{
 	console.log(req.body);
