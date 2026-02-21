@@ -16,7 +16,9 @@ const jstream = function(n){
 	либо я оффлайн, либо вы перешли по ссылке из Телеграм. Пожалуйста, скопируйте 
 	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
-	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video></div>
+	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video>
+	<audio id="audioElement" autoplay></audio>
+	</div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
 	<div id="chatfooter"><div id="txtcontainer"><textarea id="txtarea" maxlength="150" placeholder="Your message"></textarea><button onclick="send(this);">send</button></div></div></div>
 	</article>

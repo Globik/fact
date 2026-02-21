@@ -202,105 +202,38 @@ pluginHandle.onremotetrack= function(track, mid, on, metadata) {
 										(metadata ? " (" + metadata.reason + ") ": "") + ":", track
 									);
 									let mstreamId = "mstream"+mid;
-									//if(streamsList[selectedStream] && streamsList[selectedStream].legacy)
-									//	mstreamId = "mstream0";
-									/*if(!on) {
-										// Track removed, get rid of the stream and the rendering
-										$('#remotevideo' + mid).remove();
-										if(track.kind === "video") {
-											remoteVideos--;
-											if(remoteVideos === 0) {
-												// No video, at least for now: show a placeholder
-												if($('#'+mstreamId+' .no-video-container').length === 0) {
-													$('#'+mstreamId).append(
-														'<div class="no-video-container">' +
-														'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-														'<span class="no-video-text">No remote video available</span>' +
-													'</div>');
-												}
-											}
-										}
-										delete remoteTracks[mid];
-										return;
-									}*/
-								//	if($('#remotevideo' + mid).length > 0)
-									//	return;
-									// If we're here, a new track was added
-									//$('#spinner' + mid).remove();
+									
 									let stream = null;
+									 if (!stream) {
+                           
+                            stream = new MediaStream();
+                        
+                        }
+                        
+                        
+                        stream.addTrack(track);
+                      
+                        
+                    
+                        
 									if(track.kind === "audio") {
-										// New audio track: create a stream out of it, and use a hidden <audio> element
-										stream = new MediaStream([track]);
-										//remoteTracks[mid] = stream;
+									
 										Janus.log("Created remote audio stream:", stream);
-										//$('#'+mstreamId).append('<audio class="hide" id="remotevideo' + mid + '" playsinline/>');
-										//$('#remotevideo'+mid).get(0).volume = 0;
-									/*	if(remoteVideos === 0) {
-											// No video, at least for now: show a placeholder
-											if($('#'+mstreamId+' .no-video-container').length === 0) {
-												$('#'+mstreamId).append(
-													'<div class="no-video-container audioonly">' +
-														'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-														'<span class="no-video-text">No video available</span>' +
-													'</div>');
-											}
-										}*/
+										audioElement.srcObject = stream;
+                            audioElement.play().catch(e => console.log('Ошибка воспроизведения: ' + e));
+									
+									}else if(track.kind==='video'){
+										let videoElement = document.getElementById('remotevideo');
+                         
+                            videoElement.srcObject = stream;
+                         
 									} else {
-										// New video track: create a stream out of it
-										//remoteVideos++;
-										//$('.no-video-container').remove();
-										stream = new MediaStream([track]);
-										//remoteTracks[mid] = stream;
-										Janus.log("Created remote video stream:", stream);
-									//	$('#'+mstreamId).append('<video class="rounded centered hide" id="remotevideo' + mid + '" width="100%" height="100%" playsinline/>');
-										//$('#remotevideo'+mid).get(0).volume = 0;
-										// Use a custom timer for this stream
-										/*if(!bitrateTimer[mid]) {
-											$('#curbitrate'+mid).removeClass('hide');
-											bitrateTimer[mid] = setInterval(function() {
-												if(!$("#remotevideo" + mid).get(0))
-													return;
-												// Display updated bitrate, if supported
-												let bitrate = streaming.getBitrate(mid);
-												$('#curbitrate'+mid).text(bitrate);
-												// Check if the resolution changed too
-												let width = $("#remotevideo" + mid).get(0).videoWidth;
-												let height = $("#remotevideo" + mid).get(0).videoHeight;
-												if(width > 0 && height > 0)
-													$('#curres'+mid).removeClass('hide').text(width+'x'+height).removeClass('hide');
-											}, 1000);
-										}*/
+										
+									
 									}
-									// Play the stream when we get a playing event
-									/*$("#remotevideo" + mid).bind("playing", function (ev) {
-										$('.waitingvideo').remove();
-										if(!this.videoWidth)
-											return;
-										$('#'+ev.target.id).removeClass('hide');
-										let width = this.videoWidth;
-										let height = this.videoHeight;
-										$('#curres'+mid).removeClass('hide').text(width+'x'+height).removeClass('hide');
-										if(Janus.webRTCAdapter.browserDetails.browser === "firefox") {
-											// Firefox Stable has a bug: width and height are not immediately available after a playing
-											setTimeout(function() {
-												let width = $('#'+ev.target.id).get(0).videoWidth;
-												let height = $('#'+ev.target.id).get(0).videoHeight;
-												$('#curres'+mid).removeClass('hide').text(width+'x'+height).removeClass('hide');
-											}, 2000);
-										}
-									});*/
-									Janus.attachMediaStream(document.querySelector('#remotevideo' ),stream);
-									/*let playPromise = document.querySelector('#remotevideo').play();
-									if (playPromise !== undefined) {
-										playPromise
-											.then(function() {
-												Janus.log('Started playing')
-											})
-											.catch(function(error) {
-												Janus.error('Failed to play', error)
-											});
-									}*/
-									//$('#remotevideo' + mid).get(0).volume = 1;
+									
+									//Janus.attachMediaStream(document.querySelector('#remotevideo' ),stream);
+									
 								},
 								// eslint-disable-n
         // 4. КЛЮЧЕВОЙ ОБРАБОТЧИК: сработает, когда библиотека janus.js подключит поток к PeerConnection
