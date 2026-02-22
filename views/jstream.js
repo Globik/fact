@@ -10,6 +10,7 @@ const jstream = function(n){
 	<script src="/js/janus.js"></script>
 	</head><body>
 	<input type="hidden" id="TOK" value="${n.tok}"/>
+	<input type="hidden" id="userName" value="${n.user?n.user.name:'anon'}">
 	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>
 	<h3>Круглосуточный видео стрим прям из спальни</h3>
 	<p>Если вы нажали на треугольник и ничего не происходит, то весьма вероятно, что

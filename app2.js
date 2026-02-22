@@ -1443,7 +1443,7 @@ WHERE created_at < (
         LIMIT 1 OFFSET 39
     ) AS tmp
 );`);
-		let result = await db.query('select message from chat_messages');
+		let result = await db.query('select message,fromi from chat_messages');
 	
 
 		res.json({result:result});
@@ -2396,7 +2396,8 @@ async function broadcast_janus(ws, obj){
 		}
 	}
 	try{
-	if(obj.value)	await pool.query('insert into chat_messages(message) values(?)', [obj.value]);	
+		//console.log('from ',obj.from);
+	if(obj.value)	await pool.query('insert into chat_messages(message,fromi) values(?,?)', [obj.value,obj.from]);	
 		}catch(e){
 			//console.log(e);
 			}	

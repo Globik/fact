@@ -323,8 +323,8 @@ function on_msg(a){
 function insert_message(a){
 let div=document.createElement('div');
 	div.className="msg";
-	//div.innerHTML="<span><b>" + "anon" + ": </b></span><br><span>" + esci(a.value.trim()) + "</span>";
-	div.innerHTML = "<span>" + esci(a.value.trim()) + "</span>";
+	div.innerHTML="<span><b>" + (a.fromi?a.fromi:"anon") + ": </b></span><br><span>" + esci(a.value.trim()) + "</span>";
+	//div.innerHTML = "<span>" + esci(a.value.trim()) + "</span>";
 	chatbox.appendChild(div);
 	chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
 	}
@@ -333,6 +333,8 @@ let div=document.createElement('div');
 	if(!sock) return;
 	let d;
 	obj.type = "janusstream";
+	//alert(userName.value);
+	obj.from = userName.value;
 	try{
 		d = JSON.stringify(obj);
 		if(sock.readyState == WebSocket.OPEN)sock.send(d);
@@ -350,12 +352,13 @@ async function getMessages(){
 		//console.log(di.result);
 		if(di.result.length > 0 ){
 			di.result.forEach(function(el, i){
-				insert_message({value: el.message});
+				console.log(el);
+				insert_message({fromi:(el.fromi?el.fromi:'anon'), value: el.message});
 			});
 		}
 		 
 	  }}catch(e){
-		  console.error(e);
+		//  console.error(e);
 	  }
 }
 getMessages();
@@ -367,12 +370,14 @@ window.addEventListener("beforeunload",  function(ev){
 	sfutest.hangup();
 });
 document.addEventListener('visibilitychange', function(ev){
+	return;
 	//alert(3);
 	let body = { request: "stop" };
 	sfutest.send({ message: body });
 	sfutest.hangup();
 });
 window.addEventListener("pagehide", async function(ev){
+	return;
 	//alert(2);
 		 	let body = { request: "stop" };
 	sfutest.send({ message: body });
