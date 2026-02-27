@@ -17,7 +17,7 @@ services:
     environment:
       - JANUS_CERT_PEM=/etc/janus/certs/fullchain.pem
       - JANUS_CERT_KEY=/etc/janus/certs/privkey.pem  
-      #- "./janus-plugins:/opt/janus/lib/janus/plugins:ro"
+      #- "./janus-plugins/plugins:/opt/janus/lib/janus/plugins:ro"
     #ports:
      # - "0.0.0.0:8188:8188"
     

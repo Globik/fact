@@ -1,5 +1,6 @@
 general: {
-	plugins_folder = "/usr/local/etc/janus"
+	#plugins_folder = "/usr/local/etc/janus"
+	plugins_folder = "/usr/local/lib/janus/plugins"
 }
 certificates: {
 	cert_pem = "/etc/janus/certs/fullchain.pem"
