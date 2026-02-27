@@ -12,7 +12,7 @@ services:
       - "./conf/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
       - "./conf/janus.plugin.videoroom.jcfg:/usr/local/etc/janus/janus.plugin.videoroom.jcfg"
       - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
-      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/jansus.transport.http.jgfg"
+      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/janus.transport.http.jgfg"
       - "./certs:/etc/janus/certs:ro"
     environment:
       - JANUS_CERT_PEM=/etc/janus/certs/fullchain.pem
