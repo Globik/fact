@@ -3,11 +3,11 @@
 var server = null;
 var sfutest = null;
 if(window.location.protocol === 'http:'){
-	//server = "ws://" + window.location.hostname + ":8188/janus";
-	server="http://"+window.location.hostname+":8088/janus"
+	server = "ws://" + window.location.hostname + ":8188/janus";
+	//server="http://"+window.location.hostname+":8088/janus"
 }else{
-	//server = "wss://" + window.location.hostname + ":8990/janus";//:8989/janus";
-	server="https://"+window.location.hostname+":8089/janus"
+	server = "wss://" + window.location.hostname + ":8990/janus";//:8989/janus";
+	//server="https://"+window.location.hostname+":8089/janus"
 }
 
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
