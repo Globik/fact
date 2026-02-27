@@ -13,7 +13,7 @@ const jstream = function(n){
 	<input type="hidden" id="userName" value="${n.user?n.user.name:'anon'}">
 	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>
 	<h3>Круглосуточный видео стрим прям из спальни</h3>
-	<iframe src="https://www.donationalerts.com/widget/goal/9435939?token=zJbKhjvFGsvKoGt0SDPf" frameborder="0" width="100%" height="200"></iframe>
+
 	<p>Если вы нажали на треугольник и ничего не происходит, то весьма вероятно, что
 	либо я оффлайн, либо вы перешли по ссылке из Телеграм. Пожалуйста, скопируйте 
 	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
@@ -24,7 +24,7 @@ const jstream = function(n){
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
 	<div id="chatfooter"><div id="txtcontainer"><textarea id="txtarea" maxlength="150" placeholder="Your message"></textarea><button onclick="send(this);">send</button></div></div></div>
 	</article>
-	<iframe src="https://www.donationalerts.com/widget/goal/9435939?token=zJbKhjvFGsvKoGt0SDPf" frameborder="0" width="100%" height="200"></iframe>
+	
 	<script src="/js/jstream.js"></script>
 	<footer id="pfooter">(c)2025</footer> 
 	</body></html>`;

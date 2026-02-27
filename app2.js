@@ -82,7 +82,8 @@ const pool = mariadb.createPool({
     password: process.env.DB_PASSWORD,
     connectionLimit: 5 ,
    // trace: true,
-    database:'chatikon'
+    database:'chatikon',
+    bigIntAsNumber: true
 });
 const app = express();
 const suka = "./public";
@@ -2538,3 +2539,382 @@ function janusclose(socket){
 		}
 	}
 }
+const { ApiClient } = require('@donation-alerts/api');
+const { CentrifugoClient } = require('@donation-alerts/events');
+const { v4: uuidv4 } = require('uuid');
+const { RefreshingAuthProvider } = require('@donation-alerts/auth');
+
+
+// temporary-auth.js
+
+
+//const crypto = require('crypto');
+
+
+
+// Твои данные из приложения
+const CLIENT_ID = '17624';
+const CLIENT_SECRET = 'e0mjT1cwCfsgBQqS2s4CFG6Ssh8HlJqhBsszCfd9';
+const REDIRECT_URI = 'http://localhost:3000/callback';
+
+app.get('/getToken', (req, res) => {
+  const state = crypto.randomBytes(16).toString('hex');
+  const authUrl = `https://www.donationalerts.com/oauth/authorize?` +
+    `client_id=${CLIENT_ID}&` +
+    `redirect_uri=${REDIRECT_URI}&` +
+    `response_type=code&` +
+    `scope=oauth-user-show oauth-donation-index oauth-donation-subscribe&` +
+    `state=${state}`;
+  
+  res.redirect(authUrl);
+});
+
+app.get('/callback', async (req, res) => {
+  const { code } = req.query;
+  
+  try {
+    const tokenResponse = await axios.post('https://www.donationalerts.com/oauth/token', 
+      new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        code: code,
+        redirect_uri: REDIRECT_URI
+      }), {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }
+    );
+    
+    const { access_token, refresh_token, expires_in } = tokenResponse.data;
+    
+    // Получаем свой user_id
+    const userResponse = await axios.get('https://www.donationalerts.com/api/v1/user/oauth', {
+      headers: { 'Authorization': `Bearer ${access_token}` }
+    });
+    
+    const userId = userResponse.data.data.id;
+    
+    console.log('\n🔥 СОХРАНИ ЭТИ ДАННЫЕ В БАЗУ:');
+    console.log('--------------------------------');
+    console.log(`User ID: ${userId}`);
+    console.log(`Access Token: ${access_token}`);
+    console.log(`Refresh Token: ${refresh_token}`);
+    console.log(`Expires In: ${expires_in} секунд`);
+    console.log('--------------------------------\n');
+    
+    res.send('✅ Токены получены! Скопируй их из консоли.');
+    
+  } catch (error) {
+    console.error('Ошибка:', error.response?.data || error.message);
+    res.send('❌ Ошибка. Смотри консоль.');
+  }
+});
+
+
+
+// db.js
+
+
+
+class TokenStorage {
+  // Сохранить или обновить токены пользователя
+  async saveUserTokens(daUserId, tokenData) {
+    let conn;
+    try {
+    //  conn = await pool.getConnection();
+      
+      const {
+        accessToken,
+        refreshToken,
+        expiresIn,
+        obtainmentTimestamp,
+        scopes = []
+      } = tokenData;
+
+      // Преобразуем массив scopes в строку через запятую
+      const scopesString = Array.isArray(scopes) ? scopes.join(',') : scopes;
+
+      const result = await pool.query(
+        `INSERT INTO donationalerts 
+         (da_user_id, access_token, refresh_token, expires_in, obtainment_timestamp, scopes) 
+         VALUES (?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE
+         access_token = VALUES(access_token),
+         refresh_token = VALUES(refresh_token),
+         expires_in = VALUES(expires_in),
+         obtainment_timestamp = VALUES(obtainment_timestamp),
+         scopes = VALUES(scopes)`,
+        [
+          daUserId,
+          accessToken,
+          refreshToken,
+          expiresIn,
+          obtainmentTimestamp,
+          scopesString
+        ]
+      );
+      
+      console.log(`✅ Токены для пользователя ${daUserId} сохранены в MariaDB`);
+      return result;
+      
+    } catch (error) {
+      console.error('❌ Ошибка сохранения токенов:', error);
+    //  throw error;
+    } finally {
+     // if (conn) conn.release(); // Всегда освобождаем соединение
+    }
+  }
+
+  // Получить токены пользователя
+  async getUserTokens(daUserId) {
+    let conn;
+    try {
+    //  conn = await pool.getConnection();
+      
+      const rows = await pool.query(
+        'SELECT * FROM donationalerts WHERE da_user_id = ?',
+        [daUserId]
+      );
+      
+      if (rows.length === 0) {
+        return null;
+      }
+      
+      const user = rows[0];
+      
+      // Преобразуем строку scopes обратно в массив
+      if (user.scopes) {
+        user.scopes = user.scopes.split(',').filter(s => s.trim());
+      }
+      
+      return {
+        accessToken: user.access_token,
+        refreshToken: user.refresh_token,
+        expiresIn: user.expires_in,
+        obtainmentTimestamp: user.obtainment_timestamp,
+        scopes: user.scopes || []
+      };
+      
+    } catch (error) {
+      console.error('❌ Ошибка получения токенов:', error);
+     // throw error;
+    } finally {
+     // if (conn) conn.release();
+    }
+  }
+
+  // Получить всех пользователей (если нужно)
+  async getAllUsers() {
+    let conn;
+    try {
+     // conn = await pool.getConnection();
+      const rows = await pool.query('SELECT da_user_id FROM donationalerts');
+      return rows.map(row => row.da_user_id);
+    } catch (error) {
+      console.error('❌ Ошибка получения пользователей:', error);
+      throw error;
+    } finally {
+     // if (conn) conn.release();
+    }
+  }
+
+  // Удалить пользователя (если нужно отозвать доступ)
+  async deleteUser(daUserId) {
+    let conn;
+    try {
+     // conn = await pool.getConnection();
+      await pool.query('DELETE FROM donationalerts WHERE da_user_id = ?', [daUserId]);
+      console.log(`🗑️ Пользователь ${daUserId} удален`);
+    } catch (error) {
+      console.error('❌ Ошибка удаления пользователя:', error);
+      //throw error;
+    } finally {
+      //if (conn) conn.release();
+    }
+  }
+}
+
+var tokenStorage = new TokenStorage();
+// auth.js
+
+//const tokenStorage = require('./db');
+
+const authProvider = new RefreshingAuthProvider({
+  clientId: 17624, //process.env.CLIENT_ID,
+  clientSecret: 'e0mjT1cwCfsgBQqS2s4CFG6Ssh8HlJqhBsszCfd9',//process.env.CLIENT_SECRET,
+  redirectUri: 'https://localhost:3000/callback', //process.env.REDIRECT_URI,
+  scopes: ['oauth-user-show', 'oauth-donation-index', 'oauth-donation-subscribe']
+});
+
+// 🔥 Критически важно: сохраняем токены при каждом обновлении
+authProvider.onRefresh(async (userId, token) => {
+  console.log(`🔄 Токен для пользователя ${userId} был обновлен, сохраняем в MariaDB`);
+  
+  await tokenStorage.saveUserTokens(userId, {
+    accessToken: token.accessToken,
+    refreshToken: token.refreshToken,
+    expiresIn: token.expiresIn,
+    obtainmentTimestamp: token.obtainmentTimestamp,
+    scopes: token.scopes
+  });
+});
+
+// Функция для добавления пользователя после OAuth
+async function addUserAfterOAuth(daUserId, tokenData) {
+  // Сохраняем в authProvider (в память)
+  authProvider.addUser(daUserId, {
+    accessToken: tokenData.accessToken,
+    refreshToken: tokenData.refreshToken,
+    expiresIn: tokenData.expiresIn,
+    obtainmentTimestamp: tokenData.obtainmentTimestamp,
+    scopes: tokenData.scopes
+  });
+  
+  // Сохраняем в MariaDB
+  await tokenStorage.saveUserTokens(daUserId, tokenData);
+  
+  return authProvider;
+}
+
+// Функция для загрузки всех пользователей при старте сервера
+async function loadUsersFromDB() {
+  try {
+    const userIds = await tokenStorage.getAllUsers();
+    
+    for (const daUserId of userIds) {
+      const tokenData = await tokenStorage.getUserTokens(daUserId);
+      if (tokenData) {
+        // Добавляем пользователя в authProvider
+        authProvider.addUser(daUserId, {
+          accessToken: tokenData.accessToken,
+          refreshToken: tokenData.refreshToken,
+          expiresIn: tokenData.expiresIn,
+          obtainmentTimestamp: tokenData.obtainmentTimestamp,
+          scopes: tokenData.scopes
+        });
+        console.log(`👤 Пользователь ${daUserId} загружен из MariaDB`);
+      }
+    }
+  } catch (error) {
+    console.error('❌ Ошибка загрузки пользователей из БД:', error);
+  }
+}
+
+// Автоматически загружаем пользователей при импорте модуля
+loadUsersFromDB();
+
+//module.exports = { authProvider, addUserAfterOAuth, loadUsersFromDB };
+// callback.js (эндпоинт /callback)
+//const { authProvider, addUserAfterOAuth } = require('./auth');
+//const tokenStorage = require('./db');
+
+app.get('/callback333', async (req, res) => {
+	console.log('hier soll callback donationalerts' , req.user?req.user.id:'no id');
+  const { code } = req.query;
+  
+  try {
+    // Обмениваем код на токен и сразу добавляем пользователя
+    const tokenWithUser = await authProvider.addUserForCode(code, [
+      'oauth-user-show', 
+      'oauth-donation-index', 
+      'oauth-donation-subscribe'
+    ]);
+    
+    console.log('✅ Получены токены для пользователя:', tokenWithUser.userId);
+    
+    // Сохраняем в MariaDB
+    await tokenStorage.saveUserTokens(tokenWithUser.userId, {
+      accessToken: tokenWithUser.accessToken,
+      refreshToken: tokenWithUser.refreshToken,
+      expiresIn: tokenWithUser.expiresIn,
+      obtainmentTimestamp: tokenWithUser.obtainmentTimestamp,
+      scopes: tokenWithUser.scopes
+    });const { ApiClient } = require('@donation-alerts/api');
+const { CentrifugoClient } = require('@donation-alerts/events');
+const { v4: uuidv4 } = require('uuid');
+    
+    res.send('✅ Авторизация успешна! Токены сохранены в MariaDB.');
+  } catch (error) {
+    console.error('❌ Ошибка:', error);
+    res.status(500).send('Ошибка авторизации');
+  }
+});
+
+app.post('/api/create-payment', async (req, res) => {
+  const { username, amount, message } = req.body;
+  
+  try {
+    // Получаем токен из БД (предположим, у нас один пользователь - стример)
+    const userTokens = await tokenStorage.getUserTokens(YOUR_DA_USER_ID);
+    
+    if (!userTokens) {
+      return res.status(401).json({ error: 'Пользователь не авторизован' });
+    }
+    
+    // Создаем платеж через DonationAlerts API
+    const response = await axios.post(
+      'https://www.donationalerts.com/api/v1/payments/create',
+      {
+        amount: amount,
+        currency: 'RUB',
+        description: 'Донат на стриме',
+        custom: { 
+          username: username || 'Аноним',
+          message: message || '',
+          goal_id: 'new_triko_2026'
+        },
+        redirect_url: 'http://localhost:3000/success',
+        webhook_url: 'http://localhost:3000/api/donation-webhook'
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${userTokens.accessToken}`,
+          'Content-Type': 'application/json'
+           }
+      }
+    );
+    
+    res.json({ payment_url: response.data.payment_url });
+    
+  } catch (error) {
+    console.error('❌ Ошибка создания платежа:', error);
+    res.status(500).json({ error: 'Ошибка создания платежа' });
+  }
+});
+
+// Запуск WebSocket слушателя донатов
+async function startDonationListener() {
+	return;
+  const apiClient = new ApiClient({ authProvider });
+  
+  // Получаем токен для подключения к WebSocket
+  const connectionToken = await apiClient.users.getSocketConnectionToken(YOUR_DA_USER_ID);
+  const clientId = uuidv4();
+  
+  // Подписываемся на канал донатов
+  const donationChannel = await apiClient.centrifugo.subscribeUserToDonationAlertEvents(
+    YOUR_DA_USER_ID, 
+    clientId
+  );
+  
+  const centrifugoClient = new CentrifugoClient({
+    url: 'wss://centrifugo.donationalerts.com/connection/websocket',
+    token: connectionToken
+     });
+  
+  centrifugoClient.subscribe(donationChannel.channel, (ctx) => {
+    const donation = ctx.data.data;
+    console.log('🎉 Получен донат:', donation);
+    
+    // Здесь рассылаешь своим клиентам через WebSocket
+    // wsServer.broadcastDonation(donation);
+    
+  }, { token: donationChannel.token });
+  
+  centrifugoClient.connect();
+}
+ startDonationListener().catch('er don list ', console.error);
+app.post('/api/donation-webhook', async(req,res)=>{
+	console.log('hook ', req.body);
+	res.send('ok');
+})

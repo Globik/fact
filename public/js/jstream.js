@@ -5,7 +5,7 @@ var sfutest = null;
 if(window.location.protocol === 'http:'){
 	server = "ws://" + window.location.hostname + ":8188/janus";
 }else{
-	server = "wss://" + window.location.hostname + ":8989/janus";//:8989/janus";
+	server = "wss://" + window.location.hostname + ":8990/janus";//:8989/janus";
 }
 
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
