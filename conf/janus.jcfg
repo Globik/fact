@@ -5,3 +5,7 @@ certificates: {
 	cert_pem = "/etc/janus/certs/fullchain.pem"
 	cert_key = "/etc/janus/certs/privkey.pem"
 	}
+nat: {
+	#stun_server = "stun.voip.eutelia.it"
+	#stun_port = 3478
+	}
