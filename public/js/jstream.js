@@ -317,7 +317,9 @@ function get_socket() {
 get_socket();
 function on_msg(a){
 	if(a.type == "janusstream"){
+	
 		insert_message(a);
+	
 	}else if(a.type == "januscount"){
 		janusCount.textContent = a.count;
 	}
@@ -355,7 +357,10 @@ async function getMessages(){
 		if(di.result.length > 0 ){
 			di.result.forEach(function(el, i){
 				console.log(el);
+					//for(var i=0;i<40;i++){
 				insert_message({fromi:(el.fromi?el.fromi:'anon'), value: el.message});
+				
+//}
 			});
 		}
 		 
