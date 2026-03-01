@@ -2,7 +2,7 @@
 -- source /root/fact/sql/donationalerts.sql
 
 CREATE TABLE IF NOT EXISTS donationalerts (
-    id id MEDIUMINT NOT NULL ,
+    id MEDIUMINT NOT NULL ,
     da_user_id BIGINT UNSIGNED NOT NULL UNIQUE,
     access_token TEXT NOT NULL,
     refresh_token TEXT NOT NULL,
