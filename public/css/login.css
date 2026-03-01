@@ -171,14 +171,14 @@ button {
 .flex {
   display: flex;
 }
-@media screen and (max-width: 452px) and (orientation: portrait){
+@media screen and (max-width: 773px) and (orientation: portrait){
 #loginoutput{
-	width:100%;
+	width:98%;
 }
 #regelnoutput{
-	width:100%;
+	width:98%;
 }
 .modal-body{
-	width:100%;
+	width:98%;
 }
 }

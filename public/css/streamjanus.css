@@ -55,7 +55,7 @@ article.slot{
 			}
 			#chatbox{
 				width:100%;
-				background:blue;
+				background:white;
 				
 				height:calc(90vh - 40px - 40px);
 				overflow-y:auto;
@@ -88,6 +88,10 @@ article.slot{
 				article.slot{
 					display:block;
 					height:90vh;
+				}
+				#chatbox{
+					height:calc(45vh - 40px - 40px);
+					backgound:green;
 				}
 				#videocontainer{
 					height:45vh;
