@@ -10,6 +10,21 @@ html,body{
 #startTr{
 	text-align:center;
 }
+.jstream{
+	font-size:3rem;
+}
+.tetstrong{
+text-align:center;
+font-weight:bold;
+font-size:4rem;
+color:red;
+}
+.tetcont{
+	border:8px solid green;
+	padding:10px;
+	text-align:center;
+}
+}
 #transbtn{
 	height:40px;
 	padding:50px;

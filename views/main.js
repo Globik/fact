@@ -604,7 +604,11 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
     </section>
     </article>
     <div><a href="/demospace">demo</a></div><br>
-    <a href="/jstream"  class="jstream">Живое видео из спальни 24 часа в сутки. Перейти в стрим</a><br><br><br><br>
+    <div class="tetcont">
+    <a href="/jstream"  class="jstream">Живое видео из спальни 24 часа в сутки. Перейти в стрим
+    <br><br><img class="tet" src="/img/tet.jpg"/>
+    <div class="tetdiv"><strong class="tetstrong">Live Video from a bedroom!!! 24 hours!</strong></div>
+    </a></div><br><br><br><br>
     <div id="startTr"><button id="transbtn" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
 	
