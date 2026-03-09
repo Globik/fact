@@ -376,7 +376,7 @@ window.onhashchange = function(ev){
      var partnernick = "${n.imgData&&n.imgData.img_data?n.imgData.nick:''}";
      </script>
   
-	 <script>
+	<!-- <script>
 	 function getTop(){
 	 if(Brole.value==="admin") return;
 	 // if(Prem.value !="n") return;
@@ -392,7 +392,7 @@ window.onhashchange = function(ev){
 })
 	 }
 	getTop();
-	 </script> 
+	 </script> -->
      <article id="mediabox">
     <nav id="navpanel"><div class="nav"><b>Онлайн: <span id="onlineCount">0</span></b>&nbsp;&nbsp;&nbsp; <b id="VKUSERNAME">${n.user?n.user.name:'anon'}</b>
  
