@@ -925,7 +925,7 @@ if(isLogin.value=="false") getReklama();
     <script src="/js/hjanus.js"></script>
    <!-- <script src="/js/mediasoupadmin.js"></script> -->
     
-    
+    <!--
     <script>
 window.addEventListener("load", () => {
 	return;
@@ -972,6 +972,7 @@ window.addEventListener("load", () => {
     }
     renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
 }, { once: true })
+-->
 </script>
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;<a href="https://tglinks.ru/Globik2">@Globik2</a></footer> 
