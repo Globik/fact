@@ -972,8 +972,8 @@ window.addEventListener("load", () => {
     }
     renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
 }, { once: true })
--->
-</script>
+
+</script> -->
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;<a href="https://tglinks.ru/Globik2">@Globik2</a></footer> 
   <script>

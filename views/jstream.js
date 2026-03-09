@@ -33,7 +33,7 @@ const jstream = function(n){
 	 
 	 
 window.yaContextCb.push(()=>{
-     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
+    // if(Ya.Context.AdvManager.getPlatform()==='desktop'){
 		 
 		 Ya.Context.AdvManager.render({
 			 "blockId":"R-A-14255767-2",
@@ -45,15 +45,16 @@ window.yaContextCb.push(()=>{
 		
 		}
 			})
-		 }else{
-		 
+		})
+		// }else{
+		 window.yaContextCb.push(()=>{
 		 Ya.Context.AdvManager.render({
 		 "blockId":"R-A-14255767-1",
 		 "type":"floorAd",
 			"platform":"touch",
 			
 		})
-			}
+			
 			})
 	 </script>
 	</body></html>`;
