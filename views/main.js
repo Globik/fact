@@ -607,7 +607,8 @@ ${n.VK?'':`<!-- <div id="giftbox2" data-state="closed">
     <div class="tetcont">
     <a href="/jstream"  class="jstream">Живое видео из спальни 24 часа в сутки. Перейти в стрим
     <br><br><img class="tet" src="/img/tet.jpg"/>
-    <div class="tetdiv"><strong class="tetstrong">Live Video from a bedroom!!! 24 hours!</strong></div>
+    <div class="tetdiv"><strong class="tetstrong">Live Video from a bedroom!!! 24 hour
+    s!</strong></div>
     </a></div><br><br><br><br>
     <div id="startTr"><button id="transbtn" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka">Пока никого. Будьте первыми.</div></section>
@@ -682,33 +683,7 @@ ${lang=='zh'?`<h1>什么是Chatikon</h1>
  }
 if(isLogin.value=="false") getReklama();
 	 </script> 
-	 <script>
-	 
-	 
-window.yaContextCb.push(()=>{
-     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
-		 
-		 Ya.Context.AdvManager.render({
-			 "blockId":"R-A-14255767-2",
-			// "renderTo":"yandex_rtb_R-A-12098170-1
-			"type":"floorAd",
-			"platform":"desktop",
-			"onClose":function(){
-			console.log("Reklama closed")
-		
-		}
-			})
-		 }else{
-		 
-		 Ya.Context.AdvManager.render({
-		 "blockId":"R-A-14255767-1",
-		 "type":"floorAd",
-			"platform":"touch",
-			
-		})
-			}
-			})
-	 </script>
+
 	 
 	 `}
 	 ${getSeoText.getSeoText(lang)}
@@ -1000,7 +975,33 @@ window.addEventListener("load", () => {
 </script>
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;<a href="https://tglinks.ru/Globik2">@Globik2</a></footer> 
- 
+  <script>
+	 
+	 
+window.yaContextCb.push(()=>{
+     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
+		 
+		 Ya.Context.AdvManager.render({
+			 "blockId":"R-A-14255767-2",
+			// "renderTo":"yandex_rtb_R-A-12098170-1
+			"type":"floorAd",
+			"platform":"desktop",
+			"onClose":function(){
+			console.log("Reklama closed")
+		
+		}
+			})
+		 }else{
+		 
+		 Ya.Context.AdvManager.render({
+		 "blockId":"R-A-14255767-1",
+		 "type":"floorAd",
+			"platform":"touch",
+			
+		})
+			}
+			})
+	 </script>
     
        </body>
 </html>`;
