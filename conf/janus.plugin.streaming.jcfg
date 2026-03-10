@@ -306,12 +306,12 @@ h264-sample: {
 	type = "rtp"
 	id = 10
 	description = "H.264 live stream coming from gstreamer"
-	audio = true
-	audioport=9000
+	audio = false
+	#audioport=9000
 	video = true
 	audiopt = 96
-    audiocodec = "opus"
-    audiortpmap = "opus/48000/2" 
+    #audiocodec = "opus"
+    #audiortpmap = "opus/48000/2" 
 	videoport = 5000
 	videopt = 96
 	videocodec = "h264"
