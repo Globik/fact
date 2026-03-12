@@ -106,11 +106,16 @@ getMessages();
           const hls = new Hls({
       // ✅ Важно для live-стрима:
       debug:false,
-      liveSyncDurationCount: 3,
-      liveMaxLatencyDurationCount: 6,
+      
+       liveSyncDurationCount: 2,
+      liveMaxLatencyDurationCount: 4,
+      maxBufferLength: 3,
+      maxMaxBufferLength: 6,
+      maxBufferSize: 30 * 1000 * 1000, // 30 MB
+      maxBufferHole: 0.5,
+      lowLatencyMode: true,
       enableWorker: true,
-      lowLatencyMode: false,
-      backBufferLength: 90
+      backBufferLength: 10
     });
           hls.loadSource(source);
           hls.attachMedia(video);
