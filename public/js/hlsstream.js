@@ -102,7 +102,16 @@ getMessages();
         const source = '/media/index.m3u8';
 
         if (Hls.isSupported()) {
-          const hls = new Hls({ debug: true, enableWorker: true });
+        //  const hls = new Hls({ debug: true, enableWorker: true });
+          const hls = new Hls({
+      // ✅ Важно для live-стрима:
+      debug:false,
+      liveSyncDurationCount: 3,
+      liveMaxLatencyDurationCount: 6,
+      enableWorker: true,
+      lowLatencyMode: false,
+      backBufferLength: 90
+    });
           hls.loadSource(source);
           hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
