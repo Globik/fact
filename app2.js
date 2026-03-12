@@ -253,6 +253,92 @@ async function botMessage(txt){
 		console.log(e);
 		}
 }
+/*
+ 
+gst-launch-1.0 v4l2src device=/dev/video0 ! \
+video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 ! \
+videoconvert ! \
+x264enc speed-preset=ultrafast tune=zerolatency ! \
+h264parse ! \
+video/x-h264, stream-format=avc, alignment=au ! \
+avdec_h264 ! \
+videoconvert ! \
+autovideosink
+
+ gst-launch-1.0 v4l2src device=/dev/video0 ! \
+video/x-raw, format=YUY2, width=1280, height=720, framerate=30/1 ! \
+videoconvert ! \
+x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
+h264parse ! \
+video/x-h264, stream-format=byte-stream, alignment=nal ! \
+mpegtsmux ! \
+hlssink2 location=/public/media/segment_%05d.ts \
+playlist-location=/public/media/index.m3u8 \
+max-files=5 target-duration=2
+* 
+* gst-launch-1.0 v4l2src device=/dev/video0 ! \
+video/x-raw, format=YUY2, width=1280, height=720, framerate=30/1 ! \
+videoconvert ! \
+x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
+h264parse ! \
+mpegtsmux ! \
+hlssink location=/public/media/segment_%05d.ts \
+playlist-location=/public/media/index.m3u8 \
+max-files=5 target-duration=2
+* 
+* gst-launch-1.0 v4l2src device=/dev/video0 ! \
+videoconvert ! \
+x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
+h264parse ! \
+mpegtsmux ! \
+hlssink location=public/media/segment_%05d.ts \
+playlist-location=public/media/index.m3u8 \
+max-files=5 target-duration=2
+
+* 
+* 
+* 
+* 
+* gst-launch-1.0 libcamerasrc ! \
+video/x-raw, width=240, height=280, framerate=30/1 ! \
+videoconvert ! \
+x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
+h264parse ! \
+mpegtsmux ! \
+hlssink location=media/segment_%05d.ts \
+playlist-location=media/index.m3u8 \
+max-files=5 target-duration=2
+* 
+* 
+* gst-launch-1.0 v4l2src device=/dev/video0 ! \
+video/x-raw, width=1280, height=720, framerate=30/1 ! \
+videoconvert ! \
+v4l2h264enc extra-controls="controls,repeat_sequence_header=1,video_bitrate=2500000" ! \
+h264parse ! \
+video/x-h264, stream-format=byte-stream, alignment=nal ! \
+mpegtsmux ! \
+hlssink location=media/segment_%05d.ts \
+playlist-location=media/index.m3u8 \
+max-files=5 target-duration=2
+ */
+ 
+ const HLS_PATH = path.join(__dirname, 'public', 'media');
+
+// Раздача HLS-файлов
+app.use('/media', express.static(HLS_PATH, {
+  setHeaders: (res, filepath) => {
+    // Правильные MIME-типы для HLS
+    if (filepath.endsWith('.m3u8')) {
+      res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    } else if (filepath.endsWith('.ts')) {
+      res.setHeader('Content-Type', 'video/mp2t');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+    }
+    // Разрешаем CORS для плеера на другом домене
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+}));
 app.get("/", async(req, res)=>{
 	//console.log("REQ.QUERY: ", req.query);
 	let token = createJWT({ mama: shortid()}, jwtsecret );

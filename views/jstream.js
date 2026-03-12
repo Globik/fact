@@ -8,6 +8,7 @@ const jstream = function(n){
 	<script src="/js/globalik.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.3/adapter.min.js" ></script>
 	<script src="/js/janus.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 	<script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
 	</head><body>
@@ -19,6 +20,7 @@ const jstream = function(n){
 	<p>Если вы нажали на треугольник и ничего не происходит, то весьма вероятно, что
 	либо я оффлайн, либо вы перешли по ссылке из Телеграм. Пожалуйста, скопируйте 
 	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
+	<div id="status"></div>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
 	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video>
 	<audio id="audioElement" autoplay></audio>
@@ -27,7 +29,8 @@ const jstream = function(n){
 	<div id="chatfooter"><div id="txtcontainer"><textarea id="txtarea" maxlength="150" placeholder="Your message"></textarea><button onclick="send(this);">send</button></div></div></div>
 	</article>
 	
-	<script src="/js/jstream.js"></script>
+	<!-- <script src="/js/jstream.js"></script> -->
+	<script src="/js/hlsstream.js"></script> 
 	<footer id="pfooter">(c)2025</footer> 
 	 <script>
 	 
