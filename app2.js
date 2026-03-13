@@ -356,6 +356,22 @@ v4l2h264enc extra-controls="controls,video_bitrate=2500000,key_int_max=60" ! \
 h264parse ! \
 fakesink
 * 
+* 
+* 
+* 
+* gst-launch-1.0 \
+   libcamerasrc ! queue ! capsfilter caps=video/x-raw,width=640,height=480,framerate=25/1,format=NV12 ! \
+   v4l2h264enc extra-controls="controls,repeat_sequence_header=1,force_key_frame=2,video_bitrate=256000,video_gop_size=30" ! \
+   'video/x-h264,level=(string)4' ! h264parse config-interval=25 ! rtph264pay pt=96 config-interval=25 ! udpsink host=5.35.88.151 port=5000 sync=false
+gst-launch-1.0 \
+libcamerasrc ! \
+queue ! \
+videoconvert ! \
+capsfilter caps=video/x-raw,width=640,height=480,framerate=25/1,format=I420 ! \
+x264enc speed-preset=ultrafast tune=zerolatency bitrate=256 key_int_max=30 ! \
+h264parse config-interval=25 ! \
+rtph264pay pt=96 config-interval=25 ! \
+udpsink host=5.35.88.151 port=5000 sync=false
  */
  
  const HLS_PATH = path.join(__dirname, 'public', 'media');

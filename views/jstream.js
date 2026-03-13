@@ -22,7 +22,7 @@ const jstream = function(n){
 	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
 	<div id="status"></div>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
-	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay ></video>
+	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay poster="/img/tet.jpg"></video>
 	<audio id="audioElement" autoplay></audio>
 	</div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
