@@ -5,6 +5,7 @@ const jstream = function(n){
 	<meta itemprop="description" content="Видео стрим из спальни круглые сутки"/>
 	<link rel="icon" href="/favicon.ico">
 	<link href="/css/streamjanus.css" rel="stylesheet">
+		<link href="/css/donation.css" rel="stylesheet">
 	<script src="/js/globalik.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.3/adapter.min.js" ></script>
 	<script src="/js/janus.js"></script>
@@ -27,13 +28,70 @@ const jstream = function(n){
 	</div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
 	<div id="chatfooter"><div id="txtcontainer"><textarea id="txtarea" maxlength="150" placeholder="Your message"></textarea><button onclick="send(this);">send</button></div></div></div>
-	</article>
-	
+	</article><!-- <button onclick="fakeMessage();">fake donate</button><button onclick="getListOfDonation();">get list</button> -->
+	<br><br>
+	<div id="divDonate"><a href="https://www.donationalerts.com/r/globik2" target="_blank"><button id="btnDonate">DONATE</button></a></div>
+	 <br><br><br><div class="widget" id="widget">
+        <!-- Индикатор нового доната (появляется на 3 секунды) -->
+        <div class="new-donation-indicator" id="newDonationIndicator" style="display: none;">
+            🔥 Новый донат!
+        </div>
+
+        <div class="header">
+            <h2>🎯 На вибратор</h2>
+            <p>Поддержи стримера!</p>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <div class="stat-label">Собрано</div>
+                <div class="stat-value" id="currentAmount">0 <span>₽</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Цель</div>
+                <div class="stat-value" id="goalAmount">10000 <span>₽</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Донатеров</div>
+                <div class="stat-value" id="donorsCount">0</div>
+            </div>
+        </div>
+         <!-- Прогресс бар -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span>Прогресс</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Сколько осталось -->
+        <div class="goal-remaining" id="goalRemaining">
+            <div class="amount" id="remainingAmount">10000 ₽</div>
+            <div class="text">осталось до цели</div>
+        </div>
+
+        <!-- Последние донаты -->
+        <div class="recent-donations">
+            <h3>📋 Последние донаты</h3>
+            <div id="donationsList"></div>
+        </div>
+    </div>
+
+    <!-- Всплывающее уведомление -->
+    <div class="toast" id="toast">
+        <div class="toast-username" id="toastUsername"></div>
+        <div class="toast-amount" id="toastAmount"></div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
 	 <script src="/js/jstream.js"></script> 
 	<!-- <script src="/js/hlsstream.js"></script> --> 
 	<footer id="pfooter">(c)2025</footer> 
 	 <script>
-	 
+	
 	 
 window.yaContextCb.push(()=>{
     // if(Ya.Context.AdvManager.getPlatform()==='desktop'){
@@ -60,6 +118,7 @@ window.yaContextCb.push(()=>{
 			
 			})
 	 </script>
+	 <script src="/js/donation.js"></script>
 	</body></html>`;
 }
 module.exports = {jstream }

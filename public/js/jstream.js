@@ -322,6 +322,15 @@ function on_msg(a){
 	
 	}else if(a.type == "januscount"){
 		janusCount.textContent = a.count;
+	}else if(a.type == "donationalerts"){
+		console.log('donationalerts');
+		/*let r = {};
+            r.amount = d.amount;
+            r.currency = d.currency;
+            r.amount_in_user_currency = d.amount_in_user_currency;
+            r.username = d.username;
+            r.type */
+            doDonation(a);
 	}
 }
 function insert_message(a){
@@ -391,3 +400,6 @@ window.addEventListener("pagehide", async function(ev){
 	sfutest.hangup();
 
 });
+
+
+  

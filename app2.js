@@ -23,17 +23,19 @@ const jwtsecret = "igaanegoposchte";
 const render = require('./libs/render.js');
 const shortid = require('shortid');
 const admin = require('./router/admin.js');
+const donationalerts = require('./router/donationalerts.js');
+const {ev}=require('./router/donationalerts.js')
 const pay = require('./router/pay.js');
 const stream = require('./router/stream.js')
 const rateLimit = require('express-rate-limit');
 const { createProxyMiddleware}=require('http-proxy-middleware')
 //console.log('shortid', shortid())
-
+//console.log('donation alerts ', donationalerts)
 //const { handleMediasoup, ev , handleAdminMedia } = require("./libs/mediasoup_help.js")
 
 const axios = require('axios').default;
 
-
+//console.log('ev ', ev)
 //const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
 const grid = '-1002095475544';
 const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
@@ -220,9 +222,11 @@ app.use((req, res, next)=>{
 	req.db = pool;
 	next();
 })
+
 app.use('/admin', admin);
 app.use('/stream', stream);
 app.use('/pay', pay);
+app.use('/donationalerts', donationalerts.router)
 var imgData = {};
 const getUservkUrl = `https://api.vk.com/method/users.get`;
 const skey='48b5165748b5165748b516572a4ba88941448b548b516572e682a9cdaa4cd958d2d985d';
@@ -2280,6 +2284,11 @@ var janusonline = new Map();
 	// imgData.value = obj.value;
  //});
  */
+ ev.on(  'donationalerts', function(data){
+	console.log('data ', data);
+	
+	broadcast_janusDon(data);
+})
 wsServer.on('connection', async function (socket, req) {
 socket.isAlive = true;
   socket.on("pong", heartbeat);
@@ -2542,6 +2551,15 @@ function broadcast_admin(obj){
 	//	console.log('brooadcast amin' ,wsServer.clients.size);
 		wsend(el, obj);
 	//}
+	}
+}
+async function broadcast_janusDon( obj){
+	//console.log('obj ', obj);
+	for (let el of wsServer.clients) {
+		if(el.burl == "/janusstream"){
+		
+			wsend(el, obj);
+		}
 	}
 }
 

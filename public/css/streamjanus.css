@@ -88,6 +88,21 @@ article.slot{
 				height:40px;
 				width:100%;
 			}
+			#divDonate{
+				display:flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom:20px;
+			}
+			#btnDonate{
+				background:#ff6b6b;
+				color:white;
+				border:none;
+				padding:12px 24px;
+				border-radius:6px;
+				cursor:pointer;
+				font-size:16px;
+			}
 			@media screen and (max-width: 773px) and (orientation: portrait){
 				article.slot{
 					display:block;
