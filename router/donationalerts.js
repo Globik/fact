@@ -211,7 +211,7 @@ const channel = '$alerts:donation_13425852';
             console.error('❌ Ошибка подписки:', msg.error);
         }
         if (msg.result?.data?.data) {
-            console.log('💰 Донат:', msg.result.data.data);
+           // console.log('💰 Донат:', msg.result.data.data);
             let d = msg.result.data.data;
             let r = {};
             r.amount = d.amount;
@@ -347,7 +347,7 @@ router.post('/list', async(req, res)=>{
 	try{
 		 response = await axios.get('https://www.donationalerts.com/api/v1/alerts/donations',
 			{ headers:{'Authorization': `Bearer ${AccessToken}`,'Content-Type':'application/json'}});
-			console.log(response.data);
+		//	console.log(response.data);
 	}catch(e){
 		console.log(e);
 		return res.json({error:true, message: e});

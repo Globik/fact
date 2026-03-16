@@ -294,3 +294,8 @@
             50% { transform: translateY(-3px); }
         }
   
+@media screen and (max-width: 773px) and (orientation: portrait){
+	.widget {
+		padding:0;
+	}
+}

@@ -2285,7 +2285,7 @@ var janusonline = new Map();
  //});
  */
  ev.on(  'donationalerts', function(data){
-	console.log('data ', data);
+	//console.log('data ', data);
 	
 	broadcast_janusDon(data);
 })
