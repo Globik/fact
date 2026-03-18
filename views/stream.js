@@ -33,7 +33,7 @@ const stream = function(n){
 		<input type="hidden" id="TOK" value="${n.tok}" />
 	
 		${videochat(n)}
-		
+		<audio id="audioel" style="display:none;"></audio>
 		${login(n)}
 		<script src="/js/stream.js"></script>
 		<script src="/js/login4.js"></script>

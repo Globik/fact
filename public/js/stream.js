@@ -305,14 +305,23 @@ janus.attach({
         // 4. КЛЮЧЕВОЙ ОБРАБОТЧИК: сработает, когда библиотека janus.js подключит поток к PeerConnection
         pluginHandle.onlocaltrack = function(track,on) {
            if(track.kind=='video'){
+			  // alert('video');
             if (on) {
             let stream = new MediaStream();
             stream.addTrack(track);
             local.srcObject = stream;
-        } else {
+            }
+        }else if(track.kind=='audio'){
+			alert('track audio');
+			if(on){
+				let stream = new MediaStream();
+            stream.addTrack(track);
+            local.srcObject = stream;
+			}
+		} else {
             local.srcObject = null;
         }
-          }
+          
         
         };
 
@@ -544,7 +553,11 @@ function subscribeToStream(roomId, publisherId, el) {
  wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: useridi });
         videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
         
-    }
+    }else if(track.kind==='audio'){
+		alert('audio');
+		let stream = new MediaStream();
+		audioel.src=stream
+	}
                 
                 
                 

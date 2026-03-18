@@ -2689,7 +2689,7 @@ function janusclose(socket){
 			let a = janusonline.get(socket.roomid);
 			let b = Number(a);
 			b.views = b.views - 1;
-			broadcast_gesamt({ type: "janus", subtype: "onviews", views: b.views, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_gesamt({ type: "janus", subtype: "onviews", views: b.views, userid: socket.userid, streamid: socket.streamid }); 
 			broadcast_streamid({ type: "janus", subtype:"onviews", views: b.views, streamid: socket.streamid });
 			
 		}
