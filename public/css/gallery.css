@@ -1,0 +1,57 @@
+#streamsection{
+	display:flex;
+	align-items: center;
+				justify-content: center;
+				color:white;
+				background:violet;
+				mn-height:100px;
+				height:auto;
+				padding:50px;
+}
+.whobox{
+	width:200px;
+	height:200px;
+	position:relative;
+	display:block;
+	background:rgba(34,54,23,0.5);
+	margin:10px;
+}
+
+.glas{
+	position:absolute;
+	left:5px;
+	bottom:2px;
+	display:grid;
+			bakground:orange;	
+				grid-template-columns:50% 50%;
+	width:80px;
+	height:30px;
+}
+
+.glas div{
+	width:50%;
+	height:100%;
+	pading:8px;
+	display:flex;
+	align-items: center;
+				justify-content: center;
+				clor:red;
+}
+
+.imgbox{
+	width:100%;
+	height:100%;
+	position:relative;
+	overflow:hidden;
+	object-fit:cover;
+}
+.imgbox img{
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	background:blue;
+}
+
+
+
+

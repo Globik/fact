@@ -25,66 +25,6 @@ color:red;
 	text-align:center;
 }
 }
-#transbtn{
-	height:40px;
-	padding:50px;
-	font-size:23px;
-	border:1px solid blue;
-	font-weight:bold;
-	text-align: center;
-}
-
-.glas{
-	position:absolute;
-	left:5px;
-	bottom:2px;
-	display:grid;
-			backround:red;	
-				grid-template-columns:50% 50%;
-	width:60px;
-	height:30px;
-}
-.glas div{
-	width:50%;
-	height:100%;
-	pading:8px;
-	display:flex;
-	align-items: center;
-				justify-content: center;
-				color:white;
-}
-.imgbox{
-	width:100%;
-	height:100%;
-	position:relative;
-	overflow:hidden;
-	object-fit:cover;
-}
-.imgbox img{
-	width:100%;
-	height:auto;
-	overflow:hidden;
-	bckground:blue;
-}
-#streamsection{
-	display:flex;
-	align-items: center;
-				justify-content: center;
-				color:white;
-				background:violet;
-				mn-height:100px;
-				height:auto;
-				padding:50px;
-}
-.whobox{
-	width:200px;
-	height:200px;
-	position:relative;
-	display:block;
-	background:rgba(34,54,23,0.5);
-}
-
-
 
 
 
@@ -953,6 +893,7 @@ width:90%;
 	color:black;
 	border-bottom:1px solid #d7d090;
 	z-index:1000;
+	height:auto;
 }
 .settingspanel:hover{
 background:rgb(255,255,255);

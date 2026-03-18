@@ -1,6 +1,6 @@
 article.slot{
 				width:99.9%;
-				height:90vh;
+				height:78vh;
 				border:1px solid #445d71;
 				border-radius:10px;
 	bckground:green;
@@ -61,7 +61,7 @@ article.slot{
 				width:100%;
 				background:white;
 				
-				height:calc(90vh - 40px - 40px);
+				height:calc(78vh - 40px - 40px);
 				overflow-y:auto;
 			}
 			div.msg{
@@ -72,7 +72,7 @@ article.slot{
 			#txtcontainer{
 			display:block;
 				position:relative;
-				height:40px;
+				height:70px;
 				width:100%;
 				background:pink;
 			}
@@ -81,11 +81,12 @@ article.slot{
 				position:absolute;
 				right:0px;
 				top:0px;
-				height:40px;
+				width:50px;
+				height:100%;
 			}
 			#txtcontainer textarea{
 				display:inline-block;
-				height:40px;
+				height:100%;
 				width:100%;
 			}
 			#divDonate{
@@ -109,14 +110,18 @@ article.slot{
 					height:90vh;
 				}
 				#chatbox{
-					height:calc(45vh - 40px - 40px);
-					backgound:green;
+					heigt:calc(90vh - 450px - 40px);
+					height:100px;
+					background:green;
 				}
 				#videocontainer{
-					height:45vh;
+					height:350px;
 				}
 				#chatcontainer{
-					height:45vh;
+					height:350px;
+				}
+				#txtcontainer{
+					height:30px;
 				}
 			}
 			

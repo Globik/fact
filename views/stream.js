@@ -30,6 +30,7 @@ const stream = function(n){
 		<input type="hidden" id="userid" value="${n.userid?n.userid:0}">
 		<input type="hidden" id="username" value="${n.user?n.user.name:'anon'}">
 		<input type="hidden" id="streamId" value="${n.streamid?n.streamid:'0'}">
+		<input type="hidden" id="TOK" value="${n.tok}" />
 	
 		${videochat(n)}
 		

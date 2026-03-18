@@ -1,9 +1,14 @@
+const { nav } = require('./nav.js')
+const { login } = require('./login.js');
 const jstream = function(n){
 	return `<html>
 	<head><title>live stream</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta itemprop="description" content="Видео стрим из спальни круглые сутки"/>
 	<link rel="icon" href="/favicon.ico">
+	<link href="/css/main22.css" rel="stylesheet">
+		<link href="/css/login.css" rel="stylesheet">
+		<link href="/css/mediabox2.css" rel="stylesheet"> 
 	<link href="/css/streamjanus.css" rel="stylesheet">
 		<link href="/css/donation.css" rel="stylesheet">
 	<script src="/js/globalik.js"></script>
@@ -13,17 +18,14 @@ const jstream = function(n){
 	<script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
 	</head><body>
+	${nav(n)}
 	<input type="hidden" id="TOK" value="${n.tok}"/>
 	<input type="hidden" id="userName" value="${n.user?n.user.name:'anon'}">
 	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>
-	<h3>Круглосуточный видео стрим прям из спальни</h3>
-
-	<p>Если вы нажали на треугольник и ничего не происходит, то весьма вероятно, что
-	либо я оффлайн, либо вы перешли по ссылке из Телеграм. Пожалуйста, скопируйте 
-	ссылку на стрим и вбейте ее в адресную строку обычного рабочего браузера Хром или Firefox.</p>
+	
 	<div id="status"></div>
 	<div><b>Online: </b><span id="janusCount">0</span></div> 
-	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay poster="/img/tet.jpg"></video>
+	<article class="slot"><div id="videocontainer"><div id="znakcontainer" onclick="start(this);"><img src="/img/play2.svg"/></div><video id="remotevideo" autoplay poster="/img/gold/some.jpg"></video>
 	<audio id="audioElement" autoplay></audio>
 	</div>
 	<div id="chatcontainer"><div id="chatpanel"><b>Chat</b></div><div id="chatbox"></div>
@@ -87,7 +89,9 @@ const jstream = function(n){
         <div class="toast-amount" id="toastAmount"></div>
         <div class="toast-message" id="toastMessage"></div>
     </div>
+    ${login(n)}
 	 <script src="/js/jstream.js"></script> 
+	 <script src="/js/login4.js"></script>
 	<!-- <script src="/js/hlsstream.js"></script> --> 
 	<footer id="pfooter">(c)2025</footer> 
 	 <script>

@@ -227,6 +227,7 @@ app.use('/admin', admin);
 app.use('/stream', stream);
 app.use('/pay', pay);
 app.use('/donationalerts', donationalerts.router)
+ 
 var imgData = {};
 const getUservkUrl = `https://api.vk.com/method/users.get`;
 const skey='48b5165748b5165748b516572a4ba88941448b548b516572e682a9cdaa4cd958d2d985d';
@@ -377,61 +378,49 @@ h264parse config-interval=25 ! \
 rtph264pay pt=96 config-interval=25 ! \
 udpsink host=5.35.88.151 port=5000 sync=false
  */
+// const router = express.Router();
+function getShortTimeId() {
+  const now = new Date();
+  
+  // Берем часы, минуты, секунды и миллисекунды
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const ms = now.getMilliseconds().toString().padStart(3, '0');
+  
+  // Склеиваем в одно большое число: ЧЧММССммм
+  return Number(`${hours}${minutes}${seconds}${ms}`);
+}
  
- const HLS_PATH = path.join(__dirname, 'public', 'media');
-/*
-// Раздача HLS-файлов
-app.use('/media', express.static(HLS_PATH, {
-  setHeaders: (res, filepath) => {
-    // Правильные MIME-типы для HLS
-    if (filepath.endsWith('.m3u8')) {
-      res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    } else if (filepath.endsWith('.ts')) {
-      res.setHeader('Content-Type', 'video/mp2t');
-      res.setHeader('Cache-Control', 'public, max-age=3600');
-    }
-    // Разрешаем CORS для плеера на другом домене
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-}));
-*/
-app.use('/hls', express.static(HLS_PATH, {
-  setHeaders: (res, filepath) => {
-    if (filepath.endsWith('.m3u8')) {
-      // ❌ БЫЛО (кэширование):
-      // res.setHeader('Cache-Control', 'public, max-age=3600');
-      
-      // ✅ СТАЛО (запрет кэша):
-      res.setHeader('Content-Type', 'application/vnd.apple.mpegurl');
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-    } else if (filepath.endsWith('.ts')) {
-      res.setHeader('Content-Type', 'video/mp2t');
-      res.setHeader('Cache-Control', 'public, max-age=3600');
-    }
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-}));
 app.get("/", async(req, res)=>{
 	//console.log("REQ.QUERY: ", req.query);
+	console.log("SUKA", req.path);
+	
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	let db = req.db;
 	let ip = req.ip;
+	//console.log('session ', req.session , ' and ', req.session.suka);
+	let sess = getShortTimeId();
+	req.session.suka = sess;
+	//console.log('sess ', req.session);
+	//console.log('session ', req.session , ' and ', req.session.suka);
 	botMessage("jemand on /");
-	res.rendel('main', { tok: token, ip: ip, mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
+	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
+
+
+
 app.get("/demospace", async(req, res)=>{
+	console.log('session in demospace ', req.session, ' and ', req.session.suka);
 	res.rendel('demospace',{});
 })
 app.get("/jstream", async(req, res)=>{
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	botMessage('see alik');
-	res.rendel('jstream',{ tok: token });
+	res.rendel('jstream',{ tok: token,lang:'ru' });
 })
 app.post("/januscb", async(req,res)=>{
-	console.log(req.body);
+	console.log('januscb', req.body);
 	res.json({message:'ok'});
 })
 const devlovetok = "ulC59bAUDtkH_pXtfO5Zvg_IJECp242NcfmMcfrPxRZGnehZXjHGLgDBaAPbJdXO";
@@ -546,15 +535,7 @@ app.get("/", async(req, res)=>{
 app.get('/lolo', async(req,res)=>{
 	res.rendel('lolo',{arr:[0,1,2,3,4,5], yacount: JETZT });
 })
-//const {convertXML, createAST} = require("simple-xml-to-json")
 
-//const myJson = convertXML(myXMLString)
-/*
-app.get('/stream/:id/:streamid', async(req, res)=>{
-	console.log('params ', req.params);
-	res.rendel('stream',{});
-})
-*/
 app.post('/checkip', async(req, res)=>{
 	//console.log(req.body);
 	let { ip } = req.body;

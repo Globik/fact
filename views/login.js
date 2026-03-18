@@ -8,10 +8,7 @@ const login = function(n){
             ${lang == 'ru'?'Правила чата':lang=='en'?'Chat rules':lang=='zh'?'聊天规则':lang=='id'?'aturan obrolan':''}
           </span>
         </div>
-       <br> <b style="color:black;">${lang=='ru'?'Добро пожаловать в чат рулетку':lang=='en'?
-            'Welcome to chat roulette':
-            lang=='zh'?'欢迎聊天轮盘赌':
-            lang=='id'?'Selamat datang di obrolan rolet':''}!</b><br>
+       <br> <br>
         <div class="modal-body">
           <div class="error-message" id="errormsg"></div>
          <form name="formlogin" id="myform">

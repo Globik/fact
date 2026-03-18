@@ -110,7 +110,7 @@ div img{
 	height:30px;
 	bckground:blue;
 }
-@media screen and (max-width: 773px) and (orientation: portrait){
+@media screen and (max-width: 801px) and (orientation: portrait){
 	article.slot{
 		display: block;
 		width:100%;

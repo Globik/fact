@@ -24,7 +24,17 @@ body.ondialog {
 body{
 	background:red;
 }
+#transbtn2{
+	color:green;
+	height:auto;
+	padding:50px;
+	font-size:23px;
+	border:10px solid blue;
+	font-weight:bold;
+	text-align: center;
 
+
+}
 /*popup*/
 
 .overlay {

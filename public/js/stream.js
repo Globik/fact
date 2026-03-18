@@ -10,12 +10,75 @@ isOpen = false;
 var sock = null;
 var new_uri;
 var mystreamId = null;
+//alert(userid.value)
+var useridi = Number(userid.value);//getShortTimeId();
+//alert(useridi)
 function letStart(el){
 	//alert('suka');
-	if(userid.value == "0") return;
+	//if(userid.value == "0") return;
 	el.disabled = true;
 	getJanus(el);
 }
+function getShortTimeId() {
+  const now = new Date();
+  
+  // Берем часы, минуты, секунды и миллисекунды
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const ms = now.getMilliseconds().toString().padStart(3, '0');
+  
+  // Склеиваем в одно большое число: ЧЧММССммм
+  return Number(`${hours}${minutes}${seconds}${ms}`);
+}
+
+// Пример вывода: 143055123 (14 часов, 30 минут, 55 секунд, 123 миллисекунды)
+console.log(getShortTimeId());
+
+
+async function getservers(){
+	 try{
+	let reqi = await fetch('/turn', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({ tok: gid("TOK").value })});
+	if(reqi.ok){
+		let config = await reqi.json();
+		console.log(config);
+		console.log('config ', config.username + ' ' + config.password);
+	let servers = {
+	//	iceTransportPolicy:"relay",
+	"iceServers":[
+	{
+		"urls":[
+		//"stun:127.0.0.1:3478",
+		"stun:stun.l.google.com:19302",
+		"stun:chatikon.ru:3479"
+		]
+		
+		},
+	{
+		urls:[
+	//"turn:127.0.1:3478",
+		"turn:chatikon.ru:3479", 
+		//"turn:5.35.88.151:3479?transport=tcp", 
+		//"turn:rouletka.ru:5348",
+		//"turn:rouletka.ru:5348?transport=tcp" ,
+		//"turn:rouletka.ru:5348?transport=udp"//no stun
+		],
+		username: config.username, credential:config.password 
+		//username:"alik",credential:"123456"
+		}]
+	}
+	return servers.iceServers;
+}
+return undefined;
+}catch(er){
+	alert(er);
+console.error(er);
+	return undefined;
+}
+}
+
+
+
 
 function panelOpen(el){
 			
@@ -147,13 +210,13 @@ if(window.location.protocol === 'http:'){
 }
 
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
-
+//alert(opaqueId)
 function createRoom(){
 	if(!sfutest)return;
 	//alert(roomnum.value);
 	let checkroom={
 		request:"join",
-		room: Number(userid.value),
+		room: Number(useridi),
 		ptype:"publisher",
 		"is_private": false,
 		notify_joining:true
@@ -163,11 +226,12 @@ function createRoom(){
 }
 
 function getJanus(el){
-Janus.init({debug: "all", callback: function() {
+Janus.init({debug: "all", callback: async function() {
+	let serv = await getservers();
 	janus = new Janus(
 				{
 					server: server,
-					iceServers: null,
+					iceServers: (serv?serv:null),
 					// Should the Janus API require authentication, you can specify either the API secret or user token here too
 					//		token: "mytoken",
 					//	or
@@ -189,7 +253,8 @@ janus.attach({
         let joinRequest = {
             request: "create",
             display: "Ведущий",
-            "room": Number(userid.value),
+           // "room": Number(userid.value),
+           "room":useridi,
 		     "ptype":"publisher",
 		"is_private": false,
 		"secret":"suka"
@@ -273,7 +338,7 @@ janus.attach({
 					setTimeout(function(){
 					let imgdata = Screenshot();
 					//alert('userid '+userid.value);
-					wsend({ request: 'janus', subtype: "owner", roomid: userid.value, userid:userid.value,nick: username.value, streamid: mystreamId, src: imgdata });
+					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
 					note({ content: "on air", type:'info', time:5 });
 				}, 3000);
 				}
@@ -409,22 +474,24 @@ function unsubscribe(el){
 }
 function pfuck(el){
 
-Janus.init({debug: "all", callback: function() {
+Janus.init({debug: "all", callback: async function() {
+	let serv = await getservers();
 	janus = new Janus(
 				{
-					server: server,
-					iceServers: null,
+					server: server ,
+					iceServers: (serv?serv:null),
 					// Should the Janus API require authentication, you can specify either the API secret or user token here too
 					//		token: "mytoken",
 					//	or
 					//		apisecret: "serversecret",
 					error:function(m){alert('4 '+ m);},
-					success: function() {subscribeToStream(Number(userid.value),Number(streamId.value), el);}
+					success: function() {subscribeToStream(Number(useridi),Number(streamId.value), el);}
 				})}})
 
 }
 
 function subscribeToStream(roomId, publisherId, el) {
+	//alert(publisherId);
     janus.attach({
         plugin: "janus.plugin.videoroom",
         success: function(pluginHandle) {
@@ -474,7 +541,7 @@ function subscribeToStream(roomId, publisherId, el) {
         el.disabled = false;
         el.textContent = "Stop";
         el.setAttribute("onclick", "unsubscribe(this);");
- wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: userid.value });
+ wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: useridi });
         videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
         
     }
@@ -526,7 +593,7 @@ function subscribeToStream(roomId, publisherId, el) {
                     // 3. Отправляем запрос "start" для начала приёма медиа
                     let startRequest = {
                         request: "start",
-                        room: Number(userid.value),
+                        room: Number(useridi),
                         feed: targetPublisherId // ID публикующего, на которого подписываемся
                     };
                     pluginHandle.send({ message: startRequest });

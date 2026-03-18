@@ -356,31 +356,16 @@ function ozenite(el){
 	panelOpen();
 }
 function panelOpen(el){
-			
 			var settingspanel = document.getElementById("settingspanel");
 			if(!isOpen){
 			settingspanel.className = "open";
-			isOpen = true;	
-			
-			
-			//document.addEventListener("visibilitychange", newev);
-	
-	/*
-	window.addEventListener('beforeunload', function(event) {
-    // Send a message to all other tabs that this tab is closing
-    console.log('tab-closing');
-});
-*/			
-			
-			
-			
-			
+			isOpen = true;
 			}else{
-				 //document.removeEventListener('visibilitychange', newev);
 				settingspanel.className = "";
 				isOpen = false;
 			}
 		}
+		
 function openClaim(el){
 	
 	if(!OPENCLAIM){
