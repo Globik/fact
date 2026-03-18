@@ -2654,7 +2654,7 @@ function broadcast_gesamt(obj){
 
 	for (let el of wsServer.clients) {
 		if(el.burl == "/gesamt"){
-		console.log('brooadcast gesant' , obj);
+		//console.log('brooadcast gesant' , obj);
 		wsend(el, obj);
 	}
 	}

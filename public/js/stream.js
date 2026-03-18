@@ -304,20 +304,23 @@ janus.attach({
 
         // 4. КЛЮЧЕВОЙ ОБРАБОТЧИК: сработает, когда библиотека janus.js подключит поток к PeerConnection
         pluginHandle.onlocaltrack = function(track,on) {
+			if(on){
            if(track.kind=='video'){
 			  // alert('video');
-            if (on) {
-            let stream = new MediaStream();
-            stream.addTrack(track);
-            local.srcObject = stream;
-            }
+            //if (on) {
+           let stream = new MediaStream();
+           stream.addTrack(track);
+           local.srcObject = stream;
+           // }
+           //Janus.attachMediaStream(local,track.stream);
         }else if(track.kind=='audio'){
 			alert('track audio');
-			if(on){
-				let stream = new MediaStream();
+			//if(on){
+			let stream = new MediaStream();
             stream.addTrack(track);
             local.srcObject = stream;
-			}
+			//}
+		}
 		} else {
             local.srcObject = null;
         }
@@ -527,7 +530,8 @@ function subscribeToStream(roomId, publisherId, el) {
 					 pluginHandle.detach();
 					return;
 				}
-                
+                let stream = new MediaStream();
+                stream.addTrack(track);
                  if (track.kind === "video") {
         
         if (!videoElement) {
@@ -541,22 +545,28 @@ function subscribeToStream(roomId, publisherId, el) {
         // Важно: нужно создать новый MediaStream для этого одного трека
         // или добавить трек в существующий поток
         if (!videoElement.srcObject) {
-            let stream = new MediaStream();
-            stream.addTrack(track);
+            
+            
             videoElement.srcObject = stream;
         } else {
-            videoElement.srcObject.addTrack(track);
+			//stream.addTrack(track);
+            videoElement.srcObject=stream;//addTrack(track);
         }
         el.disabled = false;
         el.textContent = "Stop";
         el.setAttribute("onclick", "unsubscribe(this);");
  wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: useridi });
-        videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
+ videoElement.muted=false;
+       // videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
         
     }else if(track.kind==='audio'){
-		alert('audio');
-		let stream = new MediaStream();
-		audioel.src=stream
+		//alert('audio');
+		//let stream = new MediaStream();
+		//Janus.attachMediaStream(videoElement,track.stream);
+		videoElement.muted=false;
+		//ideoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
+		audioel.srcObject=stream;//addTrack(track);//=stream;
+		audioel.play().catch(e => console.log('Ошибка воспроизведения: ' + e));
 	}
                 
                 
@@ -649,7 +659,7 @@ function subscribeToStream(roomId, publisherId, el) {
     }
 							  }
 					  },
-					  plaginHandle.oncleanup=function(){alert('clean');}
+					  pluginHandle.oncleanup=function(){alert('clean');}
             },
             cleanup:function(){
 				alert('cleanup');

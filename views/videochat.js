@@ -3,7 +3,7 @@ const videochat = function(n){
    
     <aside id="slotinfo">
     <div id="videobox">
-    <video id="local" autoplay></video>
+    <video id="local" autoplay muted></video>
     </div>
     
             
