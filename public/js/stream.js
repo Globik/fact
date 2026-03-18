@@ -314,7 +314,7 @@ janus.attach({
            // }
            //Janus.attachMediaStream(local,track.stream);
         }else if(track.kind=='audio'){
-			alert('track audio');
+			//alert('track audio');
 			//if(on){
 			let stream = new MediaStream();
             stream.addTrack(track);
