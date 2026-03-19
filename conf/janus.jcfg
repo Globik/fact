@@ -10,3 +10,9 @@ nat: {
 	#stun_server = "stun.voip.eutelia.it"
 	#stun_port = 3478
 	}
+events: {
+	broadcast = true
+	combine_media_stats = true
+	#disable = "libjanus_sampleevh.so"
+	stats_period = 5
+}

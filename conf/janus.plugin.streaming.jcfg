@@ -167,7 +167,7 @@ general: {
 									# only if this key is provided in the request
 	#rtp_port_range = "20000-40000"	# Range of ports to use for RTP/RTCP when '0' is
 									# passed as port for a mountpoint (default=10000-60000)
-	#events = false					# Whether events should be sent to event
+	events = true					# Whether events should be sent to event
 									# handlers (default=true)
 
 	# By default, integers are used as a unique ID for both mountpoints. In case

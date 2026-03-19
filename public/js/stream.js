@@ -224,8 +224,20 @@ function createRoom(){
     sfutest.send({message:checkroom});
     //alert(a);
 }
-
+function check(){
+	//alert(roomnum.value);
+	let checkroom={
+		request:"list",
+		
+	}
+    sfutest.send({message:checkroom});
+    sfutest.send({message:{request:"listparticipants",
+        "room" : Number(useridi)}});
+}
 function getJanus(el){
+	el.disabled = true;
+	let l = document.querySelector("#videobox section");
+	if(l){l.style.display="flex";}
 Janus.init({debug: "all", callback: async function() {
 	let serv = await getservers();
 	janus = new Janus(
@@ -353,6 +365,10 @@ janus.attach({
 					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
 					note({ content: "on air", type:'info', time:5 });
 				}, 3000);
+				}else{
+					note({content:"Something wrong", type:"info", time: 5 });
+					el.disabled = false;
+					el.textContent = "Start"
 				}
 			},
 });
@@ -417,8 +433,9 @@ function Screenshot() {
 
 function destroy(el){
 	if(!sfutest)return;
-	sfutest.send({message:{request:'destroy', secret:'suka', room:Number(userid.value)}});
+	sfutest.send({message:{request:'destroy', secret:'suka', room:Number(useridi)}});
 	el.textContent = "Start";
+	el.disabled = false;
 	el.setAttribute("onclick","letStart(this);");
 	wsend({ request: "janus", subtype: "remove", roomid:Number(userid.value) , streamid: mystreamId });
 }
@@ -501,8 +518,15 @@ Janus.init({debug: "all", callback: async function() {
 				})}})
 
 }
-
+local.onloadedmetadata=function(){
+	//alert(1);
+	let l = document.querySelector("#videobox section");
+	if(l){l.style.display="none";}
+}
 function subscribeToStream(roomId, publisherId, el) {
+	el.disabled = true;
+	let l = document.querySelector("#videobox section");
+	if(l){l.style.display="flex";}
 	//alert(publisherId);
     janus.attach({
         plugin: "janus.plugin.videoroom",

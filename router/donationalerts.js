@@ -273,7 +273,7 @@ const channel = '$alerts:donation_13425852';
      
         
 }
-await connect();
+if(process.env.DEVELOPMENT !== "yes")await connect();
 }catch(e){}
 
 }

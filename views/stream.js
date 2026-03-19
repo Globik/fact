@@ -17,7 +17,7 @@ const stream = function(n){
    <link href="/css/nav.css" rel="stylesheet">  
 		<link href="/css/login.css" rel="stylesheet">
 		<link href="/css/stream.css" rel="stylesheet">
-		
+		<link href="/css/loader.css" rel="stylesheet">
 		<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.3/adapter.min.js" ></script>
 	<script src="/js/janus.js"></script>
@@ -33,6 +33,7 @@ const stream = function(n){
 		<input type="hidden" id="TOK" value="${n.tok}" />
 	
 		${videochat(n)}
+		
 		<audio id="audioel" style="display:none;"></audio>
 		${login(n)}
 		<script src="/js/stream.js"></script>

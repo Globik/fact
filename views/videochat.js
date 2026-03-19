@@ -1,8 +1,8 @@
 const videochat = function(n){
-	return `<article class="slot">
+	return `
    
     <aside id="slotinfo">
-    <div id="videobox">
+    <div id="videobox"><section id="mobileloader"><div class="loader"></div></section>
     <video id="local" autoplay muted></video>
     </div>
     

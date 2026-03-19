@@ -2,6 +2,7 @@ version:  '3.8'
 services:
   janus-gateway: 
     image:  'sucwangsr/janus-webrtc-gateway-docker:latest'
+    #image:  'meetecho/janus-gateway:1.2.0'
     container_name:  janus-gateway
     command: ["/usr/local/bin/janus", "-F","/usr/local/etc/janus"]
     #command: ["sh","-c","mkdir -p /opt/janus/lib/janus/plugins &&  ln -sf /usr/local/lib/janus/plugins/* /opt/janus/lib/janus/plugins/ 2>/dev/null || true && /usr/local/bin/janus", "-F", "/usr/local/etc/janus"]
@@ -9,10 +10,10 @@ services:
     volumes:
       - "./conf/janus.transport.websockets.jcfg:/usr/local/etc/janus/janus.transport.websockets.jcfg"
       - "./conf/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
-      - "./conf/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
+      - "./conf/janus.eventhandler.sampleevh.jcfg:/usr/local/lib/janus/events/janus.eventhandler.sampleevh.jcfg"
       - "./conf/janus.plugin.videoroom.jcfg:/usr/local/etc/janus/janus.plugin.videoroom.jcfg"
       - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
-      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/janus.transport.http.jgfg"
+      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/janus.transport.http.jcfg"
       - "./certs:/etc/janus/certs:ro"
     environment:
       - JANUS_CERT_PEM=/etc/janus/certs/fullchain.pem
