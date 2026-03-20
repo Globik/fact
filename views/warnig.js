@@ -1,4 +1,6 @@
-const warnig = function(){
-	return `<div class="warnig">Отключите VPN, чтобы сервис нормально функционировал.</div>`;
+const warnig = function(n){
+	return `<div class="warnig">${n.ln=='ru'? 'Отключите VPN, чтобы сервис нормально функционировал.':'Please disable your VPN for the service to work properly.'}
+	
+	<br>${n.ln=='ru'?'Не используйте встроенный в мессенджер браузер. Воспользуйтесь обычным браузером Chrome или Firefox.':`Don't use the messenger's built-in browser. Open this link in Chrome or Firebox.`}</div><br><br>`;
 }
 module.exports = {warnig}

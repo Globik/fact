@@ -177,7 +177,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
   const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
     </script>
   ${nav(n)}
-	${warnig()}
+	${warnig(n)}
 	<!-- https://cssloaders.github.io/ -->
 
 <!--

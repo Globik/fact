@@ -2,7 +2,10 @@
     box-sizing: border-box;
 }
 
-
+.warnig{
+	padding:5px;
+	background: rgb(34,200,145);
+}
 
 body.ondialog {
     overflow: hidden;

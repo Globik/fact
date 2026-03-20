@@ -27,7 +27,7 @@ const stream = function(n){
 		</head><body>
 		
 		${nav(n)}
-		${warnig()}
+		${warnig(n)}
 		<a href="/">На главную</a>
 		<input type="hidden" id="owner" value="${n.owner?'true':'false'}">
 		<input type="hidden" id="userid" value="${n.userid?n.userid:0}">
