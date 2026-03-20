@@ -1,6 +1,7 @@
 const { login } = require('./login.js')
 const { nav } = require('./nav.js')
 const { videochat } = require('./videochat.js')
+const { warnig } = require('./warnig.js');
 const stream = function(n){
 	const { lang , buser, user } = n;
 //	console.log('da user ', n);
@@ -24,7 +25,9 @@ const stream = function(n){
 	<script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script>
 		</head><body>
+		
 		${nav(n)}
+		${warnig()}
 		<a href="/">На главную</a>
 		<input type="hidden" id="owner" value="${n.owner?'true':'false'}">
 		<input type="hidden" id="userid" value="${n.userid?n.userid:0}">

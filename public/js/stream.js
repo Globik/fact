@@ -363,10 +363,10 @@ janus.attach({
 					let imgdata = Screenshot();
 					//alert('userid '+userid.value);
 					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
-					note({ content: "on air", type:'info', time:5 });
+					note({ content: "Вы в эфире!", type:'info', time:5 });
 				}, 3000);
 				}else{
-					note({content:"Something wrong", type:"info", time: 5 });
+					note({content:"Вышли из эфира!", type:"info", time: 5 });
 					el.disabled = false;
 					el.textContent = "Start"
 				}
@@ -683,16 +683,21 @@ function subscribeToStream(roomId, publisherId, el) {
     }
 							  }
 					  },
-					  pluginHandle.oncleanup=function(){alert('clean');}
+					  pluginHandle.oncleanup=function(){
+						  //alert('clean');
+						  }
             },
             cleanup:function(){
-				alert('cleanup');
+				//alert('cleanup');
 			}, error:function(er){alert(er);},
 			iceState: function(state) {
 				console.log("ICE state (remote feed) changed to " + state);
 			},
 			webrtcState: function(on) {
 				console.log("Janus says this WebRTC PeerConnection (remote feed) is " + (on ? "up" : "down") + " now");
+				if(on){
+					note({content:"Вы подписались", type:"info", time: 5 });
+				}
 			},
             //alert(pluginHandler);
             // 4. Обработчик появления удалённого видеопотока

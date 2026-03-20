@@ -1,5 +1,7 @@
 const { nav } = require('./nav.js')
 const { login } = require('./login.js');
+const { warnig } = require('./warnig.js');
+
 const jstream = function(n){
 	return `<html>
 	<head><title>live stream</title>
@@ -19,6 +21,7 @@ const jstream = function(n){
     <script src="https://yandex.ru/ads/system/context.js" async></script>
 	</head><body>
 	${nav(n)}
+	${warnig()}
 	<input type="hidden" id="TOK" value="${n.tok}"/>
 	<input type="hidden" id="userName" value="${n.user?n.user.name:'anon'}">
 	<a href="/">back</a><br><br><noscript>Javascript disabled</noscript>

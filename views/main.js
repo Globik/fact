@@ -7,6 +7,9 @@ const { banip } = require('./banip.js')
 const { login } = require('./login.js');
 const { nav } = require('./nav.js');
 const { chatruletka } = require('./chatruletka.js')
+
+const { warnig } = require('./warnig.js');
+
 function main(n){
 	const BAN = 0;
 	let istestheart = (n.istestheart==1?true:false);
@@ -174,7 +177,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
   const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
     </script>
   ${nav(n)}
-	
+	${warnig()}
 	<!-- https://cssloaders.github.io/ -->
 
 <!--
