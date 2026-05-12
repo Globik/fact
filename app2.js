@@ -5,6 +5,7 @@ const fsi = require('fs/promises')
 const url = require('url');
 
 const express = require('express');
+const {ExpressPeerServer} = require('peer');
 //var cors = require('cors');
 const { oni, oni1 } = require('./libs/web_push.js');
 var WebSocket = require('ws');
@@ -394,7 +395,12 @@ function getShortTimeId() {
  
 app.get("/", async(req, res)=>{
 	//console.log("REQ.QUERY: ", req.query);
-	console.log("SUKA", req.path);
+	console.log('headers ', req.headers['purpose']||req.headers['sec-fetch-dest']);
+	if(req.headers['purpose']==='image'||req.headers['sec-fetch-dest']==='image'){
+		console.log('ignore image');
+		return res.status(404).end();
+		}
+	//console.log("SUKA", req.path);
 	
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	let db = req.db;
@@ -417,7 +423,8 @@ app.get("/demospace", async(req, res)=>{
 app.get("/jstream", async(req, res)=>{
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	botMessage('see alik');
-	res.rendel('jstream',{ tok: token,lang:'ru' });
+	res.json({message:'ok'});
+//	res.rendel('jstream',{ tok: token,lang:'ru' });
 })
 app.post("/januscb", async(req,res)=>{
 	console.log('januscb', req.body);
@@ -1746,11 +1753,13 @@ const dkey = "/etc/letsencrypt/live/chatikon.ru/privkey.pem";
 const dcert = "/etc/letsencrypt/live/chatikon.ru/fullchain.pem";
 // /etc/letsencrypt/live/rouletka.ru-0001/fullchain.pem
 //        /etc/letsencrypt/live/rouletka.ru-0001/privkey.pem
-
+const http = require('http')
 const port = process.env.DEVELOPMENT=='yes'?3000:443;
 var servi;
+
 if(process.env.DEVELOPMENT == "yes"){
-servi=app.listen(port, () => {
+servi=http.createServer(app);
+servi.listen(port, () => {
  console.log(`Started on localhost:${port}`);
 })
 }else{
@@ -1765,6 +1774,7 @@ servi = https
   });
 }
 const ORIGINAL = "https://chatikon.ru";
+const serverPeer = http.createServer(app);
 const wsServer = new WebSocket.Server({server: servi, verifyClient:(info,cb)=>{
 	//console.log('info.origin: ', info.origin);
 if(process.env.DEVELOPMENT === "yes"){cb(true);return;}else{
@@ -1772,8 +1782,27 @@ if(info.origin === ORIGINAL){cb(true);return;}
 cb(false);
 	}
 	},/*, perMessageDeflate:{zlibDeflateOptions:3},zlibInflateOptions:{chunkSize:512}, threshold: 512 */});
+const peerServer = ExpressPeerServer(serverPeer, {
 
-
+    proxied: true,
+    debug: true,
+    // allow_discovery: true,//Allow to use GET /:key/peers
+    path: '/myapp',
+    
+    secure: process.env.DEVELOPMENT != 'yes',
+    key: 'peerjs',
+    ssl: process.env.DEVELOPMENT != 'yes' ? {
+        key: fs.readFileSync(dkey),
+        cert: fs.readFileSync(dcert)
+    } : {}
+});
+app.use( peerServer);
+serverPeer.listen(9000, () => {
+    console.log('✅ PeerJS сервер запущен на порту 9000');
+});
+peerServer.on('connection', (client) => {
+	console.log('peer connected ');
+})
 let waitingQueue = [];
 let matchedIds = new Map();
 var connected = 0;//new Map();
@@ -2279,22 +2308,27 @@ socket.isAlive = true;
 	socket.VK = false;
   const ip = req.socket.remoteAddress;
   
-  console.log('req.url ', req.url);
+ // console.log('req.url ', req.url);
   if(req.url==="/janusstream"){
 	 let ni = getJanusCount();
 	 broadcast_janus(socket,{type:"januscount", count: ni });
   }
   const re = /([0-9]{1,3}[\.]){3}[0-9]{1,3}/;
 	if(process.env.DEVELOPMENT == "yes"){
+		
+		try{
 	let r3 = "23.23.22.35";	
 	socket.banip = r3;
 	wsend(socket, { type: "vip", vip: r3 })
+}catch(e){}
 	//console.log(r3);
 	}else{
+		try{
 let a = ip.match(re);
 let r = a[0];
 socket.banip = r;
 wsend(socket, { type:'vip', vip: r })
+}catch(e){}
 //console.log(r)
   
 }
@@ -2331,6 +2365,7 @@ wsend(socket, { type:'vip', vip: r })
 	  //var msg;
 	  try{
      msg = JSON.parse(message)
+    // console.log('msg ',msg);
 }catch(e){return;}
 if(msg.request == "mediasoup"){
 	/*handleMediasoup.*/
@@ -2620,11 +2655,11 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 	 janusonline.set(socket.roomid, { roomid: socket.roomid, streamid: msg.streamid, src: msg.src, nick: msg.nick, views: 0 });
 	// broadcast({ type: "dynamic", sub: "add", id: socket.id, nick: socket.nick, status: 'free', camcount: onLine.size });
 	let a = janusonline.get(socket.roomid);
-	console.log('a.views ', a.views);
+	//console.log('a.views ', a.views);
 	broadcast_gesamt({type:'janus', subtype: 'add', roomid: msg.roomid, src:msg.src,nick:msg.nick,userid:msg.userid, streamid: msg.streamid, views: a.views}); 
 }
 	}else if(msg.subtype == "remove"){
-		console.log('on remove ', msg);
+		//console.log('on remove ', msg);
 		janusclose(socket);
 	}else if(msg.subtype == "subscriber"){
 		socket.streamid = msg.streamid;

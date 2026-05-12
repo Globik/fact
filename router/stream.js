@@ -44,9 +44,9 @@ router.get('/:id/:streamid', async(req, res)=>{
 })
 
 router.get('/:id', async(req, res)=>{
-	console.log('params ', req.params.id, ' ', req.session.suka);
+	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner=false;
-	console.log('suka ', Number(req.params.id) === Number(req.session.suka));
+	//console.log('suka ', Number(req.params.id) === Number(req.session.suka));
 	//if(req.params&&req.params.id && req.user){
 	//	if(Number(req.params.id)===req.user.id){
 	//		owner=true;
@@ -62,8 +62,8 @@ router.get('/:id', async(req, res)=>{
 	}
 }
 let token = createJWT({ mama: shortid()}, jwtsecret );
-	console.log('owner', owner);
-	console.log('user ', req.user);
+	//console.log('owner', owner);
+	//console.log('user ', req.user);
 	botMessage('wanna stream');
 	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
 })

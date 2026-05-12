@@ -33,6 +33,7 @@ if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + "/gesamt");
 	 console.log("websocket opened");
 	// heartbeat();
 	 wsend({ type: "helloServer", userId: gid("userId").value?gid("userId").value:'anon', isprem: Prem.value, nick: userName.value, logged:  Login()?"yes":"no", LANG: 'L' });
+	 
   };
   sock.onerror = function (e) {
    // note({ content: "Websocket error: " + e, type: "error", time: 5 });
@@ -62,7 +63,7 @@ function on_msg(msg) {
 		 case 'helloServer':
 		
 		MYSOCKETID = msg.socketId;
-		//alert(msg.socketId);
+		initPeer(MYSOCKETID);
 		 break;
 		 
       case 'online':
@@ -129,4 +130,35 @@ function startTrans(el){
 		//alert(sess.value);
 		window.location.href = "/stream/"+sess.value;
 	//}
+}
+function initPeer(id){
+	return;
+	  const iceServersConfig = {
+        iceServers: [
+            // Бесплатный публичный STUN сервер от Google
+            { urls: 'stun:stun.l.google.com:19302' },
+            
+            // Пример TURN сервера (нужен свой или платный)
+            // {
+            //     urls: 'turn:your-turn-server.com:3478',
+            //     username: 'myusername',
+            //     credential: 'mypassword'
+            // }
+        ],sdpSemantics: 'unified-plan'
+    };
+     peer = new Peer(id, {
+        debug: 2,
+        secure:false,
+        path:"/myapp",
+        host:"/",
+        port:9000,
+        key:'peerjs',
+        config: iceServersConfig // Передаем конфиг сюда
+    });
+
+    peer.on('open', (id) => {
+       // alert('opened '+id);
+       // peer.socket.send(JSON.stringify({type:'durak',suka:true}));
+     //  peer.socket.send({type:'NEW_REMOTE_PEER_REQUEST'});
+    });
 }

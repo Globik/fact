@@ -16,8 +16,12 @@ const videochat = function(n){
         <aside id="boxinfo">
        <div id="chatbox"></div>
        <footer id="pdf"> 
-       
-       
+       <div class="part">
+       <textarea id="txt" class="textarea" placeholder="Your message"></textarea>
+       </div>
+       <div class="part" onclick="sendMessage(this);">
+       <img src="/img/send1.svg"/>
+       </div>
         </footer> 
         </aside>
        

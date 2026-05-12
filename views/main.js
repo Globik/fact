@@ -98,7 +98,7 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
 		<link href="/css/mediabox2.css" rel="stylesheet"> 
 		<link href="/css/gallery.css" rel="stylesheet">
 		<!--<link href="/css/coin.css" rel="stylesheet"> -->
-    
+    <script src="/js/peerjs.min.js"></script>
 <script src="/js/globalik.js"></script>
 
  <script src="/js/adapter-latest.js"></script> 
@@ -188,14 +188,14 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
     <div id="startTr"><button id="transbtn2" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka"></div>
 		<div class="whobox">
-		 <a href="/jstream">
+		<!-- <a href="/jstream">
 			<div class="imgbox"><img src="/img/gold/some.jpg"></div>
 			<div class="glas">
 			<div><img src="/img/eye2.svg"></div>
 			<div><span data-nowroomid="sss" class="spanViews">69</span></div>
 			</div>
 			
-			</a></div>
+			</a> --></div>
 		
 		
 		</section>
@@ -264,26 +264,16 @@ if(isLogin.value=="false") getReklama();
 
     
    
-	<!--4100118676103827 me 410016439442251  er -->
+	
 	
 	
 	
    
     ${BAN==0?banip(n):banus(n)}
-   
-    
-
-
-	
-    
-    
-    <!-- 410016439442251 -->
     
     
     
-    <!-- 
-    test_Yl7GFsIK2B4xGOQ_UazguZshpPDjosDeS1BN-DOqUZ4  shopId 383452
-    -->
+  
     <a href="#."  class="overlay" id="regeln"></a>
     <output id="regelnoutput" class="popi">
     <div class="modal-header">
@@ -300,9 +290,7 @@ if(isLogin.value=="false") getReklama();
    
     ${login(n)}
     
-    <!-- 410016439442251 er
-    me 4100118676103827
-    -->
+    
     
  
     
@@ -318,7 +306,7 @@ if(isLogin.value=="false") getReklama();
     <script src="/js/whosonline.js"></script>
     <script src="/js/soupi444.js"></script> -->
     <script src="/js/hjanus.js"></script>
-   <!-- <script src="/js/mediasoupadmin.js"></script> -->
+   
     
     <!--
     <script>
@@ -370,7 +358,7 @@ window.addEventListener("load", () => {
 
 </script> -->
     <br><br><br>
-   <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;<a href="https://tglinks.ru/Globik2">@Globik2</a></footer> 
+   <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;</footer> 
   <script>
 	 
 	 

@@ -16,15 +16,27 @@
 		width:50px;
 	}
 	.ita{
-dsplay:block;
+display:flex;
 	position:relative;
 	color:orange;
-	background: violet;
+	bckground: violet;
 	justify-self: center;
-	align-self:center;
+	algn-self:center;
 margin-right:10px;
 object-fit:cover;
 width:90%;
+order:2px solid green;
+align-items: center;
+				justify-content: center;
+}
+.ita img{
+position:absolute;
+top:-2px;
+left:-1px;
+	width:90%;
+	height:90%;
+	boder:1px solid violet;
+	
 }
 	.nav{
 	jstify-self: center;
