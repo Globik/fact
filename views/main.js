@@ -167,6 +167,9 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
 bc1qrkwcs3uklwmdjlmdxpp4ye7vtntmwxpd6f886p
 ETH: 0x324E5A1dc7157536cA894C3486be74B25360cc2A</p><p>Я ненавижу Путина. И Кадырова ебанного Я умру , но я поднасру ебаногому путинскому режиму. Гори москва ебаная.
 Путин пошел нахуй! СВОшник ебаный, иди нахуй! Слава Украине! Героям слава!</p>
+<p>Ладно. Раз пошла такая пьянка, скажу больше... Гиркин! А ты знаешь, что бывших КГБшников не бывает? И что хороший КГБшник это мертвый КГБшник? Вот и засунь себе
+ в жопу свою Новопидороссию! Медведев ебанный! Шибздик блядь  пьяница иди нахуй! Путлер сука! Вьеби наконец ядерной бомбой по Киеву! Чо блядь? ССышь, сука???
+  Быстро блядь ответка прилетит. Какой еще Сармат? Кабаевой в пизду сармат свой засунь пидор ебанный!!!</p>
 	<!-- https://cssloaders.github.io/ -->
 
 <!--
@@ -246,83 +249,10 @@ ETH: 0x324E5A1dc7157536cA894C3486be74B25360cc2A</p><p>Я ненавижу Пут
    
     
     <!--
-    <script>
-window.addEventListener("load", () => {
-	return;
-	if(Prem.value !="n") return;
-    const render = (imageId) => {
-        return new Promise((resolve, reject) => {
-            window.yaContextCb.push(() => {
-                Ya.Context.AdvManager.render({
-                    "renderTo": imageId,
-                    "blockId": "R-A-12098170-10",
-                    "type": "inImage",
-                    "onRender": resolve,
-                    "onError": reject,
-                    "altCallback": reject,
-                    "onClose": function(){
-						console.warn("reklama in Image closed");
-						setTimeout(function(){
-							console.warn("REKLAMA IN IMAGE MUST BE SHOWED");
-							renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
-						}, 1000 * 60 * 1);
-					}
-                })
-            })
-        })
-    }
-    const renderInImage = (adImagesCounter, images) => {
-		return;
-        if (adImagesCounter <= 0 || !images.length) {
-            return
-        }
-        const image = images.shift()
-        image.id = 'yandex_rtb_R-A-12098170-10-${Math.random().toString(16).slice(2)}'
-        if (image.tagName === "IMG" && !image.complete) {
-            image.addEventListener("load", () => {
-                render(image.id)
-                    .then(() => renderInImage(adImagesCounter - 1, images))
-                    .catch(() => renderInImage(adImagesCounter, images))
-            }, { once: true })
-        } else {
-            render(image.id)
-                .then(() => renderInImage(adImagesCounter - 1, images))
-                .catch(() => renderInImage(adImagesCounter, images))
-        }
-    }
-    renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
-}, { once: true })
-
-</script> -->
+   
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;</footer> 
-  <script>
-	 
-	 
-window.yaContextCb.push(()=>{
-     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
-		 
-		 Ya.Context.AdvManager.render({
-			 "blockId":"R-A-14255767-2",
-			// "renderTo":"yandex_rtb_R-A-12098170-1
-			"type":"floorAd",
-			"platform":"desktop",
-			"onClose":function(){
-			console.log("Reklama closed")
-		
-		}
-			})
-		 }else{
-		 
-		 Ya.Context.AdvManager.render({
-		 "blockId":"R-A-14255767-1",
-		 "type":"floorAd",
-			"platform":"touch",
-			
-		})
-			}
-			})
-	 </script>
+  
     
        </body>
 </html>`;
