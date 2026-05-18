@@ -107,21 +107,6 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
 <script async src="https://yastatic.net/share2/share.js"></script>
 
 
-${process.env.DEVELOPMENT == "yes" ? '':`<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();
-   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=103428143", "ym");
-
-   ym(103428143, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        ssr:true
-   });
-</script>`}
 
 <!-- /Yandex.Metrika counter -->
 
@@ -178,6 +163,10 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
     </script>
   ${nav(n)}
 	${warnig(n)}
+<p>Майкл Наки просит денег на счет, чтоб вьебать по москве
+bc1qrkwcs3uklwmdjlmdxpp4ye7vtntmwxpd6f886p
+ETH: 0x324E5A1dc7157536cA894C3486be74B25360cc2A</p><p>Я ненавижу Путина. И Кадырова ебанного Я умру , но я поднасру ебаногому путинскому режиму. Гори москва ебаная.
+Путин пошел нахуй! СВОшник ебаный, иди нахуй! Слава Украине! Героям слава!</p>
 	<!-- https://cssloaders.github.io/ -->
 
 <!--
@@ -202,59 +191,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
 	
 		<br>
  
-   ${process.env.DEVELOPMENT==="yes"?'<script>function getReklama(){}</script>':`<script>
-     // https://yandex.ru/support2/partner/ru/web/units/sizes
-     var kkk = 0;
-     function getReklama(){
-		 return;
-		 if(Brole.value==="admin") return;
-     window.yaContextCb.push(()=>{
-     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
-		kkk++;
-		 Ya.Context.AdvManager.render({
-			 "blockId":"R-A-12098170-3",
-			// "renderTo":"yandex_rtb_R-A-12098170-1
-			"type":"floorAd",
-			"platform":"desktop",
-			"onClose":function(){
-			console.log("Reklama closed")
-			setTimeout(function(){getReklama();}, 1000 * 60)
-			if(kkk == 1){
-				//if(isLogin.value=="true")
-			//	window.location.href="#setPrem";
-			kkk = 0;
-		}
-			},
-		 })
-	 }else{
-	 /*
-	 
-		 kkk++;
-		 Ya.Context.AdvManager.render({
-		 "blockId":"R-A-12098170-5",
-		 "type":"floorAd",
-			"platform":"touch",
-			"onClose":function(){
-			console.log("Reklama closed")
-			setTimeout(function(){getReklama();}, 1000 * 60)
-			if(kkk == 1){
-			//if(isLogin.value=="true")
-		//	window.location.href="#setPrem";
-		kkk = 0;
-		}
-			}
-		})
-	*/
-	}
-	 })
- }
-if(isLogin.value=="false") getReklama();
-	 </script> 
-
-	 
-	 `}
-	
-	 ${whosonline({})}
+ 
 	
 	 
 	 
