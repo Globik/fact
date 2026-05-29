@@ -127,7 +127,7 @@ function startTrans(el){
 	//}else{
 		//alert(userId.value);
 		//window.location.href = "/stream/"+userId.value;
-		alert(sess.value);
+		//alert(sess.value);
 		window.location.href = "/papa";//+sess.value;
 	//}
 }
