@@ -72,4 +72,4 @@ window.yaContextCb.push(()=>{
 		</body></html>
     `;
 }
-module.exports = { stream }
+module.exports = { streami }
