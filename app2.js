@@ -438,7 +438,7 @@ let token = createJWT({ mama: shortid()}, jwtsecret );
 	console.log('owner', owner);
 	//console.log('user ', req.user);
 	botMessage('wanna stream');
-	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' });
+	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' });
 })
 
 app.get("/demospace", async(req, res)=>{
