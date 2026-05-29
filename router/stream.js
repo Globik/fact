@@ -45,7 +45,7 @@ router.get('/:id/:streamid', async(req, res)=>{
 	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
 */
-router.get('/:id', async(req, res)=>{
+router.get('/', async(req, res)=>{
 	
 	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner=false;
@@ -55,6 +55,7 @@ router.get('/:id', async(req, res)=>{
 	//		owner=true;
 		//}
 	//}
+	/*
 	if(!req.user){
 	if(Number(req.params.id) === Number(req.session.suka)){
 		owner=true;
@@ -63,11 +64,11 @@ router.get('/:id', async(req, res)=>{
 	if(req.user.id===Number(req.params.id)){
 		owner = true;
 	}
-}
+}*/
 let token = createJWT({ mama: shortid()}, jwtsecret );
-	//console.log('owner', owner);
+	console.log('owner', owner);
 	//console.log('user ', req.user);
 	botMessage('wanna stream');
-	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
+	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' /*, userid: Number(req.params.id), user:req.user */});
 })
 module.exports = router;
