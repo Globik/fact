@@ -2,7 +2,7 @@ const { login } = require('./login.js')
 const { nav } = require('./nav.js')
 const { videochat } = require('./videochat.js')
 const { warnig } = require('./warnig.js');
-const stream = function(n){
+const streami = function(n){
 	const { lang , buser, user } = n;
 //	console.log('da user ', n);
 	return ` <!DOCTYPE html>
