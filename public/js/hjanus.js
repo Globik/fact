@@ -127,8 +127,8 @@ function startTrans(el){
 	//}else{
 		//alert(userId.value);
 		//window.location.href = "/stream/"+userId.value;
-		//alert(sess.value);
-		window.location.href = "/stream";//+sess.value;
+		alert(sess.value);
+		window.location.href = "/stream/papa";//+sess.value;
 	//}
 }
 function initPeer(id){

@@ -45,7 +45,7 @@ router.get('/:id/:streamid', async(req, res)=>{
 	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
 */
-router.get('/', async(req, res)=>{
+router.get('/papa', async(req, res)=>{
 	
 	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner=false;
