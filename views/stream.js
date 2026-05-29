@@ -22,8 +22,8 @@ const stream = function(n){
 		<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.3/adapter.min.js" ></script>
 	<script src="/js/janus.js"></script>
-	<script>window.yaContextCb=window.yaContextCb||[]</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script>
+	<!-- <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script> -->
 		</head><body>
 		
 		${nav(n)}
@@ -42,7 +42,7 @@ const stream = function(n){
 		<script src="/js/stream.js"></script>
 		<script src="/js/login4.js"></script>
 		 <script>
-	 
+	 /*
 	 
 window.yaContextCb.push(()=>{
      if(Ya.Context.AdvManager.getPlatform()==='desktop'){
@@ -67,6 +67,7 @@ window.yaContextCb.push(()=>{
 		})
 			}
 			})
+			*/
 	 </script>
 		</body></html>
     `;
