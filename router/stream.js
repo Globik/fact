@@ -29,6 +29,8 @@ function createJWT(payload, secret){
 		
 	});
 }
+
+/*
 router.get('/:id/:streamid', async(req, res)=>{
 	//console.log('params ', req.params);
 	let owner=false;
@@ -42,8 +44,9 @@ router.get('/:id/:streamid', async(req, res)=>{
 	botMessage('on streaming');
 	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
-
+*/
 router.get('/:id', async(req, res)=>{
+	
 	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner=false;
 	//console.log('suka ', Number(req.params.id) === Number(req.session.suka));
