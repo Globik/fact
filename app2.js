@@ -414,32 +414,7 @@ app.get("/", async(req, res)=>{
 	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
 
-app.get('/papa', async(req, res)=>{
-	
-	//console.log('params ', req.params.id, ' ', req.session.suka);
-	let owner=false;
-	//console.log('suka ', Number(req.params.id) === Number(req.session.suka));
-	//if(req.params&&req.params.id && req.user){
-	//	if(Number(req.params.id)===req.user.id){
-	//		owner=true;
-		//}
-	//}
-	/*
-	if(!req.user){
-	if(Number(req.params.id) === Number(req.session.suka)){
-		owner=true;
-	}
-}else{
-	if(req.user.id===Number(req.params.id)){
-		owner = true;
-	}*/
 
-let token = createJWT({ mama: shortid()}, jwtsecret );
-	console.log('owner', owner);
-	//console.log('user ', req.user);
-	botMessage('wanna stream');
-	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' });
-})
 
 app.get("/demospace", async(req, res)=>{
 	console.log('session in demospace ', req.session, ' and ', req.session.suka);

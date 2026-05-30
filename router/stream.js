@@ -30,7 +30,7 @@ function createJWT(payload, secret){
 	});
 }
 
-/*
+
 router.get('/:id/:streamid', async(req, res)=>{
 	//console.log('params ', req.params);
 	let owner=false;
@@ -42,11 +42,11 @@ router.get('/:id/:streamid', async(req, res)=>{
 	//console.log('user ', req.user);
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	botMessage('on streaming');
-	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
+	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
-*/
-/*
-router.get('/papa', async(req, res)=>{
+
+
+router.get('/:id', async(req, res)=>{
 	
 	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner=false;
@@ -70,6 +70,6 @@ let token = createJWT({ mama: shortid()}, jwtsecret );
 	console.log('owner', owner);
 	//console.log('user ', req.user);
 	botMessage('wanna stream');
-	res.rendel('stream',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
-})*/
+	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
+})
 module.exports = router;
