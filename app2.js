@@ -2302,6 +2302,7 @@ var janusonline = new Map();
 wsServer.on('connection', async function (socket, req) {
 socket.isAlive = true;
   socket.on("pong", heartbeat);
+  console.log('req.url ', req.url);
 	socket.burl = req.url;
 	socket.dynamo = false;
 	socket.isLogged = "no";
@@ -2463,6 +2464,10 @@ if(msg.request == "mediasoup"){
         break
         case 'ban_publish' :
         broadcasti({ type: msg.type, nick: msg.nick });
+        break
+        case 'msg':
+        console.log('msg ', msg);
+        broadcast_room(msg);
         break
       default:
         break
@@ -2700,6 +2705,13 @@ function clear_roomid(streamid){
 			el.streamid = 0;
 		}
 	}
+}
+function broadcast_room(obj){
+	for (let el of wsServer.clients) {
+		if(el.burl === obj.room){
+		//	console.log('broadcast room ', obj);
+			wsend(el,obj);
+		}}
 }
 function broadcast_streamid(obj){
 	for (let el of wsServer.clients) {

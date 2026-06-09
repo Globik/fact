@@ -19,7 +19,7 @@ const videochat = function(n){
        <div class="part">
        <textarea id="txt" class="textarea" placeholder="Your message"></textarea>
        </div>
-       <div class="part" onclick="sendMessage(this);">
+       <div class="part" id="sendbtn" onclick="sendMessage(this);">
        <img src="/img/send1.svg"/>
        </div>
         </footer> 

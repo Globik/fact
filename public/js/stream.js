@@ -13,6 +13,7 @@ var mystreamId = null;
 //alert(userid.value)
 var useridi = Number(userid.value);//getShortTimeId();
 //alert(useridi)
+var MYSOCKETID;
 function letStart(el){
 	//alert('suka');
 	//if(userid.value == "0") return;
@@ -101,7 +102,7 @@ function panelOpen(el){
 		function get_socket() {
 	//alert(2);
 	
- if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + "/stream");
+ if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + '/'+Number(userid.value));
 
   sock.onopen = function () {
 	 console.log("websocket opened");
@@ -116,7 +117,9 @@ function panelOpen(el){
 	  
     let a;
     try {
+		
       a = JSON.parse(evt.data);
+      console.log(a);
       on_msg(a);
     } catch (e) {
       note({ content: e, type: "error", time: 5 });
@@ -132,7 +135,12 @@ function on_msg(d){
 		if(d.subtype == 'onviews'){
 			spanViews.textContent = d.views;
 		}
-	}
+	}else if(d.type==='welcome'){
+		MYSOCKETID=d.socketid;
+	}else if(d.type==='msg'){
+		//alert(d);
+		handle_message(d);
+	}else{}
 }
 async function getToken(){
 	try{
@@ -715,13 +723,28 @@ function subscribe(el){
 	//subscribeToStream(roomnum.value);
 }
 
-function insertMessage(txt){
+
+function handle_message(obj){
+	insertMessage(obj);
+}
+
+
+function sendMessage(el){
+	el.classList.add('puls');
+	let txt=gid('txt');
+	if(!txt.value) return;
+	wsend({type:"msg", txt: txt.value, from:username.value,room:'/'+userid.value,owner:owner.value});
+	//insertMessage(txt.value);
+}
+function insertMessage(obj){
 				
 				let div = document.createElement("div");
 				div.className = "msg";
-				div.innerHTML = '<b>' + txt + '</b>';
+				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + obj.txt + '</b>';
 				chatbox.appendChild(div);
 				chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
+				txt.value='';
+				sendbtn.classList.remove('puls');
 			}
 function wsend(obj){
 	if(!sock) return;

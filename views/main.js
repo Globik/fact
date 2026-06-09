@@ -161,14 +161,41 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
     <script>
   const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
     </script>
-  ${nav(n)}
-	${warnig(n)}
-	<!-- https://cssloaders.github.io/ -->
-
-<!--
-    {chatruletka(n)}
-    <div><a href="/demospace">demo</a></div><br>
-    -->
+ <section id="suka">
+ <h1 style="font-size:3rem;">Cбор денег на дроны Украинским бойцам!</h1>
+ <p style="margin-left:2rem;font-size:2rem;">Православные! Не хватает денег на дроны!
+ Присылайте денег! Путину пизда!<br>
+ Третьему украинскому полку дроноводов<br><br>
+ Сюда бабки посылайте<br><br></p>
+ <p style="font-size:3rem;">
+ ООО НКО ЮМАНИ<br><br>
+ Общество с ограниченной ответственностью небанковская блядь кредитная для украины блядь организация юмани по свержению путлера<br><br>
+ ИНН<br>
+ 7750005725<br>
+ Фирменное наименование на иностранном языке<br>
+ Героям слава!<br>
+ ОРГН<br>
+ 1127711000031<br>
+ Статус кредитной организации<br>
+ Спонсирует терроризм<br>
+ НКО ебанное<br>
+ Дата регистрации Банком России<br>
+ 02.08.2012<br>
+ Регистрационный номер<br>
+ 3510<br>
+ БИК<br>
+ 044525444<br>
+ Адрес в пределах места нахождения<br>
+ 115035, город Москва, Садовническая улица, дом 82, строение 2<br>
+ Номер телефона <br>
+ +7 495 197 86 68<br>
+ Уставной капитал<br>
+ Нихуя нету!<br>
+ Субьект РФ<br>
+ ***ить москва<br><br></p>
+ 
+ 
+ </section>
     <br><br><br><br>
     <div id="startTr"><button id="transbtn2" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka"></div>
