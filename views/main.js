@@ -162,7 +162,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
   const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
     </script>
  
- 
+  ${nav(n)}
     <br><br><br><br>
     <div id="startTr"><button id="transbtn2" onclick="startTrans(this);">Начать трансляцию</button></div><br><br><br>
 		<section id="streamsection"><div id="poka"></div>
