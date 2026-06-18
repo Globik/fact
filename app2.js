@@ -1766,7 +1766,7 @@ servi.listen(port, () => {
 servi = https
   .createServer({
      key: fs.readFileSync(dkey),
-     cert: fs.readFileSync(dcert),
+     cert: fs.readFileSync(dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
     },
     app)
   .listen(port, ()=>{
@@ -1793,7 +1793,7 @@ const peerServer = ExpressPeerServer(serverPeer, {
     key: 'peerjs',
     ssl: process.env.DEVELOPMENT != 'yes' ? {
         key: fs.readFileSync(dkey),
-        cert: fs.readFileSync(dcert)
+        cert: fs.readFileSync(dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
     } : {}
 });
 app.use( peerServer);
