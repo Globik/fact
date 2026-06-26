@@ -1,7 +1,8 @@
 const https=require( "https");
 const fs =require( "fs");
 const fsi = require('fs/promises')
-
+const http2=require('http2-wrapper')
+const http2ExpressBridge=require('http2-express-bridge')
 const url = require('url');
 
 const express = require('express');
@@ -88,7 +89,8 @@ const pool = mariadb.createPool({
     database:'chatikon',
     bigIntAsNumber: true
 });
-const app = express();
+//const app = express();
+const app=http2ExpressBridge(express)
 const suka = "./public";
 
 app.use(express.static(suka));
@@ -1754,27 +1756,31 @@ const dcert = "/etc/letsencrypt/live/chatikon.ru/fullchain.pem";
 // /etc/letsencrypt/live/rouletka.ru-0001/fullchain.pem
 //        /etc/letsencrypt/live/rouletka.ru-0001/privkey.pem
 const http = require('http')
-const port = process.env.DEVELOPMENT=='yes'?3000:443;
+const port = 3000;//process.env.DEVELOPMENT=='yes'?3000:443;
 var servi;
 
-if(process.env.DEVELOPMENT == "yes"){
+//if(process.env.DEVELOPMENT == "yesi"){
 servi=http.createServer(app);
 servi.listen(port, () => {
  console.log(`Started on localhost:${port}`);
 })
-}else{
-servi = https
-  .createServer({
-     key: fs.readFileSync(dkey),
-     cert: fs.readFileSync(dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
-    },
-    app)
-  .listen(port, ()=>{
-    console.log('Started on https://chatikon.ru:' + port);
-  });
-}
+let serverPeer=http.createServer(app)
+//}else{
+//servi = http2
+ // .createSecureServer({
+ //    key: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/privkey.pem":dkey),
+  //   cert: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/fullchain.pem":dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
+ //   },
+  //  app)
+  //.listen(port, ()=>{
+  //  console.log('Started on https://chatikon.ru:' + port);
+ // });
+//}
 const ORIGINAL = "https://chatikon.ru";
-const serverPeer = http.createServer(app);
+//const serverPeer = http2.createSecureServer({
+ //    key: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/privkey.pem":dkey),
+ //    cert: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/fullchain.pem":dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
+ //   },app);
 const wsServer = new WebSocket.Server({server: servi, verifyClient:(info,cb)=>{
 	//console.log('info.origin: ', info.origin);
 if(process.env.DEVELOPMENT === "yes"){cb(true);return;}else{
@@ -1787,14 +1793,14 @@ const peerServer = ExpressPeerServer(serverPeer, {
     proxied: true,
     debug: true,
     // allow_discovery: true,//Allow to use GET /:key/peers
-    path: '/myapp',
+    path: '/peerjs',
     
-    secure: process.env.DEVELOPMENT != 'yes',
+    secure: true,//process.env.DEVELOPMENT != 'yesi',
     key: 'peerjs',
-    ssl: process.env.DEVELOPMENT != 'yes' ? {
-        key: fs.readFileSync(dkey),
-        cert: fs.readFileSync(dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
-    } : {}
+  //  ssl: process.env.DEVELOPMENT != 'yesi' ? {
+   //     key: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/privkey.pem":dkey),
+    //    cert: fs.readFileSync(process.env.DEVELOPMENT=="yes"?"certs/fullchain.pem":dcert),maxVersion:'TLSv1.2',minVersion:'TLSv1.2',allowHTTP1:true
+    //} : {}
 });
 app.use( peerServer);
 serverPeer.listen(9000, () => {

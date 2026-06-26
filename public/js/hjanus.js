@@ -132,7 +132,7 @@ function startTrans(el){
 	//}
 }
 function initPeer(id){
-	return;
+	//return;
 	  const iceServersConfig = {
         iceServers: [
             // Бесплатный публичный STUN сервер от Google
@@ -147,17 +147,24 @@ function initPeer(id){
         ],sdpSemantics: 'unified-plan'
     };
      peer = new Peer(id, {
-        debug: 2,
-        secure:false,
-        path:"/myapp",
-        host:"/",
-        port:9000,
+       // debug: 2,
+        //secure:false,
+       // path:"/myapp",
+       // host:"/",
+       // port:9000,
+       // key:'peerjs',
+       // config: iceServersConfig // Передаем конфиг сюда
+          debug: 2,
+        secure:true,//(DEVELOPMENT==="yesi"?false:true),
+        path:"/peerjs",
+        host:(DEVELOPMENT==="yes"?"localhost":"chatikon.ru"),
+        port:443,
         key:'peerjs',
-        config: iceServersConfig // Передаем конфиг сюда
+        config: iceServersConfig 
     });
 
     peer.on('open', (id) => {
-       // alert('opened '+id);
+        alert('opened '+id);
        // peer.socket.send(JSON.stringify({type:'durak',suka:true}));
      //  peer.socket.send({type:'NEW_REMOTE_PEER_REQUEST'});
     });
