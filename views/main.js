@@ -240,7 +240,34 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;</footer> 
   
-    
+    	 <script>
+	 
+	 
+window.yaContextCb.push(()=>{
+     if(Ya.Context.AdvManager.getPlatform()==='desktop'){
+		 
+		 Ya.Context.AdvManager.render({
+			 "blockId":"R-A-14255767-2",
+			// "renderTo":"yandex_rtb_R-A-12098170-1
+			"type":"floorAd",
+			"platform":"desktop",
+			"onClose":function(){
+			console.log("Reklama closed")
+		
+		}
+			})
+		 }else{
+		 
+		 Ya.Context.AdvManager.render({
+		 "blockId":"R-A-14255767-1",
+		 "type":"floorAd",
+			"platform":"touch",
+			
+		})
+			}
+			})
+			
+	 </script>
        </body>
 </html>`;
 }
