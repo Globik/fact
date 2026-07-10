@@ -103,6 +103,7 @@ function panelOpen(el){
 	//alert(2);
 	
  if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + '/'+Number(userid.value));
+ //sock=new WebSocket("wss://rouletka.ru/gesamt");
 
   sock.onopen = function () {
 	 console.log("websocket opened");
