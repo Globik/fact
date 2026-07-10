@@ -239,7 +239,7 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
    
     <br><br><br>
    <footer id="pfooter">(c)2025&nbsp;&nbsp;&nbsp;</footer> 
-  
+  -->
     	 <script>
 	 
 	 
