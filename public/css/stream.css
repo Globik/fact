@@ -108,7 +108,7 @@ left:0;
 #videobox section{
 	display: none;
 }
-#local.Vid{
+video.Vid{
 	 width:330px;
 	height:200px;
 	backgrund:red;
