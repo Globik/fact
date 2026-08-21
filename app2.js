@@ -396,7 +396,7 @@ function getShortTimeId() {
 }
  
 app.get("/", async(req, res)=>{
-	//console.log("REQ.QUERY: ", req.query);
+	console.log("REQ.QUERY: ", req.query);
 	console.log('headers ', req.headers['purpose']||req.headers['sec-fetch-dest']);
 	if(req.headers['purpose']==='image'||req.headers['sec-fetch-dest']==='image'){
 		console.log('ignore image');
@@ -2484,6 +2484,7 @@ socket.on('error', function(e){
 	socket.terminate();
 })
   socket.on('close', (code, reason) => {
+	  console.log("websocket closed");
 	  clearTimeout(this.pingTimeout);
  //   console.log(`#${socket.id} disconnected: [${code}]${reason}`)
     broadcasti({ type: 'online', online: wsServer.clients.size })

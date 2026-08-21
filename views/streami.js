@@ -30,8 +30,8 @@ let s= function(n){
 	<!--	<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script> -->
 	<script type="text/javascript" src="/js/adapter-latest.js" ></script> 
 	<script src="/js/janus.js"></script>
-	<!-- <script>window.yaContextCb=window.yaContextCb||[]</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script> -->
+	<script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script> 
 		</head><body>
 		
 		${nav(n)}
@@ -50,19 +50,20 @@ let s= function(n){
 		<script src="/js/stream.js"></script>
 		<script src="/js/login4.js"></script>
 		 <script>
-	 /*
+	 function getFloor(){
 	 
 window.yaContextCb.push(()=>{
      if(Ya.Context.AdvManager.getPlatform()==='desktop'){
 		 
 		 Ya.Context.AdvManager.render({
 			 "blockId":"R-A-14255767-2",
-			// "renderTo":"yandex_rtb_R-A-12098170-1
 			"type":"floorAd",
 			"platform":"desktop",
 			"onClose":function(){
 			console.log("Reklama closed")
-		
+		setTimeout(function(){
+				getFloor();
+			},6000*20);
 		}
 			})
 		 }else{
@@ -71,12 +72,76 @@ window.yaContextCb.push(()=>{
 		 "blockId":"R-A-14255767-1",
 		 "type":"floorAd",
 			"platform":"touch",
+			"onClose":function(){
+			console.log("Reklama closed")
+			setTimeout(function(){
+				getFloor();
+			},6000*20);
+		
+		}
 			
 		})
 			}
 			})
-			*/
+		}
+		getFloor();
 	 </script>
+	  <!-- Yandex.RTB R-A-14255767-3 -->
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-14255767-3",
+        "type": "fullscreen",
+        "platform": "touch"
+    })
+})
+</script>
+<!-- Yandex.RTB R-A-14255767-4 -->
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-14255767-4",
+        "type": "fullscreen",
+        "platform": "desktop"
+    })
+})
+</script>
+<!-- Yandex.RTB R-A-14255767-5 -->
+<script>
+window.addEventListener("load", () => {
+    const render = (imageId) => {
+        window.yaContextCb.push(() => {
+            Ya.Context.AdvManager.render({
+                "renderTo": imageId,
+                "blockId": "R-A-14255767-5",
+                "type": "inImage",
+                "onClose":function(){
+					setTimeout(function(){
+							console.warn("REKLAMA IN IMAGE MUST BE SHOWED");
+          renderInImage(2, Array.from(document.querySelectorAll(".Vid")))
+						}, 1000 * 30 * 1);
+				}
+            })
+        })
+    }
+    const renderInImage = (images) => {
+        if (!images.length) {
+            return
+        }
+        const image = images.shift()
+        image.id = 'yandex_rtb_R-A-14255767-5-${Math.random().toString(16).slice(2)}'
+        if (image.tagName === "IMG" && !image.complete) {
+            image.addEventListener("load", () => {
+                render(image.id)
+            }, { once: true })
+        } else {
+            render(image.id)
+        }
+        renderInImage(images)
+    }
+    renderInImage(Array.from(document.querySelectorAll(".Vid")))
+}, { once: true })
+</script>
 		</body></html>
     `;
 }

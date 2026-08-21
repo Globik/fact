@@ -129,11 +129,12 @@ function startTrans(el){
 		//alert(userId.value);
 		//window.location.href = "/stream/"+userId.value;
 		//alert(sess.value);
+		if(sock)sock.close();
 		window.location.href = "/stream/"+sess.value;
 	//}
 }
 function initPeer(id){
-	//return;
+	return;
 	  const iceServersConfig = {
         iceServers: [
             // Бесплатный публичный STUN сервер от Google
@@ -165,7 +166,7 @@ function initPeer(id){
     });
 
     peer.on('open', (id) => {
-        alert('opened '+id);
+        //alert('opened '+id);
        // peer.socket.send(JSON.stringify({type:'durak',suka:true}));
      //  peer.socket.send({type:'NEW_REMOTE_PEER_REQUEST'});
     });

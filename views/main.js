@@ -242,17 +242,19 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
   -->
     	 <script>
 	 
-	 
+	 function getFloor(){
 window.yaContextCb.push(()=>{
      if(Ya.Context.AdvManager.getPlatform()==='desktop'){
 		 
 		 Ya.Context.AdvManager.render({
 			 "blockId":"R-A-14255767-2",
-			// "renderTo":"yandex_rtb_R-A-12098170-1
 			"type":"floorAd",
 			"platform":"desktop",
 			"onClose":function(){
 			console.log("Reklama closed")
+			setTimeout(function(){
+				getFloor();
+			},6000*20);
 		
 		}
 			})
@@ -262,12 +264,42 @@ window.yaContextCb.push(()=>{
 		 "blockId":"R-A-14255767-1",
 		 "type":"floorAd",
 			"platform":"touch",
+			"onClose":function(){
+			console.log("Reklama closed")
+			setTimeout(function(){
+				getFloor();
+			},6000*20);
+		
+		}
 			
 		})
 			}
 			})
-			
+		
+				
+			}
+			getFloor();
 	 </script>
+	 <!-- Yandex.RTB R-A-14255767-3 -->
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-14255767-3",
+        "type": "fullscreen",
+        "platform": "touch"
+    })
+})
+</script>
+<!-- Yandex.RTB R-A-14255767-4 -->
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-14255767-4",
+        "type": "fullscreen",
+        "platform": "desktop"
+    })
+})
+</script>
        </body>
 </html>`;
 }
