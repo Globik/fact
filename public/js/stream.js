@@ -3,6 +3,7 @@ var janus=null;
 var authT;
 var basicSdkInstance;
 let localStream=null;
+const local=document.querySelector(".Vid");
 var loc1 = location.hostname + ":" + location.port;
 var loc2 = location.hostname;
 var loc3 = loc1 || loc2;
