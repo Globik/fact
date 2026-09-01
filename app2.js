@@ -2,7 +2,7 @@ const https=require( "https");
 const fs =require( "fs");
 const fsi = require('fs/promises')
 const url = require('url');
-
+// sudo scp .env root@chatikon.ru:fact  unable to get local issuer certificate
 const express = require('express');
 const {ExpressPeerServer} = require('peer');
 const { oni, oni1 } = require('./libs/web_push.js');
