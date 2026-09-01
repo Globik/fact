@@ -109,8 +109,8 @@ left:0;
 	display: none;
 }
 video.Vid{
-	 min-width:330px;
-	min-height:200px;
+	wdth:330px;
+	height:100%;
 	width:100%;
 	backgrund:red;
 	hight:100%;

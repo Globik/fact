@@ -143,7 +143,7 @@ data:  {
   recipient_identified: true,
   recipient_account_type: 'personal',
   recipient_masked_account: '41001******2251',
-  multiple_recipients_found: false
+  multiple_recipients_found: falsepart
 }
 
 data:  {

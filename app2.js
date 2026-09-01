@@ -1,22 +1,17 @@
 const https=require( "https");
 const fs =require( "fs");
 const fsi = require('fs/promises')
-const http2=require('http2-wrapper')
-const http2ExpressBridge=require('http2-express-bridge')
 const url = require('url');
 
 const express = require('express');
 const {ExpressPeerServer} = require('peer');
-//var cors = require('cors');
 const { oni, oni1 } = require('./libs/web_push.js');
 var WebSocket = require('ws');
-//require.resolve('bufferutil')
-//console.log('bufferutil ', WebSocket.supports.perMessageDeflate) ^8.14.2
 const crypto = require('crypto');
-//console.log('crypto.', crypto.randomUUID())
 const passport = require("passport");
 const session = require('express-session');
 const mariadb = require('mariadb');
+const { obid } = require('./libs/utils.js');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const { spawn } = require('child_process')
@@ -26,29 +21,17 @@ const render = require('./libs/render.js');
 const shortid = require('shortid');
 const admin = require('./router/admin.js');
 const donationalerts = require('./router/donationalerts.js');
-const {ev}=require('./router/donationalerts.js')
+const { ev }=require('./router/donationalerts.js')
 const pay = require('./router/pay.js');
 const stream = require('./router/stream.js')
 const rateLimit = require('express-rate-limit');
-const { createProxyMiddleware}=require('http-proxy-middleware')
-//console.log('shortid', shortid())
-//console.log('donation alerts ', donationalerts)
+//const { createProxyMiddleware}=require('http-proxy-middleware')
 //const { handleMediasoup, ev , handleAdminMedia } = require("./libs/mediasoup_help.js")
-
+const { sendmessage, maximg } = require('./libs/maxbot.js');
 const axios = require('axios').default;
-
-//console.log('ev ', ev)
-//const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
 const grid = '-1002095475544';
 const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
 const VIDEOCHAT_TG_ID = '-1002494074502';
-
-//var f = new FormData()
-//let sdi = 'data:image/jpeg;base64,/u87uhuggygy';
-//console.log('sdi: ', sdi.split(',')[1])
-//const grid = 
-//const { v4: uuidv4 } = require('uuid');
-//uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
 const me = '4100118676103827'; 
 const er = '410016439442251'; 
@@ -60,11 +43,11 @@ var mediasoupadmin = "no";
 
 const onLine = new Map();
 
-var {config} = require('dotenv');
+const { config } = require('dotenv');
 
 config();
 
-//const bot = new TelegramBot(tg_api, {});
+
 
 async function ibot(){
 	try{
@@ -89,8 +72,8 @@ const pool = mariadb.createPool({
     database:'chatikon',
     bigIntAsNumber: true
 });
-//const app = express();
-const app=http2ExpressBridge(express)
+const app = express();
+//const app=http2ExpressBridge(express)
 const suka = "./public";
 
 app.use(express.static(suka));
@@ -2233,17 +2216,7 @@ await pool.query(`insert into processTest(from_id,from_nick,wieviel) values((?),
   }
 }
 
-let obid = function () {
-  let tst = ((new Date().getTime() / 1000) | 0).toString(16);
-  return (
-    tst +
-    "xxxxxxxxxxxxxxxx"
-      .replace(/[x]/g, function () {
-        return ((Math.random() * 16) | 0).toString(16);
-      })
-      .toLowerCase()
-  );
-};
+
 
 
 function noop() {}
@@ -2374,14 +2347,23 @@ wsend(socket, { type:'vip', vip: r })
      msg = JSON.parse(message)
     // console.log('msg ',msg);
 }catch(e){return;}
+//console.log("hello")
+
 if(msg.request == "mediasoup"){
 	/*handleMediasoup.*/
+	console.log(msg.request);
+	
 	handleMediasoup(socket, msg, WebSocket, wsServer, pool).mediasoup_t();
 	return;
 }else if(msg.request == 'mediasoup2'){
 	//handleAdminMedia(socket, msg, WebSocket, wsServer, pool).mediadmin();
 	return;
 }else if(msg.request == 'janus'){
+	if(msg.subtype=="owner"){
+
+		maximg({ src: msg.src, txt: "Jemand enabled janus" });
+	
+	}
 	handleJanus(socket, msg, WebSocket, wsServer, pool);
 	return;
 }

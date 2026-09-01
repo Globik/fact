@@ -374,7 +374,8 @@ janus.attach({
 					//alert('userid '+userid.value);
 					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
 					note({ content: "Вы в эфире!", type:'info', time:5 });
-				}, 3000);
+					
+				}, 1000);
 				}else{
 					note({content:"Вышли из эфира!", type:"info", time: 5 });
 					el.disabled = false;
@@ -422,24 +423,6 @@ function freeLocalStream(){
                         
               }         
 
-function Screenshot() {
-	if(!local.srcObject) return;
-    let cnv = document.createElement('canvas');
-    let w = 80;
-    let h = 50;
-  // cnv.width = w;
-   // cnv.height = h;
-    let c = cnv.getContext('2d');
-    var ww = local.videoWidth/4;
-    var hh = local.videoHeight/4;
-     cnv.width = ww;
-    cnv.height = hh;
-    c.drawImage(local, 0, 0, ww, hh);
-    var imgdata = cnv.toDataURL('image/jpeg', 5.0);
-    cnv.remove();
-    return imgdata;
-    
-}
 
 function destroy(el){
 	if(!sfutest)return;
@@ -454,20 +437,17 @@ function destroy(el){
 function Screenshot() {
 	if(!local.srcObject) return;
     let cnv = document.createElement('canvas');
-    let w = 80;
-    let h = 50;
-  // cnv.width = w;
-   // cnv.height = h;
     let c = cnv.getContext('2d');
     var ww = local.videoWidth/4;
     var hh = local.videoHeight/4;
-     cnv.width = ww;
+    cnv.width = ww;
     cnv.height = hh;
+    c.filter = 'blur(3px)';
     c.drawImage(local, 0, 0, ww, hh);
-    var imgdata = cnv.toDataURL('image/jpeg', 5.0);
+    var imgdata = cnv.toDataURL('image/jpeg', 0.1);
     cnv.remove();
+    //document.body.appendChild(cnv);
     return imgdata;
-    
 }
 
 
