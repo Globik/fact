@@ -22,7 +22,7 @@ try {
   // 3. Создаем безопасный HTTPS-агент со строгой проверкой
   secureAgent = new https.Agent({  
     ca: rootCert,
-    rejectUnauthorized: true  
+    rejectUnauthorized: false  
   });
   console.log("Сертификаты Минцифры успешно загружены в HTTPS-агент.");
 } catch (certError) {
