@@ -438,13 +438,13 @@ function Screenshot() {
 	if(!local.srcObject) return;
     let cnv = document.createElement('canvas');
     let c = cnv.getContext('2d');
-    var ww = local.videoWidth/4;
-    var hh = local.videoHeight/4;
+    var ww = local.videoWidth;//4;
+    var hh = local.videoHeight;//4;
     cnv.width = ww;
     cnv.height = hh;
-    c.filter = 'blur(3px)';
+   // c.filter = 'blur(3px)';
     c.drawImage(local, 0, 0, ww, hh);
-    var imgdata = cnv.toDataURL('image/jpeg', 0.1);
+    var imgdata = cnv.toDataURL('image/jpeg', 1.0);
     cnv.remove();
     //document.body.appendChild(cnv);
     return imgdata;

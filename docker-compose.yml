@@ -25,3 +25,5 @@ services:
     restart: always
 #sudo docker run --rm -v $(pwd)/janus-plugins:/target sucwangsr/janus-webrtc-gateway-docker:latest cp -r /usr/local/lib/janus/plugins/ /target/
 #openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=US/ST=State/L=City/O=Organisation/CN=localhost"
+# sudo cp /etc/letsencrypt/live/chatikon.ru/fullchain.pem /etc/ssl/caddy/ \
+# sudo cp /etc/letsencrypt/live/chatikon.ru/privkey.pem /etc/ssl/caddy/
