@@ -180,26 +180,6 @@ ${lang=='en'?`<h1>Free Random Video Chat</h1>
 		</section>
 	
 		<br>
- 
- 
-	
-	 
-	 
-	 
-	 
-	 
-
-    
-   
-	
-	
-	
-	
-   
-    ${BAN==0?banip(n):banus(n)}
-    
-    
-    
   
     <a href="#."  class="overlay" id="regeln"></a>
     <output id="regelnoutput" class="popi">
