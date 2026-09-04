@@ -37,7 +37,7 @@ async function maxsub(){
 
 	try{
 let a= await axios.post(`${maxurl}subscriptions`, {
-  "url": "https://chation.ru/maxwebhook",
+  "url": "https://chatikon.ru/maxwebhook",
   "update_types": ["message_created", "bot_started","message_callback"],
   "secret": max_your_secret  
   },{
@@ -55,12 +55,12 @@ let a= await axios.post(`${maxurl}subscriptions`, {
 		console.log(e.response?e.response.data:e.message);
 		}
 }
-maxsub()
+//maxsub()
 async function maxsetcommand(){
 	
 
 	try{
-let a= await axios.post(`${maxurl}me/commands`, {
+let a= await axios.patch(`${maxurl}me/commands`, {
   "commands": [
           {
             "name": "hello",
@@ -82,4 +82,4 @@ let a= await axios.post(`${maxurl}me/commands`, {
 		console.log(e.response?e.response.data:e.message);
 		}
 }
-maxsetcommand();
+//maxsetcommand();

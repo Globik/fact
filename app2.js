@@ -119,7 +119,8 @@ async function getstun(){
 	let a;
 try{
 		a = await pool.query('select * from sets');
-	//	console.log("stun: ", a[0].stun);
+	//a=await pool.query('select*from users');
+		console.log("stun: ", a/*[0].stun*/);
 		//console.log('stun2 ', JSON.parse(a[0].stun).stun2);
 		//stun = JSON.parse(a[0].stun);
 		if(a.length > 0){
@@ -244,126 +245,7 @@ async function botMessage(txt){
 		console.log(e);
 		}
 }
-/*
- 
-gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, format=YUY2, width=640, height=480, framerate=30/1 ! \
-videoconvert ! \
-x264enc speed-preset=ultrafast tune=zerolatency ! \
-h264parse ! \
-video/x-h264, stream-format=avc, alignment=au ! \
-avdec_h264 ! \
-videoconvert ! \
-autovideosink
 
- gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, format=YUY2, width=1280, height=720, framerate=30/1 ! \
-videoconvert ! \
-x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
-h264parse ! \
-video/x-h264, stream-format=byte-stream, alignment=nal ! \
-mpegtsmux ! \
-hlssink2 location=/public/media/segment_%05d.ts \
-playlist-location=/public/media/index.m3u8 \
-max-files=5 target-duration=2
-* eta rabjtaet
-* gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, format=YUY2, width=1280, height=720, framerate=30/1 ! \
-videoconvert ! \
-x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
-h264parse ! \
-mpegtsmux ! \
-hlssink location=/home/globi/media/segment_%05d.ts \
-playlist-location=/home/globi/media/index.m3u8 \
-max-files=5 target-duration=2
-* 
-* gst-launch-1.0 v4l2src device=/dev/video0 ! \
-videoconvert ! \
-x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
-h264parse ! \
-mpegtsmux ! \
-hlssink location=public/media/segment_%05d.ts \
-playlist-location=public/media/index.m3u8 \
-max-files=5 target-duration=2
-
-* 
-* 
-* 
-* vot eta tochno na raspberry rabotaet:
-* gst-launch-1.0 libcamerasrc ! \
-video/x-raw, width=640, height=480, framerate=30/1 ! \
-videoconvert ! \
-x264enc speed-preset=ultrafast tune=zerolatency bitrate=2500 ! \
-h264parse ! \
-mpegtsmux ! \
-hlssink location=media/segment_%05d.ts \
-playlist-location=media/index.m3u8 \
-max-files=5 target-duration=2
-* 
-* 
-* 
-* 
-* 
-* gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, width=1280, height=720, framerate=30/1 ! \
-videoconvert ! \
-v4l2h264enc extra-controls="controls,repeat_sequence_header=1,video_bitrate=2500000" ! \
-h264parse ! \
-video/x-h264, stream-format=byte-stream, alignment=nal ! \
-mpegtsmux ! \
-hlssink location=media/segment_%05d.ts \
-playlist-location=media/index.m3u8 \
-max-files=5 target-duration=2
-* 
-* 
-* GST_DEBUG=3 gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, width=240, height=280, framerate=30/1 ! \
-videoconvert ! \
-v4l2h264enc ! \
-h264parse ! \
-mpegtsmux ! \
-hlssink location=/home/globi/media/segment_%05d.ts \
-playlist-location=/home/globi/media/index.m3u8 \
-max-files=5 target-duration=2 >&1 | tee gst-debug.log
-* 
-* gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, width=640, height=480, framerate=30/1 ! \
-queue max-size-buffers=3 leaky=downstream ! \
-videoconvert ! \
-v4l2h264enc extra-controls="controls,repeat_sequence_header=1,video_bitrate=2500000,key_int_max=60" ! \
-h264parse ! \
-video/x-h264, stream-format=byte-stream, alignment=nal ! \
-queue max-size-buffers=3 leaky=downstream ! \
-mpegtsmux ! \
-hlssink location=/home/globi/media/segment_%05d.ts \
-playlist-location=/home/globi/media/index.m3u8 \
-max-files=5 target-duration=2
-* 
-* 
-* gst-launch-1.0 v4l2src device=/dev/video0 ! \
-video/x-raw, width=640, height=480, framerate=30/1 ! \
-videoconvert ! \
-v4l2h264enc extra-controls="controls,video_bitrate=2500000,key_int_max=60" ! \
-h264parse ! \
-fakesink
-* 
-* 
-* 
-* 
-* gst-launch-1.0 \
-   libcamerasrc ! queue ! capsfilter caps=video/x-raw,width=640,height=480,framerate=25/1,format=NV12 ! \
-   v4l2h264enc extra-controls="controls,repeat_sequence_header=1,force_key_frame=2,video_bitrate=256000,video_gop_size=30" ! \
-   'video/x-h264,level=(string)4' ! h264parse config-interval=25 ! rtph264pay pt=96 config-interval=25 ! udpsink host=5.35.88.151 port=5000 sync=false
-gst-launch-1.0 \
-libcamerasrc ! \
-queue ! \
-videoconvert ! \
-capsfilter caps=video/x-raw,width=640,height=480,framerate=25/1,format=I420 ! \
-x264enc speed-preset=ultrafast tune=zerolatency bitrate=256 key_int_max=30 ! \
-h264parse config-interval=25 ! \
-rtph264pay pt=96 config-interval=25 ! \
-udpsink host=5.35.88.151 port=5000 sync=false
- */
 // const router = express.Router();
 function getShortTimeId() {
   const now = new Date();
@@ -398,12 +280,56 @@ app.get("/", async(req, res)=>{
 	botMessage("jemand on /");
 	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
-
+/*
+ *{
+  timestamp: 1788549962189,
+  message: {
+    recipient: { chat_type: 'dialog', chat_id: 494935, user_id: 39936 },
+    timestamp: 1788549962189,
+    body: {
+      mid: 'mid.000000001d76f3d701a06de299cd6e0a',
+      seq: 117214410322046480,
+      text: '/hello'
+    },
+    sender: {
+      user_id: 1203,
+      first_name: 'Алик',
+      last_name: '',
+      is_bot: false,
+      last_activity_time: 1788549962000,
+      name: 'Алик'
+    }
+  },
+  user_locale: 'ru',
+  update_type: 'message_created'
+}
+ 
+ * 
+ */
 app.post("/maxwebhook", async(req,res)=>{
+	console.log("headers: ", req.headers);
+	//if (apiSecret !== process.env.MY_EXPECTED_SECRET) {return res.status(403).send('Unauthorized');}
 	console.log("body ",req.body);
+	let m = req.body;
+	if(m.update_type == "message_created"){
+	if(m.message&&m.message.body.text == "/hello"){
+		try{
+		let a = await pool.query('select name,brole, createdAt from users order by id desc limit 5');
+		if(a.rows.length > 0)await sendmessage({format:"html", txt: getidata(a.rows)});
+	}catch(er){
+		await sendmessage({txt:er.message});
+	}
+	}
+}
 	res.status(200).send({ message: "ok" });
 })
-
+function getidata(n){
+	let s='';
+	n.forEach(function(el,i){
+		s+=`<b>${el.id}</b> ${el.name}, ${el.brole}, ${el.createdAt}<br>\n`;
+	});
+	return s;
+}
 app.get("/demospace", async(req, res)=>{
 	console.log('session in demospace ', req.session, ' and ', req.session.suka);
 	res.rendel('demospace',{});
@@ -553,6 +479,7 @@ app.post('/checkip', async(req, res)=>{
 
 
 app.post('/zartoone', checkAuth, async(req, res)=>{
+	
 	console.log('body: ', req.body);
 	const { value, id } = req.body;
 	let db = req.db;
