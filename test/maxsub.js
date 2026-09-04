@@ -10,6 +10,7 @@ const rootCertPath = "/usr/local/share/ca-certificates/russian-trusted/russian_t
 const subCertPath = "/usr/local/share/ca-certificates/russian-trusted/russian_trusted_sub_ca.crt";
 config({ path: path.resolve(__dirname, '../.env') });
 const some_user_id = process.env.ME_MAX_USER_ID;
+const max_your_secret = process.env.MAX_YOUR_SECRET;
 let secureAgent;
 
 function getcertificates(){
@@ -31,30 +32,16 @@ try {
 }
 }
 getcertificates();
-async function sendmessage(obj){
-	if(!obj.txt)return;
-	if(obj.txt.length > 4000)return;
-	const hasAttachment = obj.type && obj.token;
+async function maxsub(){
+	
 
 	try{
-let a= await axios.post(`${maxurl}messages`, {
-  text: obj.txt, // required
-  format:"html",
-    ...(hasAttachment && {
-        attachments: [
-          {
-            type: obj.type, // Сюда автоматически подставится 'image', 'video', 'file' и т.д.
-            payload: {
-              token: obj.token
-            }
-          }
-        ]
-      })
-     
+let a= await axios.post(`${maxurl}subscriptions`, {
+  "url": "https://chation.ru/maxwebhook",
+  "update_types": ["message_created", "bot_started","message_callback"],
+  "secret": max_your_secret  
   },{
-	  params:{
-		 user_id: some_user_id 
-	  },
+	  params:{},
 	  httpsAgent: secureAgent,
 	  headers: {
     'content-type': 'application/json' ,
@@ -68,53 +55,31 @@ let a= await axios.post(`${maxurl}messages`, {
 		console.log(e.response?e.response.data:e.message);
 		}
 }
-//sendmessage({txt:"hello from server"})
-async function maximg(obj){
-		try{
-let a = await axios.post(`${maxurl}uploads`, {},
-	{
-		params:{
-		 type: "image" 
-	  },
+maxsub()
+async function maxsetcommand(){
+	
+
+	try{
+let a= await axios.post(`${maxurl}me/commands`, {
+  "commands": [
+          {
+            "name": "hello",
+            "description": "get last five users from chatikon"
+          }
+        ]
+  },{
+	  params:{},
 	  httpsAgent: secureAgent,
 	  headers: {
     'content-type': 'application/json' ,
      "Authorization": process.env.MAX_BOT_TOKEN 
     }
     });
-   
-  console.log(a.data);
-  if(a.data.url){
-	  setTimeout(async function(){
-		  if(!obj.src)return;
-		let b11 = obj.src.split(',')[1];
     
-		let buf = Buffer.from(b11, "base64");
-		var f = new FormData();
-        const fileBlob = new Blob([buf], { type: 'image/jpeg' });
-        f.append("file", fileBlob, "fromservertest.jpeg");
-	try{
-		
-	  let b = await axios.post(a.data.url, f,
-	  { 
-		  httpsAgent: secureAgent,
-		  headers: 
-		  {
-		    "Authorization": process.env.MAX_BOT_TOKEN
-		  }, 
-		  
-    });
-	  console.log(b.data);
-	   const photoKey = Object.keys(b.data.photos)[0];
-          const finalFileToken = b.data.photos[photoKey].token;
-          sendmessage({ token: finalFileToken, txt:"Lueg ma nomol!", type:'image' });
-  }catch(error){
-	  console.error(error.response ? error.response.data : error.message);
-  }
-  }, 1000);
-  }
+  console.log(a.data);
+  
 	}catch(e){
-		 console.error(e.response?e.response.data:e.message);
+		console.log(e.response?e.response.data:e.message);
 		}
 }
-	maximg({ src: base64.src });
+maxsetcommand();

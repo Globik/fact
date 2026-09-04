@@ -399,7 +399,10 @@ app.get("/", async(req, res)=>{
 	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
 
-
+app.post("/maxwebhook", async(req,res)=>{
+	console.log("body ",req.body);
+	res.status(200).send({ message: "ok" });
+})
 
 app.get("/demospace", async(req, res)=>{
 	console.log('session in demospace ', req.session, ' and ', req.session.suka);
