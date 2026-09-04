@@ -326,7 +326,7 @@ app.post("/maxwebhook", async(req,res)=>{
 function getidata(n){
 	let s='';
 	n.forEach(function(el,i){
-		s+=`<b>${el.id})</b> ${el.name}, ${el.brole}, ${el.createdAt}<br>\n`;
+		s+=`<b>${el.id})</b> ${el.name}, ${(el.brole=='admin'?'admin':'user'}, ${el.createdAt}<br>\n`;
 	});
 	return s;
 }
