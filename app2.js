@@ -315,7 +315,7 @@ app.post("/maxwebhook", async(req,res)=>{
 	if(m.message&&m.message.body.text == "/hello"){
 		try{
 		let a = await pool.query('select name,brole, createdAt from users order by id desc limit 5');
-		if(a.length > 0)await sendmessage({format:"html", txt: getidata(a.rows)});
+		if(a.length > 0)await sendmessage({format:"html", txt: getidata(a)});
 	}catch(er){
 		await sendmessage({txt:er.message});
 	}
