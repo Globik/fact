@@ -303,13 +303,25 @@ app.get("/", async(req, res)=>{
   user_locale: 'ru',
   update_type: 'message_created'
 }
+* headers:  {
+  connection: 'close',
+  host: 'chatikon.ru',
+  'x-real-ip': '31.177.104.200',
+  'x-forwarded-for': '31.177.104.200',
+  'x-forwarded-proto': 'https',
+  'content-length': '424',
+  'x-max-bot-api-secret': 'm31',
+  'user-agent': 'OneMe/0.1.10 Bot API',
+  'content-type': 'application/json; charset=UTF-8'
+}
+
  
  * 
  */
 app.post("/maxwebhook", async(req,res)=>{
-	console.log("headers: ", req.headers);
+	//console.log("headers: ", req.headers);
 	//if (apiSecret !== process.env.MY_EXPECTED_SECRET) {return res.status(403).send('Unauthorized');}
-	console.log("body ",req.body);
+	//console.log("body ",req.body);
 	let m = req.body;
 	if(m.update_type == "message_created"){
 	if(m.message&&m.message.body.text == "/hello"){
