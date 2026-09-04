@@ -314,7 +314,7 @@ app.post("/maxwebhook", async(req,res)=>{
 	if(m.update_type == "message_created"){
 	if(m.message&&m.message.body.text == "/hello"){
 		try{
-		let a = await pool.query('select name,brole, createdAt from users order by id desc limit 5');
+		let a = await pool.query('select id, name,brole, createdAt from users order by id desc limit 5');
 		if(a.length > 0)await sendmessage({format:"html", txt: getidata(a)});
 	}catch(er){
 		await sendmessage({txt:er.message});
@@ -326,7 +326,7 @@ app.post("/maxwebhook", async(req,res)=>{
 function getidata(n){
 	let s='';
 	n.forEach(function(el,i){
-		s+=`<b>${el.id}</b> ${el.name}, ${el.brole}, ${el.createdAt}<br>\n`;
+		s+=`<b>${el.id})</b> ${el.name}, ${el.brole}, ${el.createdAt}<br>\n`;
 	});
 	return s;
 }
