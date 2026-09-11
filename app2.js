@@ -1772,9 +1772,9 @@ let a = ip.match(re);
 let r = a[0];
 socket.banip = r;
 //wsend(socket, { type:'vip', vip: r })
-}catch(e){}
+}catch(e){
 console.log(e)
-  
+}
 }
   
   
