@@ -1,7 +1,7 @@
 //alert(1);
 var janus=null;
 var authT;
-var basicSdkInstance;
+
 let localStream=null;
 const local=document.querySelector(".Vid");
 var loc1 = location.hostname + ":" + location.port;
@@ -108,8 +108,11 @@ function panelOpen(el){
 
   sock.onopen = function () {
 	 console.log("websocket opened");
-	 
-	
+	 // alert(owner.value);
+	 if(owner.value=="false"){
+		// alert(useridi);
+	 wsend({"request":"janus","subtype":"getposter", "streamid":useridi});
+	}
   };
   sock.onerror = function (e) {
    // note({ content: "Websocket error: " + e, type: "error", time: 5 });
@@ -121,7 +124,7 @@ function panelOpen(el){
     try {
 		
       a = JSON.parse(evt.data);
-      console.log(a);
+      //console.log(a);
       on_msg(a);
     } catch (e) {
       note({ content: e, type: "error", time: 5 });
@@ -136,79 +139,17 @@ function on_msg(d){
 	if(d.type==='janus'){
 		if(d.subtype == 'onviews'){
 			spanViews.textContent = d.views;
-		}
+		}else if(d.subtype==="getposter"){
+		local.poster=d.src;
+	}
 	}else if(d.type==='welcome'){
 		MYSOCKETID=d.socketid;
 	}else if(d.type==='msg'){
 		//alert(d);
 		handle_message(d);
+	}else if(d.type === 'online'){
+		onlineCount.textContent = d.online;
 	}else{}
-}
-async function getToken(){
-	try{
-		 let reqi = await fetch('/lovetoken', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({ uid: '12345', uname:'alik' })});
-	if(reqi.ok){
-		if(reqi.error){
-			out.innerHTML+=reqi.message+'<br>'
-			return;
-		}
-		let config = await reqi.json();
-		authT = config.authToken;
-		out.innerHTML+=authT;
-		dowas();
-	}
-	}catch(e){
-		out.innerHTML+=e+'<br>'
-	}
-}
-async function dowas(){
- basicSdkInstance=new LovenseBasicSdk({
-	platform:"Chatikon",
-	authToken:authT,
-	uid:"1234"
-})
-basicSdkInstance.on("ready",async(instance)=>{
-	out.innerHTML+='ready'+'<br>';
-	try{
-		const codeRes=await instance.getQrcode();
-		console.log('codeRes ', codeRes);
-		out.innerHTML+=codeRes+'<br>';
-		let im=document.createElement('img');
-		im.src=codeRes.qrcodeUrl;
-		im.className="imgqr";
-		document.body.appendChild(im);
-	}catch(e){
-		out.innerHTML+=e+'<br>'
-	}
-	
-})
-basicSdkInstance.on("sdkError",(data)=>{
-	out.innerHTML+=data.code+" "+data.message+"<br>"
-})
-
-}
-function getappstatus(){
-	if(!basicSdkInstance) return;
-	let a=basicSdkInstance.getAppStatus();
-out.innerHTML+='app status '+a+'<br>';
-}
-function getonlinetoys(){
-	if(!basicSdkInstance) return;
-	let a=basicSdkInstance.getOnlineToys();
-	out.innerHTML+=JSON.stringify(a)+'<br>';
-}
-function gettoys(){
-	if(!basicSdkInstance) return;
-let a =	basicSdkInstance.getToys();
-out.innerHTML+=JSON.stringify(a)+'<br>';
-}
-function setcommand(){
-	if(!basicSdkInstance) return;
-	basicSdkInstance.sendToyCommand({ vibrate:20});
-}
-function stop(){
-	if(!basicSdkInstance) return;
-	basicSdkInstance.stopToyAction();
 }
 
 var server = null;
@@ -244,6 +185,20 @@ function check(){
     sfutest.send({message:{request:"listparticipants",
         "room" : Number(useridi)}});
 }
+// Close socket when page is hidden/cached
+window.addEventListener('pagehide', () => {
+  if (sock && sock.readyState === WebSocket.OPEN) {
+    sock.close();
+  }
+});
+
+// Alternative: also handle visibility changes
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+ //alert("hidden");
+  //  sock.close();
+  }
+});
 function getJanus(el){
 	el.disabled = true;
 	let l = document.querySelector("#videobox section");
@@ -445,9 +400,10 @@ function Screenshot() {
     c.filter = 'blur(9px)';
     c.drawImage(local, 0, 0, ww, hh);
     var imgdata = cnv.toDataURL('image/jpeg', 1.0);
-    cnv.remove();
+ 
+   cnv.remove();
     //document.body.appendChild(cnv);
-    return imgdata;
+   return imgdata;
 }
 
 
@@ -490,6 +446,9 @@ function unsubscribe(el){
 	if(!sfutest)return;
 	sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(streamId.value)}]}});
 	wsend({ request: "janus", subtype: "unsubscriber", streamid: streamId.value, roomid: userid.value });
+	el.textContent="Subscribe";
+	el.classList.remove("redi");
+	el.setAttribute("onclick", `subscribe(this);`);
 }
 function pfuck(el){
 
@@ -509,7 +468,6 @@ Janus.init({debug: "all", callback: async function() {
 
 }
 local.onloadedmetadata=function(){
-	//alert(1);
 	let l = document.querySelector("#videobox section");
 	if(l){l.style.display="none";}
 }
@@ -701,11 +659,46 @@ function subscribeToStream(roomId, publisherId, el) {
 }
 function subscribe(el){
 	el.disabled = true;
+	let a=Number(streamId.value);
+	if(a == 600000 || a == 600001 || a == 600002 || a == 600003 || a == 600004 || a == 600005){
+		//alert('suka '+streamId.value);
+		let l = document.querySelector("#videobox section");
+	if(l){l.style.display="flex";}
+		handleFakeVideo(el, streamId.value);
+		return;
+	}
 	pfuck(el);
 	//subscribeToStream(roomnum.value);
 }
 
-
+setOboi();
+function setOboi(){
+	//alert(1);
+	let a = Number(streamId.value);
+	if(a==600000 || a==600001 || a==600002 || a==600003 || a==600004 || a==600005){
+		getOboi(streamId.value);
+	}
+}
+function getOboi(n){
+	//alert(n);
+	if(n==600000){
+		
+		local.poster="/img1/girl1.png";
+		
+	}else if(n==600001){
+		
+		local.poster="/img1/girl2.png";
+		
+	}else if(n==600002){
+		local.poster="/img1/boy.png";
+	}else if(n==600003){
+		local.poster="/img1/korova1.png";
+	}else if(n==600004){
+		local.poster="/img1/korova2.png";
+	}else if(n==600005){
+		local.poster="/img1/korova3.png";
+	}
+}
 function handle_message(obj){
 	insertMessage(obj);
 }
@@ -736,4 +729,49 @@ function wsend(obj){
 		d = JSON.stringify(obj);
 		if(sock.readyState == WebSocket.OPEN)sock.send(d);
 	}catch(e){}
+}
+function handleFakeVideo(el,n){
+
+	if(n==600000){
+		
+		local.src="/videos/girl1.webm";
+		
+	}else if(n==600001){
+		
+		local.src="/videos/girl2.webm";
+		
+	}else if(n==600002){
+		local.src="/videos/boy.webm";
+	}else if(n==600003){
+		local.src="/videos/korova1.mp4";
+	}else if(n==600004){
+		local.src="/videos/korova2.mp4";
+	}else if(n==600005){
+		local.src="/videos/korova3.mp4";
+	}
+	local.muted = false;
+	local.setAttribute("loop", true);
+		 el.disabled = false;
+        el.textContent = "Stop";
+        el.classList.add("redi");
+        el.setAttribute("onclick", `unsubscribeFake(this,"${n}");`);
+	//getGirl();
+}
+function unsubscribeFake(el,n){
+	local.src=null;
+	el.textContent="Subscribe";
+	el.classList.remove("redi");
+	//handleFakeVideo(el,n);
+	el.setAttribute("onclick", `handleFakeVideo(this,"${n}");`);
+}
+function getGirl(){
+		let canvas=document.createElement('canvas');
+		var ctx = canvas.getContext("2d");
+		local.addEventListener('loadedmetadata', () => {
+  canvas.width = local.videoWidth;
+  canvas.height = local.videoHeight;
+  setTimeout(function(){ctx.drawImage(local, 0, 0, canvas.width, canvas.height);
+  },1000)
+ document.body.appendChild(canvas);
+});
 }

@@ -120,7 +120,7 @@ async function getstun(){
 try{
 		a = await pool.query('select * from sets');
 	//a=await pool.query('select*from users');
-		console.log("stun: ", a/*[0].stun*/);
+		//console.log("stun: ", a/*[0].stun*/);
 		//console.log('stun2 ', JSON.parse(a[0].stun).stun2);
 		//stun = JSON.parse(a[0].stun);
 		if(a.length > 0){
@@ -261,10 +261,10 @@ function getShortTimeId() {
 }
  
 app.get("/", async(req, res)=>{
-	console.log("REQ.QUERY: ", req.query);
-	console.log('headers ', req.headers['purpose']||req.headers['sec-fetch-dest']);
+	//console.log("REQ.QUERY: ", req.query);
+	//console.log('headers ', req.headers['purpose']||req.headers['sec-fetch-dest']);
 	if(req.headers['purpose']==='image'||req.headers['sec-fetch-dest']==='image'){
-		console.log('ignore image');
+	//	console.log('ignore image');
 		return res.status(404).end();
 		}
 	//console.log("SUKA", req.path);
@@ -277,47 +277,10 @@ app.get("/", async(req, res)=>{
 	req.session.suka = sess;
 	//console.log('sess ', req.session);
 	//console.log('session ', req.session , ' and ', req.session.suka);
-	botMessage("jemand on /");
+	//botMessage("jemand on /");
 	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
-/*
- *{
-  timestamp: 1788549962189,
-  message: {
-    recipient: { chat_type: 'dialog', chat_id: 494935, user_id: 39936 },
-    timestamp: 1788549962189,
-    body: {
-      mid: 'mid.000000001d76f3d701a06de299cd6e0a',
-      seq: 117214410322046480,
-      text: '/hello'
-    },
-    sender: {
-      user_id: 1203,
-      first_name: 'Алик',
-      last_name: '',
-      is_bot: false,
-      last_activity_time: 1788549962000,
-      name: 'Алик'
-    }
-  },
-  user_locale: 'ru',
-  update_type: 'message_created'
-}
-* headers:  {
-  connection: 'close',
-  host: 'chatikon.ru',
-  'x-real-ip': '31.177.104.200',
-  'x-forwarded-for': '31.177.104.200',
-  'x-forwarded-proto': 'https',
-  'content-length': '424',
-  'x-max-bot-api-secret': 'm31',
-  'user-agent': 'OneMe/0.1.10 Bot API',
-  'content-type': 'application/json; charset=UTF-8'
-}
 
- 
- * 
- */
 app.post("/maxwebhook", async(req,res)=>{
 	//console.log("headers: ", req.headers);
 	//if (apiSecret !== process.env.MY_EXPECTED_SECRET) {return res.status(403).send('Unauthorized');}
@@ -348,7 +311,7 @@ app.get("/demospace", async(req, res)=>{
 })
 app.get("/jstream", async(req, res)=>{
 	let token = createJWT({ mama: shortid()}, jwtsecret );
-	botMessage('see alik');
+	//botMessage('see alik');
 	res.json({message:'ok'});
 //	res.rendel('jstream',{ tok: token,lang:'ru' });
 })
@@ -1729,10 +1692,10 @@ const peerServer = ExpressPeerServer(serverPeer, {
 });
 app.use( peerServer);
 serverPeer.listen(9000, () => {
-    console.log('✅ PeerJS сервер запущен на порту 9000');
+   // console.log('✅ PeerJS сервер запущен на порту 9000');
 });
 peerServer.on('connection', (client) => {
-	console.log('peer connected ');
+	//console.log('peer connected ');
 })
 let waitingQueue = [];
 let matchedIds = new Map();
@@ -1741,425 +1704,6 @@ function log (text) {
   const time = new Date()
   console.log('[' + time.toLocaleString() + '] ' + text)
 }
-
-function getPeerSocket (peerId) {
-  for (let client of wsServer.clients) {
-    if (client.id === peerId && client.readyState === WebSocket.OPEN) {
-      return client
-    }
-  }
-
-  return null
-}
-
-function isEven(n) {
-   return n % 2 == 0;
-}
-//console.log(!isEven(1))
-var ed=[[0,{}],[1,{}],[2,{}]]
-var eda={a:[[0,{}]]};
-console.log(JSON.stringify(eda))
-var ign=new Map(ed);
-var ed2=ign.has(3)
-console.log('suka ', ed2, " ", ign.size)
-//var bb=[...ign].some((l)=>l==2)
-//console.log("isEven(1) ", isEven(1))
-async function searchPeer (socket, msg, source) {
-	let finger = msg.fingerPrint;
-	//console.log("FINGER ", finger);
-try{
-		let result = await pool.query('select*from banip where ip=(?)', [ finger ]);
-		if(result.length > 0){
-			return;
-		}
-	}catch(e){
-		
-	}
-	
-	//console.log("BANIP ", socket.banip);
-	let fingerip = socket.banip;
-	try{
-		let result = await pool.query('select*from banip where ip=(?)', [ fingerip ]);
-		if(result.length > 0){
-			//console.log(result);
-			return;
-		}else{
-			//console.log('result2 ', result);
-		}
-	}catch(e){
-		
-	}
-/*	if(socket.nick === 'anon'){
-		
-		if(onLine.has(socket.id)) {
-			onLine.delete(socket.id)
-			dynamic({ type: "dynamic", sub: "remove", id: socket.id, camcount: onLine.size });
-		 if(isEven(matchedIds.size)) broadcasti({ type: "connected2", size: matchedIds.size /2,cams:onLine.size });
-		  broadcasti({ type: 'connected3', cams: onLine.size });
-		}
-		socket.terminate();
-		return;
-	}*/
-	//console.log('msg****',msg);
-//searchPeer(socket, { type: 'peer-matched' }, { src: msg.src, ignores: msg.ignores })
-	//	console.log("search peer 1",  waitingQueue.length, waitingQueue);
-	//	console.log("*** MSG>IGNORES ***",  msg, " ", source.ignores);
-  while (waitingQueue.length) {
-	  
-    let index = Math.floor(Math.random() * waitingQueue.length)
-    let peerId = waitingQueue[index]
-    if(socket.id == peerId) return;
-    
-   //  console.log("*** MSG>IGNORES ***",  msg, " ", source.ignores);
-    let amap = new Map(source.ignores);
-    
-   
-    
-    
-    let peerSocket = getPeerSocket(peerId)
-     if(peerSocket){
-	//	 console.log("**** PEER SOCKET ***");
-		 
-		 if(amap.has(peerSocket.id)){
-			// console.log("*** HAS ignore!!! ***");
-			 amap.clear();
-			 return;
-			// break;
-		 }
-	 }
- // console.log("waiting 2", waitingQueue);
-    waitingQueue.splice(index, 1)
-//console.log("search peer 2")
-    if (peerSocket) {
-		//console.log("search peer 3")
-		//console.log('matchedIds1=>', [...matchedIds]);
-      matchedIds.set(socket.id, peerId)
-      matchedIds.set(peerId, socket.id)
-     // console.log("IP: ", socket.vip);
-      msg.vip = peerSocket.vip;
-      msg.partnersocketid = peerSocket.id;
-     // console.log('matchedIds2=>', [...matchedIds]);
-      	msg.partnerId = peerSocket.userId;
-      	msg.nick = peerSocket.nick;
-      //	console.log("*** NICK *** ", peerSocket.nick, ' ', peerSocket.isprem);
-      	msg.isprem = peerSocket.isprem;
-      	let el = JSON.stringify(msg);
-      //	console.log(" **** EL ***", el);
-      socket.send(el);
-     // console.log(`#${socket.id} matches #${peerId}`)
-     if(!onLine.has(socket.id)) {
-		//console.log("FINGERPRINT1 ", msg.fingerPrint);
-if(source.src)	 onLine.set(socket.id, { id: socket.id, finger: msg.fingerPrint, src: source.src, nick: socket.nick });
-	// broadcast({ type: "dynamic", sub: "add", id: socket.id, partnerid: peerId, nick: socket.nick, status: 'busy', camcount: onLine.size});
-	if(source.src) dynamic({ type: "dynamic", sub: "add", id: socket.id, partnerid: peerId, src: source.src, nick: socket.nick, status: 'busy', camcount: onLine.size, waiting: waitingQueue, 
-		finger: msg.fingerPrint });
-	 if(isEven(matchedIds.size)) broadcasti({ type: "connected2", size: matchedIds.size/2 });
-	 broadcasti({ type: 'connected3', cams: onLine.size });
-	 // console.log('ONLINE ', onLine);
-	// console.log("*************** MATCHEDIDS ****************, ", matchedIds);
-	 
-	
-	 
-	 
-	 
-	 
- }
-      return;
-    }
-  }
-
-  waitingQueue.push(socket.id);
-  
- if(!onLine.has(socket.id)) {
-	// console.log("*** ONLINE *** ", onLine.has(socket.id));
-	// console.log("FINGERPRINT2 ", msg.fingerPrint);
-	 onLine.set(socket.id, { id: socket.id, src: source.src, finger: msg.fingerPrint, nick: socket.nick });
-	// broadcast({ type: "dynamic", sub: "add", id: socket.id, nick: socket.nick, status: 'free', camcount: onLine.size });
-	
-	if(source.src) dynamic({ type: "dynamic", sub: "add", id: socket.id, src: source.src, nick: socket.nick, camcount: onLine.size , finger: msg.fingerPrint });
-	 //console.log('ONLINE 2', onLine);
-	  broadcasti({ type: 'connected3', cams: onLine.size });
-    if(isEven(matchedIds.size))broadcasti({ type: "connected2", size: matchedIds.size/2 });
-//broadcasti({ type: "connected2", size: matchedIds.size });
-//console.log("*************** MATCHEDIDS_3 ****************, ", matchedIds);
- }}
-//  console.log(`#${socket.id} ${socket.nick} adds self into waiting queue`)
-// console.log("waiting ", waitingQueue);
- //console.log("*** MSG>IGNORES ***",  msg, " ", source.ignores);
- //oni("Сейчас ", socket.nick + " online: " + wsServer.clients.size);
- 
- /*
- if(!source || !source.src) return;
-     
-		try{
-			
-	let ra = await pool.query('select * from usergold where usid=(?)', [ socket.userId ]);
-	console.log('ra ', ra);
-	if(ra.length > 0){
-	const notifyUsers = ra.map(async (val)=>{
-    await axios.post(`https://api.telegram.org/bot${tg_api}/sendPhoto`, {
-		photo: 'https://rouletka.ru/img/gold/' + val.photo,
-		chat_id: val.tgid.toString(),
-		disable_notification:false,
-		parse_mode: "html",
-		caption: (val.lang=='ru'?`<b>${val.nick}</b> online в чат рулетке на <a href="https://rouletka.ru/about">https://rouletka.ru/about</a>`:`
-		<b>${val.nick}</b> is online on <a href="https://rouletka.ru/about">https://rouletka.ru/about</a>`),
-		reply_markup:`{"inline_keyboard":[
-	[{"text":"Unsubscribe","callback_data":"lang=${val.lang}&usid=${val.usid}&action=unsub&nick=${val.nick}&tgid=${val.tgid}"}]]}`
-})
-	}); 
-
-
-await Promise.all(notifyUsers);*/
-	
-	//console.log('rr data ', rr.data);
-	//console.log('photo ', JSON.stringify(rr.data.result.photo));
-	//photo  [{"file_id":"AgACAgIAAxkDAAIDxGaZaPP98n4DhSIdhxsY8vnJkFlaAAKb5DEbP7LQSHWCfC1l2CawAQADAgADcwADNQQ","file_unique_id":"AQADm-QxGz-y0Eh4","file_size":554,"width":90,"height":67},
-	//{"file_id":"AgACAgIAAxkDAAIDxGaZaPP98n4DhSIdhxsY8vnJkFlaAAKb5DEbP7LQSHWCfC1l2CawAQADAgADbQADNQQ","file_unique_id":"AQADm-QxGz-y0Ehy","file_size":6510,"width":320,"height":240}]
-/*var f2 = new FormData();
-f2.append('chat_id', grid);
-	f2.append('title','Подписка на ' + socket.nick);
-	f2.append('description', '<a href="HH.ru">test</a> Подписаться на уведомления о том, когда '+socket.nick+' будет онлайн в чат-рулетке. Уведомление придет к вам в телегу');
-	f2.append('payload', 'payload');
-	f2.append('currency', 'XTR');
-	f2.append('prices', '[{"label":"my product","amount":1}]');
-	f2.append('parse_mode', 'html');*/
-	//f2.append('photo_url', "AQADm-QxGz-y0Eh4");
-	//await axios.post(`https://api.telegram.org/bot${tg_api}/sendInvoice`, f2); 
-	/*
-	await axios.post(`https://api.telegram.org/bot${tg_api}/sendMessage`,{
-		chat_id: grid,
-		text:'Hello, buy me',
-		reply_markup:{
-			one_time_keyboard:false,
-			inline_keyboard:[[{one_time_keyboard:false,text:'loser',callback_data:'sticker'}]]
-			}
-	});*/
-		//}catch(e){
-			//console.log(e);
-		//}
-	 
-	 
-  
-
-async function sendFoti(socket,msg){
-	if(!msg.src)return;
-	let b11 = msg.src.split(',')[1];
-    // console.log('b11 ', b11);
-		let kk = 0;
-		let buf = Buffer.from(b11, "base64");
-		let grid = '887539364'
-			console.log("socket.userId ", socket.userId);
-		//	console.log('source ', source.src);
-	var f = new FormData();
-	f.append('chat_id', grid);
-	f.append('parse_mode', 'html');
-	//f.append('caption', '<b>'+ socket.nick + ' (' + socket.userId + ')</b>'+ ' VK ' + socket.VK + ' \n <a href="https://rouletka.ru/about">https://rouletka.ru</a>');
-	f.append('disable_notification', true);
-	f.append('photo', new Blob([buf]));
-	/*f.append('reply_markup', `{"inline_keyboard":[
-	[{"text":"Make it gold","callback_data":"usid=${socket.userId}&action=gold&nick=${socket.nick}"}],
-	[{"text":"vual","callback_data":"usid=${socket.userId}&action=ban&grund=vual&ip=${socket.vip}&nick=${socket.nick}"}],
-	[{"text":"wix","callback_data":"usid=${socket.userId}&action=ban&grund=wix&ip=${socket.vip}&nick=${socket.nick}"}]
-	]}`);*/
-	try{
-	let rr = await axios.post(`https://api.telegram.org/bot${tg_api}/sendPhoto`, f); 
-}catch(e){
-	if(e.response){
-	console.log('error in sendFoti ', e.response.data);
-}else{
-	console.log('error in sendFoti ', e);
-}
-}
-}
-//console.log("TIME ", Date.now())
-async function setH(){
-	try{
-	var f = new FormData();
-	f.append('url', 'https://rouletka.ru/cb/tgwebhook');
-	f.append('secret_token', 'alik');
-	f.append('allowed_updates',["callback_query"]);
-	
-	
-//deleteWebhook
-	let rr = await axios.post(`https://api.telegram.org/bot${tg_api}/setWebhook`, f); 
-	//console.log('rr.data: ', rr.data)
-}catch(e){
-	console.log(e)
-	}
-}
-//setH()
-async function hookinfo(){
-	try{
-		let rr = await axios.post(`https://api.telegram.org/bot${tg_api}/getWebhookInfo`, {}); 
-	console.log('rr.data: ', rr.data)
-	}catch(e){console.log(e);}
-}
-//hookinfo();
-
-//const file_id =  "AgACAgIAAxkDAAIDxGaZaPP98n4DhSIdhxsY8vnJkFlaAAKb5DEbP7LQSHWCfC1l2CawAQADAgADcwADNQQ";
-//const file_id2 = "AgACAgIAAxkDAAIDxGaZaPP98n4DhSIdhxsY8vnJkFlaAAKb5DEbP7LQSHWCfC1l2CawAQADAgADbQADNQQ";
-
-async function getF(fileid){
-	try{
-		let rr = await axios.post(`https://api.telegram.org/bot${tg_api}/getFile`, { file_id: fileid }); 
-	//console.log('rr.data: ', rr.data)
-	if(rr.data.ok == true){
-	return rr.data.result;
-}else{
-	return undefined;
-}
-	}catch(e){console.log(e);return undefined;}
-	/*{
-	 ok: true,
-  result: {
-    file_id: 'AgACAgIAAxkDAAIDxGaZaPP98n4DhSIdhxsY8vnJkFlaAAKb5DEbP7LQSHWCfC1l2CawAQADAgADcwADNQQ',
-    file_unique_id: 'AQADm-QxGz-y0Eh4',
-    file_size: 554,
-    file_path: 'photos/file_0.jpg'
-  }
-  * download a file https://api.telegram.org/file/bot${tg_api}/<file_path>
-}*/
-}
-//getF()
-
-async function downloadF(obj){
-	const dir = './public/img/gold';
-	try{
-	let link = `https://api.telegram.org/file/bot${tg_api}/${obj.path}`;
-	const response = await axios.get(link, { responseType: 'arraybuffer'})
-	const fileData = Buffer.from(response.data, 'binary');
-	await fsi.writeFile(`${dir}/${obj.file_name}`, fileData);
-	console.log('jpg saved');
-}catch(e){console.log(e)}
-}
- //downloadF()
-function machConnected(socket){
-	if (matchedIds.has(socket.id)) {
-   /* let peerId = matchedIds.get(socket.id)
-    if(!connected.has(socket.id)){
-		connected.set(socket.id, peerId);
-		broadcast({ type: "connected2", size: connected.size });
-	}
-	*/ 
-	//connected++;
-	//(isEven(matchedIds.size))
-	//broadcasti({ type: "connected2", size: matchedIds.size });
-  //  let peerSocket = getPeerSocket(peerId)
-}
-if(isEven(matchedIds.size))broadcasti({ type: "connected2", size: matchedIds.size / 2 });
-//console.log("*************** MATCHEDIDS_4 ****************, ", matchedIds);
-}
-
-function  machdisconnect(socket){
-	//console.log('""""" disconnection ****');
-	//connected--;
-	// console.log('isEven(connected) ', connected, isEven(connected));
-	//if(isEven(matchedIds.size/*connected*/)) 
-//	broadcasti({ type: "connected2", size: matchedIds.size/*connected/2 */});
-	
-}
-
-function hangUp (socketId, msg, bool, abrupt) {
-	
-	//console.log('bool ', bool, socketId);
-	
-	if(bool){
-	if(onLine.has(socketId)){
-//	console.log('online has ', socketId);
-		onLine.delete(socketId);
-		//broadcasti({ type: "dynamic", sub: "remove", id: socketId, camcount: onLine.size });
-	//	broadcast_admin({ type: "dynamic", sub: "remove", id: socketId, camcount: onLine.size });
-	dynamic({ type: "dynamic", sub: "remove", finger: msg.finger, id: socketId, camcount: onLine.size });
-		 if(isEven(matchedIds.size)) broadcasti({ type: "connected2", size: matchedIds.size /2,cams:onLine.size });
-		  broadcasti({ type: 'connected3', cams: onLine.size });
-	}
-}
-  if (matchedIds.has(socketId)) {
-    let peerId = matchedIds.get(socketId)
-    let peerSocket = getPeerSocket(peerId)
-//connected--;
-
-    matchedIds.delete(socketId)
-    matchedIds.delete(peerId)
-   // console.log('isEven(connected) ',isEven(connected));
-   if(isEven(matchedIds.size)) broadcasti({ type: "connected2", size: matchedIds.size/2, cams: onLine.size });
-  //  console.log("*************** MATCHEDIDS ****************, ", matchedIds);
-   broadcasti({ type: 'connected3', cams: onLine.size });
-   
-    
-    
-    
-  //  broadcast({ type: "dynamic", sub: "connects", connects: matchedIds.size });
-    if (peerSocket) {
-		//connected--;
-	
-      peerSocket.send(JSON.stringify(msg))
-     // console.log(`#${socketId} hangs up #${peerId}`)
-    
-    if(abrupt && abrupt == "abrupt"){
-	if(peerSocket)	peerSocket.terminate();
-	}
-}
-  } else {
-    let myIndex = waitingQueue.indexOf(socketId)
-    if (myIndex !== -1) {
-      waitingQueue.splice(myIndex, 1)
-     // console.log(`#${socketId} removes self from waiting queue`)
-    }
-  }
-}
-
-var ww='2024-05-10T12:01:28.271Z';
-var ee=new Date(ww)
-//console.log(ee.toDateString())
-//console.log( new Date().toISOString().split('.')[0]+"Z" );
-
-async function sendToPeer (socket, msg) {
-	//console.log(" ************************************************* MSG SENDTOPEER ", msg);
-  if (!matchedIds.has(socket.id)) {
-    return
-  }
-
-  let peerId = matchedIds.get(socket.id)
-  let peerSocket = getPeerSocket(peerId)
-
-  if (peerSocket) {
-	 if(msg.type=="gift"){
-		// console.log('msg*** : ', msg);
-		// console.log("userId, nick, userId , nick ", socket.userId, ' ', socket.nick, ' ', peerSocket.userId, ' ', peerSocket.nick);
-		 if(peerSocket.isLogged == "no"){
-			 wsend(socket, { type: "error", err: "Собеседник не залогинен!"});
-			 return;
-		 }
-		 peerSocket.send(JSON.stringify(msg))
-		 try{
-			 let a = (msg.istestheart?'theart':'heart');
-			 await pool.query(`update users set ${a}=${a}-(?) where id=(?)`, [ msg.quant, msg.from_id ]);
-			 await pool.query(`update users set ${a}=${a}+(?) where id=(?)`, [ msg.quant,/* msg.to_id */ peerSocket.userId ] );
-// rId, nick, userId , nick  3076   suka1   2276   alik8
-
-await pool.query(`insert into processTest(from_id,from_nick,wieviel) values((?),(?),(?)) ON DUPLICATE KEY UPDATE wieviel=wieviel+(?)`, [ msg.from_id, msg.from_name, msg.quant, msg.quant ]);
-			// peerSocket.send(JSON.stringify(msg))
-		 }catch(err){
-			 //console.log("SEND HEARTS ERROR ", err);
-			 wsend(socket, { type: " error", err: err });
-		 }
-		 
-	 }else{
-		 //msg.nick = peerSocket.nick;
-      	//console.log("*** NICK *** ", peerSocket.nick, ' ', peerSocket.isprem);
-      	//msg.isprem = peerSocket.isprem;
-      	let el = JSON.stringify(msg);
-      	
-    //  	console.log("msg from ", msg.from);
-    peerSocket.send(JSON.stringify({ from: msg.from,type: msg.type, vip: msg.vip, isprem: socket.isprem, nick: socket.nick,partnerId: socket.userId, data: msg.data }))
-   }
-  }
-}
-
-
-
 
 function noop() {}
 
@@ -2192,29 +1736,7 @@ function doWas(obj){
 	imgData.publishedId = obj.publishedId;
 }
 var janusonline = new Map();
-/*
- ev.on('producer_published', doWas);
- ev.on("producer_unpublished", function doWas2(){
-// console.log("producer unpublished event");
-	clearProducer();
-});
 
- function clearProducer(){
-	 //console.log("*** clear producer ", imgData);
-	 delete imgData.img_data;
-	 delete imgData.userId;
-	 delete imgData.nick;
-	 delete imgData.value;
-	 delete imgData.publishedId;
-	 // console.log("*** clear producer ", imgData);
-	 imgData = {}
-	  //console.log("*** clear producer ", imgData);
- }
- 
-// ev.on("onconsume", function doWas3(obj){
-	// imgData.value = obj.value;
- //});
- */
  ev.on(  'donationalerts', function(data){
 	//console.log('data ', data);
 	
@@ -2223,7 +1745,7 @@ var janusonline = new Map();
 wsServer.on('connection', async function (socket, req) {
 socket.isAlive = true;
   socket.on("pong", heartbeat);
-  console.log('req.url ', req.url);
+ // console.log('req.url ', req.url);
 	socket.burl = req.url;
 	socket.dynamo = false;
 	socket.isLogged = "no";
@@ -2241,17 +1763,17 @@ socket.isAlive = true;
 		try{
 	let r3 = "23.23.22.35";	
 	socket.banip = r3;
-	wsend(socket, { type: "vip", vip: r3 })
-}catch(e){}
+	//wsend(socket, { type: "vip", vip: r3 })
+}catch(e){console.log(e)}
 	//console.log(r3);
 	}else{
 		try{
 let a = ip.match(re);
 let r = a[0];
 socket.banip = r;
-wsend(socket, { type:'vip', vip: r })
+//wsend(socket, { type:'vip', vip: r })
 }catch(e){}
-//console.log(r)
+console.log(e)
   
 }
   
@@ -2262,11 +1784,11 @@ wsend(socket, { type:'vip', vip: r })
   wsend(socket, { type: 'welcome', socketid: socket.id });
  
   
-   broadcasti({ type: 'online', online: wsServer.clients.size, imgData: imgData.img_data })
+   broadcasti({ type: 'online', online: wsServer.clients.size })
   // console.log('isEven(connected) ', connected,isEven(connected));
-  if(isEven(matchedIds.size /*connected)*/)) broadcasti({ type: "connected2", size:matchedIds.size/2,cams:onLine.size });
+  
 
- broadcasti({ type: 'connected3', cams: onLine.size });
+ //broadcasti({ type: 'connected3', cams: onLine.size });
   
  // if(onLine.size !=0)wsend(socket, { type: "dynamic", sub: "total", cams: [...onLine] });
   
@@ -2284,23 +1806,13 @@ wsend(socket, { type:'vip', vip: r })
   
   let msg;
   socket.on('message', (message) => {
-	  //var msg;
+	  
 	  try{
      msg = JSON.parse(message)
     // console.log('msg ',msg);
 }catch(e){return;}
-//console.log("hello")
 
-if(msg.request == "mediasoup"){
-	/*handleMediasoup.*/
-	console.log(msg.request);
-	
-	handleMediasoup(socket, msg, WebSocket, wsServer, pool).mediasoup_t();
-	return;
-}else if(msg.request == 'mediasoup2'){
-	//handleAdminMedia(socket, msg, WebSocket, wsServer, pool).mediadmin();
-	return;
-}else if(msg.request == 'janus'){
+  if(msg.request == 'janus'){
 	if(msg.subtype=="owner"){
 
 		maximg({ src: msg.src, txt: "Jemand enabled janus" });
@@ -2310,32 +1822,10 @@ if(msg.request == "mediasoup"){
 	return;
 }
     switch (msg.type) {
-      case 'new-ice-candidate':
-      case 'video-offer':
-      case 'video-answer':
-      case 'message':
-      case "write":
-      case "unwrite":
-      case "gift":
-      case 'addignore':
-      
-     // msg.vip = socket.vip
-        sendToPeer(socket, msg)
-        break
-      //  case "mediasoup" :
-         //       handleMediasoup.handleMediasoup(socket, msg, webSocket, wsServer, pool).mediasoup_t();
-     //  break
      case "target":
      sendtotarget(msg);
      break
-     case "getList":
-     socket.dynamo = true;
-     if(onLine.size !=0)wsend(socket, { type: "dynamic", sub: "total", cams: [...onLine] });
      
-     break
-     case "removeList":
-     socket.dynamo = false;
-     break;
         case "helloServer":
         socket.userId = msg.userId;
         socket.nick = msg.nick;
@@ -2355,13 +1845,6 @@ if(msg.request == "mediasoup"){
       //  console.log('publish ', msg);
         broadcast_publish(socket, msg)
         break
-        case "telegascreenshot":
-        sendFoti(socket,msg);
-        break;
-      case 'hang-up':
-      //console.log('hang-up', msg);
-        hangUp(socket.id, { type: 'hang-up', finger: msg.finger, partnerId: socket.userId, ignore: msg.ignore },(msg.sub&&msg.sub=="here"?true:false), (msg.sub&&msg.sub=="abrupt"?"abrupt":"noabrupt"))
-        break
       case 'search-peer':
        socket.nick = msg.nick;
         searchPeer(socket, { type: 'peer-matched', fingerPrint: msg.fingerPrint }, { src: msg.src, ignores: msg.ignores })
@@ -2369,26 +1852,7 @@ if(msg.request == "mediasoup"){
         case 'srcdata':
     //   ev.emit('suka', { id: socket.id })
         dynamic({ type: "dynamic", sub: "srcdata", src: msg.src, id: socket.id });
-        break
-        case 'list':
-        if(onLine.size !=0)wsend(socket, { type: "dynamic", sub: "total", cams: [...onLine] });
-        break
-      case 'pock':
-     // console.log('pock');
-    //   clearTimeout(this.pingTimeout);
-	//this.pingTimeout = setTimeout(function(){
-	//	socket.terminate();
-	//}, 3000+1000);
-        break
-        case 'disconnection':
-        machdisconnect(socket);
-        break
-        case 'connected':
-        machConnected(socket);
-        break
-        case 'clearproducer':
-       clearProducer();
-        break
+       break
         case 'krestik':
         deleteConnection(msg.id);
         break
@@ -2408,20 +1872,18 @@ socket.on('error', function(e){
 	socket.terminate();
 })
   socket.on('close', (code, reason) => {
-	  console.log("websocket closed");
+	 // console.log("websocket closed");
 	  clearTimeout(this.pingTimeout);
  //   console.log(`#${socket.id} disconnected: [${code}]${reason}`)
     broadcasti({ type: 'online', online: wsServer.clients.size })
     
-    hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
-    janusclose(socket);
+    //hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
+   // janusclose(socket);
    // if(req.url==="/janusstream"){
-	 let ni = getJanusCount();
-	 broadcast_janus(socket,{type:"januscount", count: ni });
+	// let ni = getJanusCount();
+	// broadcast_janus(socket,{type:"januscount", count: ni });
   //}
-    /* handleMediasoup.*/
- // handleMediasoup(socket, msg, WebSocket, wsServer, pool).cleanUpPeer(socket.pubId);
-   // handleAdminMedia(socket, msg, WebSocket, wsServer, pool).cleanMedia();
+   
   })
 })
 function wsend(ws, obj) {
@@ -2597,6 +2059,13 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 	}else if(msg.subtype == "remove"){
 		//console.log('on remove ', msg);
 		janusclose(socket);
+	}else if(msg.subtype=="getposter"){
+		//console.log(msg);
+		let a = janusonline.get(msg.streamid);
+		//console.log('a ', a);
+		if(!a)return;
+		//console.log(a.src);
+		wsend(socket,{type:"janus",subtype: msg.subtype, src:a.src});
 	}else if(msg.subtype == "subscriber"){
 		socket.streamid = msg.streamid;
 		socket.roomid = msg.userid

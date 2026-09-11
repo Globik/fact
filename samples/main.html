@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreamHot — стримы с вебкой и донаты в USDT</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #0d0d14;
+    color: #fff;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 2px solid #ff2d7a;
+    box-shadow: 0 0 40px rgba(255, 45, 122, 0.3);
+  }
+
+  header h1 {
+    font-size: 3rem;
+    background: linear-gradient(90deg, #ff2d7a, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+  }
+
+  header p {
+    color: #b8b8d1;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+
+  .btn-start {
+    display: inline-block;
+    padding: 22px 60px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff2d7a, #c9186b);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 10px 30px rgba(255, 45, 122, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .btn-start:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(255, 45, 122, 0.7);
+  }
+
+  /* STREAMS GRID */
+  .streams-section {
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+
+  .streams-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ff6b9d;
+  }
+
+  .streams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+
+  .stream-card {
+    background: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #2a2a4a;
+  }
+
+  .stream-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 45, 122, 0.25);
+    border-color: #ff2d7a;
+  }
+
+  .stream-thumb {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #3a1c5e, #5c2a8a);
+    overflow: hidden;
+  }
+
+  .stream-thumb::before {
+    content: "🎥";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    opacity: 0.4;
+  }
+
+  .live-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff2d7a;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .live-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .viewers {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  .stream-info {
+    padding: 15px;
+  }
+
+  .stream-nick {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff6b9d;
+    margin-bottom: 5px;
+  }
+
+  .stream-status {
+    font-size: 0.85rem;
+    color: #8a8aa8;
+    text-transform: lowercase;
+  }
+
+  /* ARTICLE */
+  .article-section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 40px 30px;
+    background: #15152a;
+    border-radius: 16px;
+    border: 1px solid #2a2a4a;
+  }
+
+  .article-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ff6b9d;
+  }
+
+  .article-section p {
+    margin-bottom: 20px;
+    color: #d0d0e0;
+    font-size: 1.05rem;
+    text-align: justify;
+  }
+
+  .article-section strong {
+    color: #ff2d7a;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 30px;
+    background: #0a0a14;
+    color: #6a6a8a;
+    border-top: 1px solid #2a2a4a;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 2rem; }
+    .btn-start { padding: 18px 40px; font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>StreamHot</h1>
+  <p>Живые стримы с вебкой • Донаты в USDT • Горячий криптокошелёк</p>
+  <a href="#register" class="btn-start">🔥 Начать трансляцию</a>
+</header>
+
+<section class="streams-section">
+  <h2>Сейчас в эфире</h2>
+  <div class="streams-grid">
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 1 248</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@sunny_girl</div>
+        <div class="stream-status">я онлайн, болтаем обо всём 💕</div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 842</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@milana_22</div>
+        <div class="stream-status">привет, я тут новенькая</div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 3 102</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@kate_fire</div>
+        <div class="stream-status">играем, поём, общаемся</div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 567</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@nasty_v</div>
+        <div class="stream-status">вечерний стрим, заходи</div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 2 019</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@lisa_moon</div>
+        <div class="stream-status">онлайн, жду донаты в usdt 💎</div>
+      </div>
+    </div>
+
+    <div class="stream-card">
+      <div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 978</span>
+      </div>
+      <div class="stream-info">
+        <div class="stream-nick">@alina_sweet</div>
+        <div class="stream-status">расслабленный стрим</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="article-section">
+  <h2>Почему Chatikon — это по-другому</h2>
+
+  <p>
+    <strong>Chatikon</strong> — это платформа нового поколения для живых трансляций с веб-камеры. Мы создали пространство, где каждая девушка может вести свой стрим прямо из спальни, без сложных настроек, без лишних верификаций и без посредников. Всё, что нужно — включить камеру и начать общение со своей аудиторией в реальном времени.
+  </p>
+
+  <p>
+    Главное отличие нашего сервиса — <strong>встроенный горячий криптокошелёк</strong>. Вам не нужно регистрироваться на сторонних биржах, проходить KYC или привязывать банковские карты. Кошелёк создаётся прямо внутри платформы в один клик: достаточно придумать надёжный пароль, и ваш личный USDT-адрес готов к приёму донатов от зрителей со всего мира.
+  </p>
+
+  <p>
+    Зрители отправляют донаты <strong>в стейблкоине USDT</strong> — это быстро, анонимно и без комиссий банков. Средства моментально зачисляются на ваш горячий кошелёк, и вы сами решаете, когда и куда их вывести. Никаких задержек, никаких заморозок, никаких процентов в пользу платформы сверх разумной комиссии сети.
+  </p>
+
+  <p>
+    Мы верим, что стримеры должны владеть своими деньгами напрямую. Именно поэтому регистрация на платформе нужна <strong>только в тот момент, когда вы решаете завести криптокошелёк</strong>. До этого момента вы можете просто смотреть стримы, общаться в чатах и выбирать, кому отправить поддержку. Прозрачность, безопасность и свобода — три принципа, на которых построен StreamHot.
+  </p>
+</section>
+
+<footer>
+  © 2025 Chatikon — живые стримы и крипто-донаты
+</footer>
+
+</body>
+</html>

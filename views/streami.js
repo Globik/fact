@@ -30,25 +30,25 @@ let s= function(n){
 	<!--	<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script> -->
 	<script type="text/javascript" src="/js/adapter-latest.js" ></script> 
 	<script src="/js/janus.js"></script>
-	<script>window.yaContextCb=window.yaContextCb||[]</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script> 
+	${process.env.DEVELOPMENT=="yes"?'':`<script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script> `}
 		</head><body>
 		
 		${nav(n)}
 		${warnig(n)}
 		<a href="/">На главную</a>
 		<input type="hidden" id="owner" value="${n.owner?'true':'false'}">
+		<input type="hidden" id="roomid" value="${n.roomid?n.roomid:0}">
 		<input type="hidden" id="userid" value="${n.userid?n.userid:0}">
 		<input type="hidden" id="username" value="${n.user?n.user.name:'anon'}">
 		<input type="hidden" id="streamId" value="${n.streamid?n.streamid:'0'}">
 		<input type="hidden" id="TOK" value="${n.tok}" />
 	
 		${videochat(n)}
-		
-		<audio id="audioel" style="display:none;"></audio>
 		${login(n)}
 		<script src="/js/stream.js"></script>
 		<script src="/js/login4.js"></script>
+		${process.env.DEVELOPMENT=="yes"?'':`
 		 <script>
 	 function getFloor(){
 	 
@@ -141,7 +141,7 @@ window.addEventListener("load", () => {
     }
     renderInImage(Array.from(document.querySelectorAll(".Vid")))
 }, { once: true })
-</script>
+</script>`}
 		</body></html>
     `;
 }

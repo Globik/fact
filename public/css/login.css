@@ -1,4 +1,4 @@
-
+/*
 *,
 *:before,
 *:after{
@@ -6,7 +6,7 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+*/
 form * {
   font-family: 'Poppins',sans-serif;
   letter-spacing: 0.5px;
@@ -22,7 +22,7 @@ form * {
 }
 #loginoutput{
 	background:white;
-	width:25vw;
+	width:35vw;
 	border-radius:10px;
 	z-index:10000;
 }
@@ -119,59 +119,11 @@ span.model-header-label {
   padding: 14px;
 }
 
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  height: 100%;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 14px;
-  color: #333;
-  background-color: #fff;
-}
-
-ul, h1, h2 {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  height: 100%;
-  border: none;
-  font-size: 1rem;
-  outline: none;
-  cursor: pointer;
-  color: #767676;
-  background-color: #fff;
-}
-/*
-  button:hover {
-    color: #333;
-  }
-
-  button:active {
-    color: #000;
-  }
-
-*/
 
 .flex {
   display: flex;
 }
-@media screen and (max-width: 773px) and (orientation: portrait){
+@media screen and (max-width: 801px) and (orientation: portrait){
 #loginoutput{
 	width:98%;
 }

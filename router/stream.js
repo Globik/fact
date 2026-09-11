@@ -41,7 +41,7 @@ router.get('/:id/:streamid', async(req, res)=>{
 	//}
 	//console.log('user ', req.user);
 	let token = createJWT({ mama: shortid()}, jwtsecret );
-	botMessage('on streaming');
+	//botMessage('on streaming');
 	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
 })
 
@@ -67,9 +67,9 @@ router.get('/:id', async(req, res)=>{
 	}
 }
 let token = createJWT({ mama: shortid()}, jwtsecret );
-	console.log('owner', owner);
+	//console.log('owner', owner);
 	//console.log('user ', req.user);
-	botMessage('wanna stream');
+	//botMessage('wanna stream');
 	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
 })
 module.exports = router;

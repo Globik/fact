@@ -2,7 +2,12 @@ html,body{
 			margin:0;
 			padding:0;
 			height:100%;
-			background:white;
+		
+			 font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #0d0d14;
+    color: #fff;
+    line-height: 1.6;
+}
 		}
 		:root {
     --mobilewidth: 452px;/*452px;*/
@@ -559,21 +564,7 @@ oveflow:auto;
 		width:50%;
 	}
 	}
-	#navpanel{
-		width:100%;
-		height:50px;
-		background-color:#000000;
-        background-image: linear-gradient(315deg, #35bd46 0%, #32b5bf 74%);
-		display:grid;
-		grid-template-columns:1fr 50px;
-		align-self:center;
-		position:relative;
-	}
-	.nav{
-	jstify-self: center;
-	align-self:center;
-	padding-left:10px;
-	}
+	
 	#pushDiv{
 		bckground: red;
 		margin-right:20px;
@@ -852,7 +843,7 @@ background-image: linear-gradient(315deg, #13f74fcc 0%, #ddebeb 74%);
 	 bckground:red;
 	 margin-top:0px;
  }
-	
+	/*
 .ita svg{
 	dsplay:block;
 	position:relative;
@@ -862,7 +853,8 @@ background-image: linear-gradient(315deg, #13f74fcc 0%, #ddebeb 74%);
 margin-right:10px;
 object-fit:cover;
 width:90%;
-}
+}*/
+/*
 #settingspanel{
 	display: none;
 	position:absolute;
@@ -905,6 +897,7 @@ background:rgb(255,255,255);
 .nav b{
 	color:white;
 }
+*/ 
 #controlsContainer{
 	width:100%;
 	display: flex;

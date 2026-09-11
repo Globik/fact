@@ -57,6 +57,20 @@ if(!sock) sock = new  WebSocket(new_uri + "//" + loc3 + "/gesamt");
      };
 }
 get_socket();
+window.addEventListener('pagehide', () => {
+  if (sock && sock.readyState === WebSocket.OPEN) {
+	 // alert("pagehide");
+    sock.close();
+  }
+});
+
+// Alternative: also handle visibility changes
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+ //alert("hidden");
+  //  sock.close();
+  }
+});
 function on_msg(msg) {
 	//console.log("data type: ", msg.type);
 	 switch (msg.type) {
@@ -71,45 +85,51 @@ function on_msg(msg) {
         onlineCount.textContent = msg.online
         break;
          case 'janus':
+       //  alert("janus");
         handleJanus(msg);
         case 'error':
         note({ content: msg.err, type: "error", time: 5 });
         break;
 	}
 }
-
+function getSi(obj){
+	return `
+		<div class="stream-thumb">
+        <span class="live-badge">LIVE</span>
+        <span class="viewers">👁 <span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></span>
+        <div class="imgcont"> <img src="${obj.src}"/></div>
+      </div>
+      <div class="stream-info">
+     <div class="stream-nick"><a href="/stream/${obj.roomid}/${obj.streamid}" >@${obj.nick?obj.nick:'Anon'}</a></div>
+        <div class="stream-status">я онлайн, болтаем обо всём 💕</div>
+      </div>
+			
+			`;
+}
 function handleJanus(obj){
+	let streamsection=document.querySelector(".streams-grid");
 	if(obj.subtype=="all"){
-		if(poka)poka.remove();
+		//if(poka)poka.remove();
+		
 		obj.who.forEach(function(el,i){
 			let div=document.createElement('div');
-			div.className="whobox";
+			div.className="stream-card";
 			div.setAttribute('data-roomid', el[1].roomid);
 			div.setAttribute('data-streamid', el[1].streamid);
 			//alert(el[1].roomid);
-			div.innerHTML = `<a href="/stream/${el[1].roomid}/${el[1].streamid}">
-			<div class="imgbox"><img src="${el[1].src}"></div>
-			<div class="glas"><div><img src="/img/eye2.svg"></div><div>&nbsp;<span data-nowroomid="${el[1].roomid}" class="spanViews">${el[1].views}</span></div></div>
-			
-			</a>`
+			div.innerHTML = getSi(el[1]);
 			streamsection.appendChild(div);
 		});
 }else if(obj.subtype == 'add'){
-	if(poka)poka.remove();
+	//if(poka)poka.remove();
+	//alert("add");
+	//console.log(obj);
 	let div = document.createElement('div');
-	div.className="whobox";
+	div.className="stream-card";
 			div.setAttribute('data-roomid', obj.roomid);
 			div.setAttribute('data-streamid', obj.streamid);
 			//div.setAttribute("onclick", `gofuck({roomid:${obj.roomid}, streamid:${obj.streamid} })`);
-			div.innerHTML = `<a href="/stream/${obj.roomid}/${obj.streamid}">
-			<div class="imgbox"><img src="${obj.src}"></div>
-			<div class="glas">
-			<div><img src="/img/eye2.svg"></div>
-			<div><span data-nowroomid="${obj.roomid}" class="spanViews">${obj.views}</span></div>
-			
-		
-			</div>
-			</a>`;
+			div.innerHTML = getSi(obj);
 			streamsection.appendChild(div);
 	
 }else if(obj.subtype == "remove"){

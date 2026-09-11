@@ -4,9 +4,7 @@ const login = function(n){
     <output id="loginoutput" class="popi">
         <div class="modal-header">
           ${lang=='ru'?'Авторизация / Регистрация':lang=='en'?'Login / Sign up':lang=='zh'?'授权/注册':lang=='id'?'Masuk / daftar':''}
-          <span class="model-header-label" onclick="isOpenModal();">
-            ${lang == 'ru'?'Правила чата':lang=='en'?'Chat rules':lang=='zh'?'聊天规则':lang=='id'?'aturan obrolan':''}
-          </span>
+          
         </div>
        <br> <br>
         <div class="modal-body">

@@ -1,4 +1,6 @@
-#navpanel{
+
+	
+	#navpanel{
 		width:100%;
 		height:50px;
 		background-color:#000000;
@@ -8,6 +10,20 @@
 		align-self:center;
 		position:relative;
 	}
+	.nav{
+	jstify-self: center;
+	align-self:center;
+	padding-left:10px;
+	}
+	
+	.navp{
+		padding-left:20px;
+	}
+	
+	
+	
+	
+	
 	#settings{
 	position:absolute;
 	top:0;
@@ -38,11 +54,7 @@ left:-1px;
 	boder:1px solid violet;
 	
 }
-	.nav{
-	jstify-self: center;
-	align-self:center;
-	padding-left:10px;
-	}
+	
 	#settingspanel{
 	display: none;
 	position:absolute;
@@ -60,6 +72,7 @@ left:-1px;
 	ont-size:1.5rem;
 	
 }
+
 #settingspanel.open{
 	display:block;
 	z-index:10000;

@@ -18,6 +18,22 @@ article.slot{
 				justify-content: end;
 				
 }
+#pbtn:hover{
+cursor:pointer;	
+background-color: #0056b3;
+}
+#pbtn:disabled{
+	background-color: #cccccc; /* Gray background */
+  color: #666666;            /* Darker gray text */
+  cursor: not-allowed;       /* Shows the "no" icon */
+  opacity: 0.6;   
+}
+#pbtn:disabled:hover {
+  background-color: #cccccc; 
+}
+.panelbtn.redi{
+	background-color:red;
+}
 footer#pdf{
 	background:blue;
 	width:100%;
@@ -103,7 +119,7 @@ left:0;
   align-items: center;
   display:flex;
   background:rgba(0,0,0,0);
-  z-index:-1;
+  z-index:1;
 }
 #videobox section{
 	display: none;
