@@ -29,6 +29,8 @@ let s= function(n){
 		<link href="/css/myfooter.css" rel="stylesheet">
 		<link href="/css/stream.css" rel="stylesheet">
 		<link href="/css/loader.css" rel="stylesheet">
+		<link href="/css/videobuttons.css" rel="stylesheet">
+		
 	<!--	<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script> -->
 	<script type="text/javascript" src="/js/adapter-latest.js" ></script> 
 	<script src="/js/janus.js"></script>
@@ -93,6 +95,7 @@ window.yaContextCb.push(()=>{
 	 </script>
 	  <!-- Yandex.RTB R-A-14255767-3 -->
 <script>
+setTimeout(function(){
 window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
         "blockId": "R-A-14255767-3",
@@ -100,16 +103,18 @@ window.yaContextCb.push(() => {
         "platform": "touch"
     })
 })
+},1000*30)
 </script>
 <!-- Yandex.RTB R-A-14255767-4 -->
 <script>
+setTimeout(function(){
 window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
         "blockId": "R-A-14255767-4",
         "type": "fullscreen",
         "platform": "desktop"
     })
-})
+})},1000*30);
 </script>
 <!-- Yandex.RTB R-A-14255767-5 -->
 <script>

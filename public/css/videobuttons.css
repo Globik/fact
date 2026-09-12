@@ -1,0 +1,59 @@
+.icon-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.55);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease, background .2s ease;
+    z-index: 2;
+    padding: 0;
+  }
+
+  .icon-btn svg {
+    width: 40%;
+    height: 40%;
+    fill: #fff;
+  }
+
+  .icon-btn:hover {
+    background: rgba(0, 0, 0, 0.75);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+ /* Треугольник (play) виден по умолчанию */
+  .play-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+.pause-btn{
+visibility:hidden;
+opacity:0;
+transition:opacity 0.5s ease, visibility 0.5s linear;
+transition-delay: 1s; 
+}
+ 
+#videobox.playing:hover .pause-btn {
+	
+    visibility:visible;
+    opacity:1;
+    pointer-events: auto;
+     transition-delay: 0s; 
+  }
+  /* Скрываем треугольник, когда видео играет */
+  #videobox.playing .play-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+

@@ -192,6 +192,7 @@ window.yaContextCb.push(()=>{
 	 </script>
 	 <!-- Yandex.RTB R-A-14255767-3 -->
 <script>
+setTimeout(function(){
 window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
         "blockId": "R-A-14255767-3",
@@ -199,9 +200,11 @@ window.yaContextCb.push(() => {
         "platform": "touch"
     })
 })
+},1000*30);
 </script>
 <!-- Yandex.RTB R-A-14255767-4 -->
 <script>
+setTimeout(function(){
 window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
         "blockId": "R-A-14255767-4",
@@ -209,6 +212,7 @@ window.yaContextCb.push(() => {
         "platform": "desktop"
     })
 })
+},1000*30);
 </script>
        </body>
 </html>`;

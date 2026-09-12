@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Кастомный видеоплеер</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    font-family: sans-serif;
+  }
+
+  .video-container {
+    position: relative;
+    width: 640px;
+    max-width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,.6);
+    cursor: pointer;
+    background: #000;
+  }
+
+  .video-container video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Общие стили для кнопок-иконок */
+  .icon-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.55);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease, background .2s ease;
+    z-index: 2;
+    padding: 0;
+  }
+
+  .icon-btn svg {
+    width: 40%;
+    height: 40%;
+    fill: #fff;
+  }
+
+  .icon-btn:hover {
+    background: rgba(0, 0, 0, 0.75);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+ /* Треугольник (play) виден по умолчанию */
+  .play-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+.pause-btn{
+visibility:hidden;
+opacity:0;
+transition:opacity 0.5s ease, visibility 0.5s linear;
+ transition-delay: 2s; 
+}
+ 
+.video-container.playing:hover .pause-btn {
+	
+    visibility:visible;
+    opacity:1;
+    pointer-events: auto;
+     transition-delay: 0s; 
+  }
+  /* Скрываем треугольник, когда видео играет */
+  .video-container.playing .play-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#suka{
+	display:block;
+	width:100px;
+	height:100px;
+	background:red;
+	
+}
+#suka:hover #fuck{
+	cursor:pointer;
+	background:violet;
+	visibility:visible;
+
+}
+#fuck{
+	visibility:hidden;
+	transition:visibility 2s ease-in-out;
+	background:green;
+	width:50%;
+	height:50%;
+}
+</style>
+</head>
+<body>
+
+<div class="video-container" id="videoContainer">
+  <video id="video" preload="metadata" playsinline>
+    <source src="../public/videos/korova3.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+
+  <!-- Треугольник (воспроизвести) — SVG -->
+  <button class="icon-btn play-btn" id="playBtn" aria-label="Воспроизвести">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="6,4 20,12 6,20" />
+    </svg>
+  </button>
+
+  <!-- Две палочки (пауза) — SVG -->
+  <button class="icon-btn pause-btn" id="pauseBtn" aria-label="Пауза">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5"  y="4" width="4" height="16" rx="1" />
+      <rect x="15" y="4" width="4" height="16" rx="1" />
+    </svg>
+  </button>
+</div>
+<div id="suka"><div id="fuck">fuck</div></div>
+<script>
+  const container = document.getElementById('videoContainer');
+  const video     = document.getElementById('video');
+  const playBtn   = document.getElementById('playBtn');
+  const pauseBtn  = document.getElementById('pauseBtn');
+ let hideTimer = null;
+
+  // Показать кнопку паузы и запустить таймер на 2 секунды
+  function showPauseButton() {
+	  return;
+    // Сбросить предыдущий таймер, если есть
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+    }
+    
+    // Показать кнопку
+    container.classList.add('show-pause');
+    
+    // Запустить новый таймер на 2 секунды
+    hideTimer = setTimeout(() => {
+      container.classList.remove('show-pause');
+      hideTimer = null;
+    }, 10);
+  }
+
+  // Скрыть кнопку паузы
+  function hidePauseButton() {
+	  return;
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+    container.classList.remove('show-pause');
+  }
+
+  // Клик по треугольни
+  playBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.play();
+    container.classList.add('playing');
+    showPauseButton();
+  });
+
+  pauseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.pause();
+    container.classList.remove('playing');
+    hidePauseButton();
+  });
+
+  video.addEventListener('click', () => {
+    if (!video.paused) {
+      video.pause();
+      container.classList.remove('playing');
+       hidePauseButton();
+    }
+  });
+
+
+ container.addEventListener('mousemove', () => {
+    if (!video.paused) {
+      showPauseButton();
+    }
+  });
+
+  // Мышь ушла с контейнера
+  container.addEventListener('mouseleave', () => {
+    if (!video.paused) {
+      hidePauseButton();
+    }
+  });
+
+  // Видео закончилось
+  video.addEventListener('ended', () => {
+    container.classList.remove('playing');
+    hidePauseButton();
+  });
+ video.onloadedmetadata=function(){
+	// alert(1)
+	 container.classList.remove('show-pause');
+ }
+ video.onplay=function(){
+	// alert("play")
+ }
+ video.onstop=function(){
+	// alert('stop')
+ }
+ video.onpause=function(){
+	// alert('pause')
+ }
+ video.onended=function(){
+	// alert('ended')
+ }
+</script>
+
+</body>
+</html>

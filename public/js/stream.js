@@ -1,7 +1,7 @@
 //alert(1);
 var janus=null;
 var authT;
-
+const Spinner =  document.querySelector("#videobox section");
 let localStream=null;
 const local=document.querySelector(".Vid");
 var loc1 = location.hostname + ":" + location.port;
@@ -15,12 +15,7 @@ var mystreamId = null;
 var useridi = Number(userid.value);//getShortTimeId();
 //alert(useridi)
 var MYSOCKETID;
-function letStart(el){
-	//alert('suka');
-	//if(userid.value == "0") return;
-	el.disabled = true;
-	getJanus(el);
-}
+const liveBadge = gid("live-badge");
 function getShortTimeId() {
   const now = new Date();
   
@@ -200,7 +195,7 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 function getJanus(el){
-	el.disabled = true;
+	//el.disabled = true;
 	let l = document.querySelector("#videobox section");
 	if(l){l.style.display="flex";}
 Janus.init({debug: "all", callback: async function() {
@@ -218,7 +213,21 @@ Janus.init({debug: "all", callback: async function() {
 						getAttach(el);
 						}})}})
 				}
-
+function letStreaming(el){
+	
+	if(!localStream){
+		note({ content:"Сперва включите веб камеру-то!", type: "error",time:5 });
+		return;
+	}
+	if(!sfutest){
+		note({ content: "What the fuck is going on here?", type: "error", time: 5 });
+		return;
+	}
+	el.disabled = true;
+	
+	if(Spinner){Spinner.style.display = "flex";}
+	createOffer(sfutest, localStream);  
+}
 function getAttach(el){
 // 1. Прикрепляем плагин (предполагается, что сессия `janus` уже создана)
 janus.attach({
@@ -247,7 +256,7 @@ janus.attach({
 
             // 3.1. Успешный вход в комнату - ТОЛЬКО ТЕПЕРЬ запрашиваем медиа
             if (msg.videoroom === "joined") {
-                console.log("✅ Вошли в комнату с ID:", msg.id);
+                note({ content: "✅ Вошли в комнату с ID:" + msg.room, type: "info", time: 5 });
             // idvalue.value=msg.id;
             mystreamId = msg.id;
                 // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: getUserMedia вызывается здесь
@@ -256,18 +265,45 @@ janus.attach({
 						localStream = stream;
                         
                         console.log("Медиа получены, ожидаю onlocalstream...");
-                        
-                        createOffer(pluginHandle, stream);   
-                        
-                    }).catch(function(error) { console.error("Ошибка получения медиа:", error);});
-            }
+                         //let stream = new MediaStream();
+           //stream.addTrack(track);
+           local.srcObject = stream;
+                       // createOffer(pluginHandle, stream);   
+                       /*
+                       let foo={
+						   request:"destroy",
+						    "room":useridi,
+		//     "ptype":"publisher",
+		//"is_private": false,
+		"secret":"suka"
+						   
+					   }
+					   
+                        pluginHandle.send({ message:foo});
+                        */ 
+                    }).catch(function(err) { 
+						if(err.name == "NotFoundError" || err.name == "DevicesNotFoundError"){
+				note({ content: "Вебкамера или микрофон не найдены", type: "warn", time: 5 });
+			
+			}else if(err.name == "NotAllowedError" || err.name == "PermissionDeniedError"){
+				note({ content: "Пожалуйста, разрешите браузеру использовать камеру и микрофон.", type: "warn", time: 5 });
+			}else{
+				console.error(err);
+				note({content: err.name, type:"warn", time: 5 });
+			}
+			el.disabled = false;
+						
+						});
+            }else if(msg.videoroom === "destroyed"){
+				note({ content: "Вы вышли из комнаты " + msg.room, type: "info", time: 5 });
+			}
             if(msg.videoroom==='event'&&msg.unpublish==='ok'){
 				alert('unpublish');
 			
 				pluginHandle.detach();
 			}
 			if(msg.videoroom==='event' && msg.leaving==='ok'){
-				//alert('leaving');
+				alert('leaving');
 				console.log('leaving');
 				freeLocalStream();
 				pluginHandle.detach();
@@ -283,11 +319,13 @@ janus.attach({
         pluginHandle.onlocaltrack = function(track,on) {
 			if(on){
            if(track.kind=='video'){
-			  // alert('video');
+			  //alert('video');
             //if (on) {
+            
            let stream = new MediaStream();
            stream.addTrack(track);
-           local.srcObject = stream;
+         //  local.srcObject = stream;
+           
            // }
            //Janus.attachMediaStream(local,track.stream);
         }else if(track.kind=='audio'){
@@ -295,7 +333,7 @@ janus.attach({
 			//if(on){
 			let stream = new MediaStream();
             stream.addTrack(track);
-            local.srcObject = stream;
+            //local.srcObject = stream;
 			//}
 		}
 		} else {
@@ -321,20 +359,32 @@ janus.attach({
 				console.log("Janus says this WebRTC PeerConnection (remote feed) is " + (on ? "up" : "down") + " now");
 				if(on){
 					//alert('sex');
-					el.disabled = false;
-					el.textContent = "Stop";
-					el.setAttribute('onclick',"destroy(this);");
+					pbtn.disabled = false;
+					pbtn.textContent = "Stop";
+					pbtn.setAttribute('onclick',"destroy(this);");
+					let l = document.querySelector("#videobox section");
+					if(l){l.style.display="none";}
+					videobox.classList.remove('playing');
+					liveBadge.style.display = "flex";
+					note({ content: "Вы в эфире!", type:'info', time:5 });
 					setTimeout(function(){
 					let imgdata = Screenshot();
 					//alert('userid '+userid.value);
 					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
-					note({ content: "Вы в эфире!", type:'info', time:5 });
+					
 					
 				}, 1000);
 				}else{
+					liveBadge.style.display = "none";
 					note({content:"Вышли из эфира!", type:"info", time: 5 });
 					el.disabled = false;
-					el.textContent = "Start"
+					pbtn.textContent = "Start";
+					pbtn.setAttribute("onclick",`letStreaming(this);`);
+					playBtn.disabled = false;
+					playBtn.classList.add("play-btn");
+					//pauseBtn.style.transition = "none";
+					sfutest.detach();
+					wsend({ request: "janus", subtype: "remove", roomid:Number(userid.value) , streamid: mystreamId });
 				}
 			},
 });
@@ -342,9 +392,12 @@ janus.attach({
 
 function freeLocalStream(){
 		 localStream.getTracks().forEach(track => {
-		console.log("track stop");
+	
      track.stop()
-    local.srcObject = null;})
+    
+    })
+    localStream = null;
+    sfutest = null;
 }
 
  function createOffer(pluginHandle, stream){
@@ -379,13 +432,9 @@ function freeLocalStream(){
               }         
 
 
-function destroy(el){
+function destroy(){
 	if(!sfutest)return;
 	sfutest.send({message:{request:'destroy', secret:'suka', room:Number(useridi)}});
-	el.textContent = "Start";
-	el.disabled = false;
-	el.setAttribute("onclick","letStart(this);");
-	wsend({ request: "janus", subtype: "remove", roomid:Number(userid.value) , streamid: mystreamId });
 }
 
 
@@ -442,14 +491,7 @@ function leave(){
 	sfutest.send({message:{request:"leave"}});
 }
 
-function unsubscribe(el){
-	if(!sfutest)return;
-	sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(streamId.value)}]}});
-	wsend({ request: "janus", subtype: "unsubscriber", streamid: streamId.value, roomid: userid.value });
-	el.textContent="Subscribe";
-	el.classList.remove("redi");
-	el.setAttribute("onclick", `subscribe(this);`);
-}
+
 function pfuck(el){
 
 Janus.init({debug: "all", callback: async function() {
@@ -469,12 +511,17 @@ Janus.init({debug: "all", callback: async function() {
 }
 local.onloadedmetadata=function(){
 	let l = document.querySelector("#videobox section");
-	if(l){l.style.display="none";}
+	if(l){
+		l.style.display="none";
+		videobox.classList.add('playing');
+		}
 }
 function subscribeToStream(roomId, publisherId, el) {
 	el.disabled = true;
 	let l = document.querySelector("#videobox section");
 	if(l){l.style.display="flex";}
+	el.classList.remove("play-btn");
+	pauseBtn.style.transition = "";
 	//alert(publisherId);
     janus.attach({
         plugin: "janus.plugin.videoroom",
@@ -494,11 +541,13 @@ function subscribeToStream(roomId, publisherId, el) {
            //  pluginHandle.onremotestream = function(stream) {
 				 pluginHandle.onremotetrack = function(track, mid, on) {
 				//alert('fuck');
-                console.log("🎬 Получен удалённый видеопоток!");
+                //console.log("🎬 Получен удалённый видеопоток!");
                 let videoElement = local;//document.getElementById('local');
                 // Отображаем поток в элементе <video>
                 if(!on){
+					//alert("null");
 					 videoElement.srcObject = null;
+					
 					 pluginHandle.detach();
 					return;
 				}
@@ -527,9 +576,9 @@ function subscribeToStream(roomId, publisherId, el) {
 			//stream.addTrack(track);
             videoElement.srcObject=stream;//addTrack(track);
         }
-        el.disabled = false;
-        el.textContent = "Stop";
-        el.setAttribute("onclick", "unsubscribe(this);");
+        //el.disabled = false;
+        //el.textContent = "Stop";
+       // el.setAttribute("onclick", "unsubscribe(this);");
  wsend({ request: "janus", subtype:"subscriber", streamid: streamId.value, userid: useridi });
  videoElement.muted=false;
        // videoElement.play().catch(e => console.error("Ошибка воспроизведения:", e));
@@ -547,10 +596,11 @@ function subscribeToStream(roomId, publisherId, el) {
             // 2. Обработчик всех сообщений от плагина
             pluginHandle.onmessage = function(msg, jsep) {
                 console.log("📨 Сообщение от плагина:", msg);
+                //{videoroom: 'event', error_code: 428, error: 'No such feed (0)'}
                 if(jsep)console.log(jsep);
                 // А. Ответ на вход в комнату
                 if (msg.videoroom === "attached") {
-                    console.log("✅ Присоединились к комнате как подписчик. Настраиваем подписку...");
+                    note({ content: "✅ Присоединились к комнате как подписчик. Настраиваем подписку...", type: "info", time: 5});
                    
                     // У нас есть идентификатор потока (publisher), на который нужно подписаться
                     // publisherId можно передать в функцию или получить из msg["streams"]
@@ -606,12 +656,13 @@ function subscribeToStream(roomId, publisherId, el) {
 							  }
 							  if(msg.videoroom==='event'&& msg.left==='ok'){
 								  if (remoteVideo) {
+									  alert("left");
         remoteVideo.srcObject = null;
     }
 							  }
 					  },
 					  pluginHandle.oncleanup=function(){
-						  //alert('clean');
+						  note({content:'clean',type:'info',time:5});
 						  }
             },
             cleanup:function(){
@@ -623,7 +674,9 @@ function subscribeToStream(roomId, publisherId, el) {
 			webrtcState: function(on) {
 				console.log("Janus says this WebRTC PeerConnection (remote feed) is " + (on ? "up" : "down") + " now");
 				if(on){
-					note({content:"Вы подписались, ok", type:"info", time: 5 });
+					note({content:"Вы подписались", type:"info", time: 5 });
+				}else{
+					note({content:"Вы отписались", type:"info", time: 5 });
 				}
 			},
             //alert(pluginHandler);
@@ -687,8 +740,10 @@ function sendMessage(el){
 	el.classList.add('puls');
 	let txt=gid('txt');
 	if(!txt.value) return;
+	console.log('2 ',txt.value);
 	wsend({type:"msg", txt: txt.value, from:username.value,room:'/'+userid.value,owner:owner.value});
 	//insertMessage(txt.value);
+	el.classList.add('puls');
 }
 function insertMessage(obj){
 				
@@ -697,7 +752,7 @@ function insertMessage(obj){
 				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + esci(obj.txt) + '</b>';
 				chatbox.appendChild(div);
 				chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
-				txt.value='';
+				txt.value = '';
 				sendbtn.classList.remove('puls');
 			}
 function wsend(obj){
@@ -728,21 +783,51 @@ function handleFakeVideo(el,n){
 	}else if(n==600005){
 		local.src="/videos/korova3.mp4";
 	}
+	local.onplay=function(){
+		note({content:"Вы подписались, ok", type:"info", time: 5 });
+	}
+	
 	local.muted = false;
 	local.setAttribute("loop", true);
 		 el.disabled = false;
-        el.textContent = "Stop";
-        el.classList.add("redi");
-        el.setAttribute("onclick", `unsubscribeFake(this,"${n}");`);
+		// pauseBtn.style.transition="opacity 0.5s ease, visibility 0.5s linear";
+		// pauseBtn.style.transitionDelay="1s";
+		pauseBtn.style.transition="";
+       // el.textContent = "Stop";
+       // el.classList.add("redi");
+        //el.setAttribute("onclick", `unsubscribeFake(this,"${n}");`);
 	//getGirl();
 }
+function letUnsubscribe(el){
+	let a = Number(streamId.value);
+	if(a==600000 || a==600001 || a==600002 || a==600003 || a==600004 || a==600005){
+		local.src = null;
+	    videobox.classList.remove('playing');
+	el.style.transition="none";
+	}else{
+		unsubscribe(el);
+	}
+}
+function unsubscribe(el){
+	if(!sfutest)return;
+	sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(streamId.value)}]}});
+	wsend({ request: "janus", subtype: "unsubscriber", streamid: streamId.value, roomid: userid.value });
+	
+	videobox.classList.remove("playing");
+	playBtn.disabled = false;
+	playBtn.classList.add("play-btn");
+	el.style.transition = "none";
+}
+/*
 function unsubscribeFake(el,n){
 	local.src=null;
-	el.textContent="Subscribe";
-	el.classList.remove("redi");
+	//el.textContent="Subscribe";
+	videobox.classList.remove('playing');
+
 	//handleFakeVideo(el,n);
 	el.setAttribute("onclick", `handleFakeVideo(this,"${n}");`);
 }
+*/ 
 function getGirl(){
 		let canvas=document.createElement('canvas');
 		var ctx = canvas.getContext("2d");
@@ -754,3 +839,40 @@ function getGirl(){
  document.body.appendChild(canvas);
 });
 }
+
+function letStart(el){
+	el.disabled = true;
+	el.classList.remove("play-btn");
+	pauseBtn.style.transition = "";
+	getJanus(el);
+}
+function letStop(el){
+	if(localStream){
+	freeLocalStream();
+	destroy();
+	
+	videobox.classList.remove("playing");
+	playBtn.disabled = false;
+	playBtn.classList.add("play-btn");
+	el.style.transition = "none";
+	
+	}
+}
+
+if(txt)txt.addEventListener('keydown', sendEnter, false);
+	
+	function sendEnter(ev){
+		
+		if(ev.key == "Enter"){
+		//alert(ev.target.value);	
+		if(ev.target.value.length==0)return;
+		
+			let str = esci(ev.target.value.trim());
+			if(str.length===0){
+				ev.target.value="";
+				return;
+			}
+			console.log('4 ', str,',',str.length);
+			wsend({type:"msg", txt: str, from: username.value, room:'/' + userid.value, owner: owner.value });	
+		}
+	}

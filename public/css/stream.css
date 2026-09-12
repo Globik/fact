@@ -84,14 +84,14 @@ aside#slotinfo{
 							oveflow:auto;
 						}
 						#chatnav{
-						background:pink;
+						background:#17a47c;
 						height:2rem;
 						line-height:1.8;
 							text-align:center;
 						}
 					#chatnav span{
 		font-size:1.2rem;
-		color:red;
+		color:#280218;
 	}
 				#chatbox{
 				bakground:#df9b9b;
@@ -183,13 +183,36 @@ video.Vid{
 				justify-content: center;
 				color:white;
 }
-/*
-#sendbtn .sukaimg{
-	wdth:100%;
-	hight:30px;
-	background:red;
-}
-*/
+
+#live-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff2d7a;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: none;
+    align-items: center;
+    gap: 5px;
+    z-index:1;
+  }
+
+  #live-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
 @media screen and (max-width: 801px) and (orientation: portrait){
 	article.slot{
 		display:block;
