@@ -1,7 +1,5 @@
-* {
-    box-sizing: border-box;
-}
 
+ * { margin: 0; padding: 0; box-sizing: border-box; }
 .warnig{
 	padding:5px;
 	background: rgb(34,200,145);
@@ -287,7 +285,7 @@ input[type=submit].puls,button.puls,div.puls,form.puls {
     animation-direction: alternate;
     animation-iteration-count: infinite;
 }
-@media screen and (max-width: 452px) and (orientation: portrait){
+@media screen and (max-width: 801px) and (orientation: portrait){
 
 .note-item {
         width: 90vw;

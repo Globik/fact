@@ -495,7 +495,7 @@ function subscribeToStream(roomId, publisherId, el) {
 				 pluginHandle.onremotetrack = function(track, mid, on) {
 				//alert('fuck');
                 console.log("🎬 Получен удалённый видеопоток!");
-                let videoElement = document.getElementById('local');
+                let videoElement = local;//document.getElementById('local');
                 // Отображаем поток в элементе <video>
                 if(!on){
 					 videoElement.srcObject = null;
@@ -507,11 +507,14 @@ function subscribeToStream(roomId, publisherId, el) {
                  if (track.kind === "video") {
         
         if (!videoElement) {
+			/*
+			alert("video");
             videoElement = document.createElement('video');
             videoElement.id = 'remoteVideo';
             videoElement.autoplay = true;
             videoElement.playsinline = true;
             document.body.appendChild(videoElement);
+            */ 
         }
 
         // Важно: нужно создать новый MediaStream для этого одного трека
@@ -540,30 +543,6 @@ function subscribeToStream(roomId, publisherId, el) {
 		audioel.srcObject=stream;//addTrack(track);//=stream;
 		audioel.play().catch(e => console.log('Ошибка воспроизведения: ' + e));
 	}
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-               
             };
             // 2. Обработчик всех сообщений от плагина
             pluginHandle.onmessage = function(msg, jsep) {
@@ -644,7 +623,7 @@ function subscribeToStream(roomId, publisherId, el) {
 			webrtcState: function(on) {
 				console.log("Janus says this WebRTC PeerConnection (remote feed) is " + (on ? "up" : "down") + " now");
 				if(on){
-					note({content:"Вы подписались", type:"info", time: 5 });
+					note({content:"Вы подписались, ok", type:"info", time: 5 });
 				}
 			},
             //alert(pluginHandler);
@@ -715,7 +694,7 @@ function insertMessage(obj){
 				
 				let div = document.createElement("div");
 				div.className = "msg";
-				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + obj.txt + '</b>';
+				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + esci(obj.txt) + '</b>';
 				chatbox.appendChild(div);
 				chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
 				txt.value='';

@@ -2,6 +2,7 @@ const { login } = require('./login.js')
 const { nav } = require('./nav.js')
 const { videochat } = require('./videochat.js')
 const { warnig } = require('./warnig.js');
+const { footer } = require('./footer.js')
 const streami =function(n){
 	return 'hallo world'
 }
@@ -25,6 +26,7 @@ let s= function(n){
    <link href="/css/main22.css" rel="stylesheet">
    <link href="/css/nav.css" rel="stylesheet">  
 		<link href="/css/login.css" rel="stylesheet">
+		<link href="/css/myfooter.css" rel="stylesheet">
 		<link href="/css/stream.css" rel="stylesheet">
 		<link href="/css/loader.css" rel="stylesheet">
 	<!--	<script src="https://api.lovense-api.com/basic-sdk/core.min.js"></script> -->
@@ -35,7 +37,7 @@ let s= function(n){
 		</head><body>
 		
 		${nav(n)}
-		${warnig(n)}
+		<!-- ${warnig(n)} -->
 		<a href="/">На главную</a>
 		<input type="hidden" id="owner" value="${n.owner?'true':'false'}">
 		<input type="hidden" id="roomid" value="${n.roomid?n.roomid:0}">
@@ -45,7 +47,10 @@ let s= function(n){
 		<input type="hidden" id="TOK" value="${n.tok}" />
 	
 		${videochat(n)}
+		<br><br>
+		${footer(n)}
 		${login(n)}
+		
 		<script src="/js/stream.js"></script>
 		<script src="/js/login4.js"></script>
 		${process.env.DEVELOPMENT=="yes"?'':`

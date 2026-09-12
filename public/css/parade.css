@@ -1,4 +1,4 @@
- * { margin: 0; padding: 0; box-sizing: border-box; }
+
 
   body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -81,7 +81,7 @@
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #2a2a4a;
-    
+    heght:800px;
   }
 
   .stream-card:hover {
@@ -219,4 +219,7 @@ object-fit:cover;
   @media screen and (max-width: 801px) and (orientation: portrait){
     header h1 { font-size: 2rem; }
     .btn-start { padding: 18px 40px; font-size: 1.1rem; }
+     .stream-thumb {
+		 height:400px;
+	 }
   }

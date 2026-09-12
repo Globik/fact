@@ -35,7 +35,7 @@ background-color: #0056b3;
 	background-color:red;
 }
 footer#pdf{
-	background:blue;
+	backgound:blue;
 	width:100%;
 	height:100px;
 	position:relative;
@@ -46,7 +46,7 @@ footer#pdf{
 				grid-template-columns:90% 10%;
 				}
 				.part{
-					border:1px solid green;
+					brder:1px solid green;
 					width:100%;
 					height:100%;
 					display:flex;
@@ -54,14 +54,16 @@ footer#pdf{
 				justify-content: center;
 				}
 				#txt.textarea{
+				border:none;
 					width:100%;
 					height:100%;
-					
+					padding-left:10px;
+					padding-top:10px;
 				}
 				.part img{
 					width:80%;
 					height:80%;
-					border:1px solid black;
+					boder:1px solid black;
 				}
 aside#slotinfo{
 							bckground:rgba(0,23,45,0.5);
@@ -76,23 +78,39 @@ aside#slotinfo{
 							width:99.9%;
 							height:100%;
 							hight:calc(100% - 100px);
-							mx-height:calc(100% - 100px);;
+							
 							lign-self: flex-end;
 							order:1px solid green;
-							overflow:auto;
+							oveflow:auto;
 						}
-					
+						#chatnav{
+						background:pink;
+						height:2rem;
+						line-height:1.8;
+							text-align:center;
+						}
+					#chatnav span{
+		font-size:1.2rem;
+		color:red;
+	}
 				#chatbox{
-				bckground:#df9b9b;
+				bakground:#df9b9b;
 				width:100%;
-				height:calc(100% - 100px);
+				height:calc(100% - 100px - 2rem);
 				overflow:auto;
 				position:relative;
 				display:block;
-				
+				white-space: pre-line;
+	word-wrap: break-word;
+	overflow-wrap:break-word;
 				}
 			
 			div.msg{
+			width:100%;
+			overflow:hidden;
+			white-space: pre-line;
+	word-wrap: break-word;
+	overflow-wrap:break-word;
 				padding:10px;
 				line-height:1.2;
 				font-size:1.5rem;
@@ -125,11 +143,10 @@ left:0;
 	display: none;
 }
 video.Vid{
-	wdth:330px;
 	height:100%;
 	width:100%;
-	backgrund:red;
-	hight:100%;
+	
+	object-fit:cover;
 }
 .panelbtn{
 	height:88%;
@@ -166,30 +183,89 @@ video.Vid{
 				justify-content: center;
 				color:white;
 }
-div img{
-	width:30px;
-	height:30px;
-	bckground:blue;
+/*
+#sendbtn .sukaimg{
+	wdth:100%;
+	hight:30px;
+	background:red;
 }
+*/
 @media screen and (max-width: 801px) and (orientation: portrait){
 	article.slot{
-		display: block;
-		width:100%;
-		border:1px solid red;
-		height:800px;
-	}
-	aside#slotinfo{
-		height: 300px;
 		display:block;
 		position:relative;
+		width:100%;
+		brder:10px solid lightgreen;
+		height:89vh;
+		heiht:auto;
+	}
+	aside#slotinfo{
+	ight:auto;
+		height: 50%;
+		display:block;
+		position:relative;
+		order:1px solid silver;
 	}
 	aside#boxinfo{
-	border:1px solid green;
-		height:400px;
-		margin-top:100px;
+	borer:1px solid gold;
+		height:50%;
+		magin-top:100px;
 		position:relative;
 	}
-		footer#foot{
-			
+	
+	#chatbox{
+	display:block;
+		backround:red;
+		height:calc(80% - 2rem);
+		
+	}
+	
+	#videobox{
+		boder:4px solid brown;
+		height:80%;
+	}
+	footer#foot{
+		background:lightgreen;
+		height:20%;
+	}
+	.part{
+	display:block;
+		ackground:blue;
+		position:relative;
+		height:100%;
+		width:calc(100% - 15%);
+	}
+	.part#sendbtn{
+		bakground:black;
+		width:15%;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	.part img{
+		width:100%;
+		height:100%;
+	}
+	.textarea{
+		backround:brown;
+		
+	}
+	footer#pdf{
+	display:block;
+	position:relative;
+		height:20%;
+		backgrund:green;
+		boder:1px solid pink;	
+		}
+		div.msg{
+		borer:1px solid black;
+				padding-left:10px;
+				margin:0;
+				line-height:1;
+				fot-size:1.5rem;
+			}	
+		.msg b{
+			font-size:1rem;
+			coor:blue;
 		}
 }

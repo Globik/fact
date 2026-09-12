@@ -1860,7 +1860,7 @@ console.log(e)
         broadcasti({ type: msg.type, nick: msg.nick });
         break
         case 'msg':
-        console.log('msg ', msg);
+        //console.log('msg ', msg);
         broadcast_room(msg);
         break
       default:
