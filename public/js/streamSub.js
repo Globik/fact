@@ -46,7 +46,7 @@
 	}
 	function subscribe(el){
 	el.disabled = true;
-	let a=Number(streamId.value);
+	let a = Number(streamId.value);
 	if(a == 600000 || a == 600001 || a == 600002 || a == 600003 || a == 600004 || a == 600005){
 	
 		let l = document.querySelector("#videobox section");

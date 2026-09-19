@@ -40,36 +40,45 @@ router.get('/:id/:streamid', async(req, res)=>{
 		//}
 	//}
 	//console.log('user ', req.user);
+	let usid = Number(req.params.id);
+	let db = req.db;
+	let fake_msgs;
+	if(usid == 600000 || usid == 600001 || usid == 600002 || usid == 600003 || usid == 600004 || usid == 600005){
+		//console.warn("we here");
+		try{
+		let a = await db.query("SELECT * FROM chat_messages ORDER BY created_at LIMIT 100");
+		//console.log("messages ", a);
+		if(a.length > 0)fake_msgs = a
+	}catch(e){
+		console.log(e);
+	}
+	}
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	//botMessage('on streaming');
-	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user});
+	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user, fake_msgs });
 })
 
 
 router.get('/:id', async(req, res)=>{
 	
 	//console.log('params ', req.params.id, ' ', req.session.suka);
-	let owner=false;
-	//console.log('suka ', Number(req.params.id) === Number(req.session.suka));
-	//if(req.params&&req.params.id && req.user){
-	//	if(Number(req.params.id)===req.user.id){
-	//		owner=true;
-		//}
-	//}
+	let owner = false;
 	
+	let usid = Number(req.params.id);
 	if(!req.user){
-	if(Number(req.params.id) === Number(req.session.suka)){
-		owner=true;
-	}
-}else{
-	if(req.user.id===Number(req.params.id)){
+	if(usid === Number(req.session.suka)){
 		owner = true;
 	}
+}else{
+	if(req.user.id === usid){
+		owner = true;
+	}
+	
+	
+
 }
 let token = createJWT({ mama: shortid()}, jwtsecret );
-	//console.log('owner', owner);
-	//console.log('user ', req.user);
-	//botMessage('wanna stream');
-	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid: Number(req.params.id), user:req.user });
+	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid: usid, user:req.user });
 })
+function get_msg_history(){}
 module.exports = router;

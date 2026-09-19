@@ -72,7 +72,7 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 function on_msg(msg) {
-	//console.log("data type: ", msg.type);
+	console.log("data type: ", msg.type);
 	 switch (msg.type) {
 		 
 		 case 'helloServer':
@@ -107,7 +107,7 @@ function getSi(obj){
 			`;
 }
 function handleJanus(obj){
-	let streamsection=document.querySelector(".streams-grid");
+	let streamsection = document.querySelector(".streams-grid");
 	if(obj.subtype=="all"){
 		//if(poka)poka.remove();
 		

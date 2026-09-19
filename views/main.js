@@ -113,45 +113,10 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
 ${streamsection(n)}
 ${getSeoText()}
 ${footer(n)}
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-  
-   
-    ${login(n)}
-    
-    
-    
- 
-    
-    
-   <script src="/js/login4.js"></script>
-   
-   <!-- <script src="/js/webrtc8.js"></script>
-    <script src="/js/whosonline.js"></script>
-    <script src="/js/soupi444.js"></script> -->
+${login(n)}
+<script src="/js/login4.js"></script>
     <script src="/js/hjanus.js"></script>
     	 <script>
-	 
 	 function getFloor(){
 window.yaContextCb.push(()=>{
      if(Ya.Context.AdvManager.getPlatform()==='desktop'){

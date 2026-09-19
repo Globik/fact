@@ -5,7 +5,7 @@
 	var loc1 = location.hostname + ":" + location.port;
 	var loc2 = location.hostname;
 	var loc3 = loc1 || loc2;
-
+    const chatbox = gid("chatbox");
 	var sock = null;
 	var new_uri;
 	var mystreamId = null;
@@ -90,7 +90,7 @@
 }
 get_socket();
 function on_msg(d){
-	//console.log('msg ',d);
+	console.log('msg ',d);
 	if(d.type === 'janus'){
 		if(d.subtype == 'onviews'){
 			spanViews.textContent = d.views;
@@ -103,6 +103,13 @@ function on_msg(d){
 		handle_message(d);
 	}else if(d.type === 'online'){
 		onlineCount.textContent = d.online;
+	}else if(d.type === 'fakemsg'){
+		handle_message(d);
+	}else if(d.type === 'fake'){
+		if(d.subtype == 'januscount'){
+//alert(1);
+			spanViews.textContent = d.count;
+		}
 	}else{}
 }
 
@@ -116,32 +123,42 @@ function on_msg(d){
 		
 		if(ev.key == "Enter"){
 			
-		if(ev.target.value.length==0)return;
+		if(ev.target.value.length == 0)return;
 		
 			let str = esci(ev.target.value.trim());
 			if(str.length === 0){
 				ev.target.value = "";
 				return;
 			}
-			//console.log('4 ', str,',',str.length);
-			wsend({type:"msg", txt: str, from: username.value, room:'/' + userid.value, owner: owner.value });	
+			
+			wsend({ type: (check_fakes()?"fakemsg":"msg"), txt: str, from: username.value, room: '/' + userid.value, owner: owner.value });	
 		}
 	}
 	function handle_message(obj){
 	insertMessage(obj);
 	}
 
-
+function check_fakes(){
+	let a = Number(gid("streamId").value);
+	if(a == 600000 || a == 600001 || a == 600002 || a == 600003 || a == 600004 || a == 600005){
+		return true;
+	}
+	return false;
+}
 	function sendMessage(el){
+	
 	el.classList.add('puls');
-	let txt=gid('txt');
+	
 	if(!txt.value) return;
-	console.log('2 ',txt.value);
-	wsend({type:"msg", txt: txt.value, from:username.value,room:'/'+userid.value,owner:owner.value});
+	wsend({ type: (check_fakes()?"fakemsg":"msg"), txt: txt.value, from: username.value, room: '/' + userid.value, owner: owner.value });
 	//insertMessage(txt.value);
 	el.classList.add('puls');
 	}
 	
+	function set_fake_msgs(){
+		chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
+	}
+	set_fake_msgs();
 function insertMessage(obj){
 				
 				let div = document.createElement("div");

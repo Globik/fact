@@ -340,174 +340,11 @@ app.post('/lovetoken', async(req, res)=>{
 		return res.json({ error: true, message: e });
 	}
 })
- // verteidigen key fM8VjwulM3xw9cJhFDIq
  
- const obj6={
-  vk_access_token_settings: 'status',
-  vk_app_id: '52272918',
-  vk_are_notifications_enabled: '0',
-  vk_is_app_user: '1',
-  vk_is_favorite: '0',
-  vk_language: 'ru',
-  vk_platform: 'mobile_web',
-  vk_ref: 'other',
-  vk_ts: '1726054014',
-  vk_user_id: '98506638',
-  sign: 'mUkbhW5QTZnZVfd-vywgTULqUKQ4GUrE_852WDps8Xo'
-}  
-//const sign = obj6.sign;
-//delete obj6.sign;
- 
-//const s22 = `${obj6.vk_access_token_settings}&${obj6.vk_app_id}&${obj6.vk_are_notifications_enabled}&${obj6.vk_is_app_user}&${obj6.vk_is_favorite}&${obj6.vk_language}&${obj6.vk_platform}&${obj6.vk_ref}&${obj6.vk_ts}&${obj6.vk_user_id}`;
-
-//const s22 = `vk_access_token_settings=${obj6.vk_access_token_settings}&vk_app_id=${obj6.vk_app_id}&vk_are_notifications_enabled=${obj6.vk_are_notifications_enabled}&vk_is_app_user=${obj6.vk_is_app_user}&vk_is_favorite=${obj6.vk_is_favorite}&vk_language=${obj6.vk_language}&vk_platform=${obj6.vk_platform}&vk_ref=${obj6.vk_ref}&vk_ts=${obj6.vk_ts}&vk_user_id=${obj6.vk_user_id}`;
-
-function checkSign(ob){
-//	console.log("OBJECT ", ob);
-const sign = ob.sign;
-delete ob.sign;
-var ordered = '';
-for(let k in ob){
-	ordered+=`${k}=${ob[k]}&`;
-}
-ordered=ordered.substring(0, ordered.length-1);
-
-let sha12_ha = sign;
-let sh2 = crypto.createHmac('sha256', vkey);
-let li2 = sh2.update(ordered).digest().toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=$/, '');
-//console.log('li2: ',li2)
-//console.log('sha2:', sha12_ha)
-if(li2==sha12_ha){
-	//console.log("vk OK");
-	return true
-}else{
-	//console.log('vk not ok');
-	return false;
-}
-}
-/*
-var ordered = '';
-for(let k in obj6){
-	if(k.includes('vk_'))ordered+=`${k}=${obj6[k]}&`;
-}
-ordered=ordered.substring(0, ordered.length-1);
-
-console.log('si2 ', s22)
-console.log("ordered ", ordered)
-let sha12_ha = sign;
-let sh2 = crypto.createHmac('sha256', vkey);
-let li2 = sh2.update(ordered).digest().toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=$/, '');
-console.log('li2: ',li2)
-console.log('sha2:', sha12_ha)
-if(li2==sha12_ha){
-	console.log("vk OK");
-}else{
-	console.log('vk not ok');
-}
-
-*/
-
-app.get('/en', async(req, res)=>{
-	let ip = req.ip;
-	let token = createJWT({ mama: shortid()}, jwtsecret );
-	botMessage("jemand on /en");
-res.rendel('main', { tok: token, ip, imgData: imgData, lang: 'en', yacount: JETZT, uuid: crypto.randomUUID() });
-})
-app.get('/zh', async(req, res)=>{
-	let token = createJWT({ mama: shortid()}, jwtsecret);
-	botMessage("jemond on /zh");
-	res.rendel('main', { tok: token, ip:req.ip, imgData: imgData, lang: 'zh', yacount: JETZT, uuid: crypto.randomUUID() });
-})
-/*
-app.get('/about/id', async(req, res)=>{
-	let token = createJWT({ mama: shortid()}, jwtsecret);
-	res.rendel('main', { tok: token, ip: req.ip, imgData: imgData, lang: 'id', yacount: JETZT, uuid: crypto.randomUUID() });
-})
-app.get("/", async(req, res)=>{
-	//oni((req.user?req.user.name:'anonym'), " on about");
-	res.rendel('about', {});
-})
-*/ 
-app.get('/lolo', async(req,res)=>{
-	res.rendel('lolo',{arr:[0,1,2,3,4,5], yacount: JETZT });
-})
-
-app.post('/checkip', async(req, res)=>{
-	//console.log(req.body);
-	let { ip } = req.body;
-	if(!ip){
-		return res.json({ error: true, message: 'no ip' });
-	}
-	let db = req.db;
-	let result;
-	try{
-		result = await db.query('select*from banip where ip=(?)', [ ip ]);
-		if(result.length > 0){
-			return res.json({ message: result[0].ip});
-		}
-	}catch(e){
-	//	console.log(e);
-		return res.json({ error: true, message: e });
-	}
-	res.json({ message: 'nothing'});
-})
 
 
-app.post('/zartoone', checkAuth, async(req, res)=>{
-	
-	console.log('body: ', req.body);
-	const { value, id } = req.body;
-	let db = req.db;
-	try{
-		await db.query(`update users set zar=zar+(?) where id=(?)`, [ Number(value), id ]);
-		res.json({ info: 'ok', value, id });
-	}catch(err){
-		//console.log(err);
-		res.json({ error: err });
-	}
-	
-})
 
 
-const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
-
-const parser = new XMLParser();
-const seo = require('./libs/seo.json');
-
-app.get('/photos', async(req,res)=>{
-	res.rendel('photos', { items: seo });
-})
-
-app.get(`/photos/:okno`, async(req, res)=>{
-//oooo
-})
-
-app.post('/api/getMax', async(req, res)=>{
-	let db = req.db;
-	try{
-		//SELECT name,zar FROM users WHERE zar = (SELECT MAX(zar) FROM users);
-		let r = await db.query(`select name, zar from users where zar=(select max(zar) from users)`, []);
-		//console.log('result ', r);
-		let info = {};
-		let su = r.map(function(el){
-			return { name:el.name,sum:el.zar.toString() }
-		});
-		
-		res.json({ info:su });
-	}catch(e){
-		//console.log('err ', e);
-		res.json({ error: e });
-	}
-})
-app.post('/api/setyacount', async(req, res)=>{
-	let {countya} = req.body;
-	if(countya == me){
-		JETZT = er;
-	}else{
-		JETZT = me;
-	}
-	res.json({ message: JETZT });
-})
 app.post('/api/auth', (req, res, next)=>{
 	passport.authenticate("local", (err, user, info)=>{
 		//console.log("err, user, info: ", err, user, info);
@@ -912,18 +749,7 @@ app.post('/api/takeCb2', async(req, res)=>{
 	let a = (dummy2.size==0?"Nothing": [...dummy2]);
 	res.json({ message: a });
 })
-app.post('/api/removePremium', checkAuth, async(req, res)=>{
-	let { usid } = req.body;
-	if(usid){
-		let db = req.db;
-		try{
-		await db.query('update users set prem="n", mon=null where id=(?)', [ usid ]);
-	}catch(e){
-		//console.log(e);
-	}
-	}
-	res.json({ message: 'ok' });
-})
+
 app.post('/setfingerprint', async(req, res)=>{
 	let { str } = req.body;
 	if(!str){
@@ -940,27 +766,7 @@ app.post('/setfingerprint', async(req, res)=>{
 function sha1(str){
 	return crypto.createHash('sha1').update(str).digest('hex');
 }
-app.post('/api/checkBanned', checkAuth, async(req, res)=>{
-	let { usid, myip } = req.body;
-	let db = req.db;
-	try{
-		let a = await db.query(`select*from ban where ip=(?) and usid !=(?)`, [ myip, usid ]);
-		if(a.length > 0){
-			//found
-			await db.query(`insert into ban(usid,ip,grund) values((?),(?),(?))`, [ usid, myip, 1 ]);
-		}
-	}catch(e){
-		//console.log(e);
-	}
-	res.json({ message: 'ok' });
-})
-async function saka(){
-	var r6 = await pool.query('select * from usergold where usid=1 and tgid=1');
-	console.log('r6 ', r6);
-}
-//saka();
-const dummy3 = new Map();
-var iii3 = 0;
+
 
 
 
@@ -1699,64 +1505,49 @@ peerServer.on('connection', (client) => {
 })
 let waitingQueue = [];
 let matchedIds = new Map();
-var connected = 0;//new Map();
+
 function log (text) {
   const time = new Date()
   console.log('[' + time.toLocaleString() + '] ' + text)
 }
 
-function noop() {}
+	function noop() {}
 
-const interval = setInterval(function ping() {
-  wsServer.clients.forEach(function each(ws) {
-	//  console.log("ws.isAlive", ws.isAlive);
+	const interval = setInterval(function ping() {
+  wsServer.clients.forEach(function each(ws){
     if (ws.isAlive === false) return ws.terminate();
     ws.isAlive = false;
-   // console.log("ping");
     ws.ping(noop);
   });
-},
- //1000 * 600
+		},
  1000 * 60
- //10
  );
 
-function heartbeat() {
-	//console.log("pong here", this.isAlive);
+	function heartbeat() {
   this.isAlive = true;
-  //this.send(JSON.stringify({type:"pick"}));
-}
-function doWas(obj){
-//	console.log(" **** DO WAS!!!! ***");
-	// { img_data: data.img_data, userId: ws.userId, nick: ws.nick, value: 0, publishedId: ws.id  }
-	imgData.img_data = obj.img_data;
-	imgData.userId = obj.userId;
-	imgData.nick = obj.nick;
-	imgData.value = obj.value;
-	imgData.publishedId = obj.publishedId;
-}
+	}
+
 var janusonline = new Map();
 
  ev.on(  'donationalerts', function(data){
 	//console.log('data ', data);
 	
-	broadcast_janusDon(data);
+	//broadcast_janusDon(data);
 })
-wsServer.on('connection', async function (socket, req) {
-socket.isAlive = true;
+	wsServer.on('connection', async function (socket, req) {
+	socket.isAlive = true;
   socket.on("pong", heartbeat);
- // console.log('req.url ', req.url);
+  console.log('req.url ', req.url);
+  
 	socket.burl = req.url;
 	socket.dynamo = false;
 	socket.isLogged = "no";
-	socket.VK = false;
+	
   const ip = req.socket.remoteAddress;
   
- // console.log('req.url ', req.url);
-  if(req.url==="/janusstream"){
 	 let ni = getJanusCount();
-	 broadcast_janus(socket,{type:"januscount", count: ni });
-  }
+	if(check_fakes(req.url)) broadcast_janus_fake({ type: "fake", subtype: "januscount", count: ni });
+  
   const re = /([0-9]{1,3}[\.]){3}[0-9]{1,3}/;
 	if(process.env.DEVELOPMENT == "yes"){
 		
@@ -1776,22 +1567,9 @@ socket.banip = r;
 console.log(e)
 }
 }
-  
-  
-  
- // setIp(socket, ip);
   socket.id = obid();
   wsend(socket, { type: 'welcome', socketid: socket.id });
- 
-  
-   broadcasti({ type: 'online', online: wsServer.clients.size })
-  // console.log('isEven(connected) ', connected,isEven(connected));
-  
-
- //broadcasti({ type: 'connected3', cams: onLine.size });
-  
- // if(onLine.size !=0)wsend(socket, { type: "dynamic", sub: "total", cams: [...onLine] });
-  
+  broadcasti({ type: 'online', online: wsServer.clients.size })
   if(janusonline.size !=0)broadcast_gesamt({type:"janus", who: [...janusonline ], subtype: "all"});
   
  
@@ -1805,7 +1583,7 @@ console.log(e)
   
   
   let msg;
-  socket.on('message', (message) => {
+  socket.on('message', async function onmsg(message)  {
 	  
 	  try{
      msg = JSON.parse(message)
@@ -1815,7 +1593,7 @@ console.log(e)
 }catch(e){return;}
 
   if(msg.request == 'janus'){
-	if(msg.subtype=="owner"){
+	if(msg.subtype == "owner"){
 
 		maximg({ src: msg.src, txt: "Jemand enabled janus" });
 	
@@ -1834,118 +1612,80 @@ console.log(e)
         socket.isLogged = msg.logged;
         socket.lang = msg.LANG;
         socket.isprem = msg.isprem;
-        socket.VK = msg.VK;
+        
         wsend(socket, { type: "helloServer", socketId: socket.id });
         break
         case 'introduce':
         socket.nick = msg.nick;
         break
-        case "janusstream":
-        broadcast_janus(socket, msg);
-        break
-        case "messagepublished":
+       // case "janusstream":
+       // broadcast_janus(socket, msg);
+       // break
+       // case "messagepublished":
       //  console.log('publish ', msg);
-        broadcast_publish(socket, msg)
-        break
-      case 'search-peer':
-       socket.nick = msg.nick;
-        searchPeer(socket, { type: 'peer-matched', fingerPrint: msg.fingerPrint }, { src: msg.src, ignores: msg.ignores })
-        break
-        case 'srcdata':
+       // broadcast_publish(socket, msg)
+       // break
+     // case 'search-peer':
+     //  socket.nick = msg.nick;
+     //   searchPeer(socket, { type: 'peer-matched', fingerPrint: msg.fingerPrint }, { src: msg.src, ignores: msg.ignores })
+      //  break
+      //  case 'srcdata':
     //   ev.emit('suka', { id: socket.id })
-        dynamic({ type: "dynamic", sub: "srcdata", src: msg.src, id: socket.id });
-       break
-        case 'krestik':
-        deleteConnection(msg.id);
-        break
-        case 'ban_publish' :
-        broadcasti({ type: msg.type, nick: msg.nick });
-        break
+      //  dynamic({ type: "dynamic", sub: "srcdata", src: msg.src, id: socket.id });
+      // break
+      //  case 'krestik':
+      //  deleteConnection(msg.id);
+      //  break
+       // case 'ban_publish' :
+       // broadcasti({ type: msg.type, nick: msg.nick });
+      //  break
         case 'msg':
         //console.log('msg ', msg);
         broadcast_room(msg);
+        
         break
+        case 'fakemsg':
+        await broadcast_janus_msg(msg);
+        break;
       default:
         break
     }
   })
-socket.on('error', function(e){
+	socket.on('error', function(e){
 	console.log("ERROR ***: ", e);
 	socket.terminate();
-})
+	})
   socket.on('close', (code, reason) => {
 	 // console.log("websocket closed");
 	  clearTimeout(this.pingTimeout);
- //   console.log(`#${socket.id} disconnected: [${code}]${reason}`)
     broadcasti({ type: 'online', online: wsServer.clients.size })
-    
-    //hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
    janusclose(socket);
-   // if(req.url==="/janusstream"){
-	// let ni = getJanusCount();
-	// broadcast_janus(socket,{type:"januscount", count: ni });
-  //}
-  
-  })
+   if(check_fakes(socket.burl)){
+	let ni = getJanusCount();
+	broadcast_janus_fake({ type: "fake", subtype: "januscount", count: ni });
+}
+    })
 })
-function wsend(ws, obj) {
+	function wsend(ws, obj) {
   try {
    let a = JSON.stringify(obj);
     if (ws.readyState === WebSocket.OPEN) ws.send(a);
   } catch (e) {}
-}
-function broadcast(obj){
+	}
+	function broadcast(obj){
 	for (let el of wsServer.clients) {
 		//console.log('broadcasto3 ');
 		if(el.burl=="/gesamt")wsend(el, obj);
 	}
-}
-function dynamic(obj){
+	}
+	function dynamic(obj){
 	for (let el of wsServer.clients) {
 		//console.log('broadcasto3 ');
 		if(el.dynamo)wsend(el, obj);
 	}
-}
-async function broadcast_publish(ws, obj){
-		for (let el of wsServer.clients) {
-			if(el.pubId && el.pubId == obj.publishedId){
-				//console.log("GENAU!", el.pubId);
-			wsend(el, obj);
-		}
-		}
-		 if(obj.sub =="gift"){
-		// console.log('msg gift*** : ', obj);
-		 let peerSocket = getSocket(obj.publishedId);
-		 if(peerSocket){
-		// console.log("userId, nick, userId , nick ", socket.userId, ' ', socket.nick, ' ', peerSocket.userId, ' ', peerSocket.nick);
-		 if(peerSocket.isLogged == "no"){
-			// console.log('peerSocket NO logged!!!!');
-			 wsend(ws, { type: "error", err: "Собеседник не залогинен!"});
-			 return;
-		 }
-		// peerSocket.send(JSON.stringify(msg))
-	//	console.log("peerSocket gift!!!!");
-		wsend(peerSocket, { type: "gift2", quant: obj.quant });
-		 try{
-			 let a = (obj.istestheart?'theart':'heart');
-			 await pool.query(`update users set ${a}=${a}-(?) where id=(?)`, [ obj.quant, obj.from_id ]);
-			 await pool.query(`update users set ${a}=${a}+(?) where id=(?)`, [ obj.quant,/* msg.to_id */ peerSocket.userId ] );
+	}
 
-
-await pool.query(`insert into processTest(from_id,from_nick,wieviel) values((?),(?),(?)) ON DUPLICATE KEY UPDATE wieviel=wieviel+(?)`, [ obj.from_id, obj.from_name, obj.quant, obj.quant ]);
-		
-		 }catch(err){
-		//	 console.log("SEND HEARTS ERROR ", err);
-			// wsend(socket, { type: " error", err: err });
-		 }
-		 
-	 }else{
-		// console.log('peerSocket not found!');
-	 }
-	 }
-}
-
-function getSocket(id){
+	function getSocket(id){
 	for (let el of wsServer.clients) {
 		//console.log("el.id == id ", el.id, ' = ', id);
 		if(el.id == id){
@@ -1953,7 +1693,7 @@ function getSocket(id){
 		}
 	}
 	return undefined;
-}
+	}
 function broadcasti(obj){
 	for (let el of wsServer.clients) {
 		//console.log('broadcast', obj);
@@ -1969,41 +1709,47 @@ function broadcast_admin(obj){
 	//}
 	}
 }
-async function broadcast_janusDon( obj){
-	//console.log('obj ', obj);
+	function broadcast_janus_fake( obj){
 	for (let el of wsServer.clients) {
-		if(el.burl == "/janusstream"){
-		
-			wsend(el, obj);
+		let b =(el.burl == "/600000" || el.burl == "/600001" || el.burl == "/600002" || el.burl == "/600003" || el.burl == "/600004" || el.burl == "/600005")
+		console.log("what the fuck  ",el.burl,' ',b);
+	if(el.burl == "/600000" || el.burl == "/600001" || el.burl == "/600002" || el.burl == "/600003" || el.burl == "/600004" || el.burl == "/600005"){
+	wsend(el, obj);
 		}
 	}
+	}
+ function check_fakes(a){
+	
+	if(a == '/600000' || a == '/600001' || a == '/600002' || a == '/600003' || a == '/600004' || a == '/600005'){
+		return true;
+	}
+	return false;
 }
-
-async function broadcast_janus(ws, obj){
-	//console.log('obj ', obj);
-	for (let el of wsServer.clients) {
-		if(el.burl == "/janusstream"){
-		
-			wsend(el, obj);
-		}
-	}
+	async function broadcast_janus_msg(obj){
+		broadcast_janus_fake(obj);
+	let usid = obj.room;
+	console.log('obj ',obj);
+	if(usid == "/600000" || usid == "/600001" || usid == "/600002" || usid == "/600003" || usid == "/600004" || usid == "/600005"){
 	try{
-		//console.log('from ',obj.from);
-	if(obj.value)	await pool.query('insert into chat_messages(message,fromi) values(?,?)', [obj.value,obj.from]);	
+		console.log('from ', obj.from,obj.txt);
+	if(obj.txt)	await pool.query('insert into chat_messages(message,fromi) values(?,?)', [ obj.txt, obj.from ]);	
+	await pool.query(`DELETE FROM chat_messages WHERE created_at < CURDATE() - INTERVAL 7 DAY`);
 		}catch(e){
-			//console.log(e);
-			}	
-}
-function getJanusCount(){
+			console.log(e);
+			}
+		}		
+	}
+	
+	function getJanusCount(){
 	let n = 0;
 	for (let el of wsServer.clients) {
-		if(el.burl == "/janusstream"){
+		if(el.burl == "/600000" || el.burl == "/600001" || el.burl == "/600002" || el.burl == "/600003" || el.burl == "/600004" || el.burl == "/600005"){
 			n++;
 		}
 	}
 	return n;
-}
-function sendtotarget(obj){
+	}
+	function sendtotarget(obj){
 	for (let el of wsServer.clients) {
 		if(el.id == obj.target){
 			wsend(el, obj);
@@ -2011,7 +1757,7 @@ function sendtotarget(obj){
 		}
 		//wsend(el, { type: "target", subtype: "notfound" });
 	}
-}
+	}
 function getPairsCount(){
 	var kk=0;
 	for (let el of wsServer.clients) {

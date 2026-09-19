@@ -191,7 +191,7 @@ if(refnode.nextSibling.tagName==tagname.toUpperCase())refnode.parentNode.removeC
   };
 
 }(document);
-var html_sA={
+	var html_sA={
 	'\n':' ',
 	'&':'&amp',
 	'<':'&lt;',

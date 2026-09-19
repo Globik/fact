@@ -24,12 +24,12 @@ const videochat = function(n){
             
        
        <footer id="foot"> 
-    ${n.owner?`<button class="panelbtn" id="pbtn" onclick="letStreaming(this);" disabled>Start</button>`:''}
+    ${n.owner?`<button class="panelbtn" id="pbtn" onclick="letStreaming(this);">Start</button>`:''}
         </footer> 
         </aside>
         <aside id="boxinfo">
         <div id="chatnav"><span>Chat</span></div>
-       <div id="chatbox"></div>
+       <div id="chatbox">${n.fake_msgs?get_fake_msgs(n):''}</div>
        <footer id="pdf"> 
        <div class="part">
        <textarea id="txt" class="textarea" placeholder="Your message"></textarea>
@@ -41,5 +41,27 @@ const videochat = function(n){
         </aside>
        <audio style="display:none;" id="audioel"></audio>
        </article>`
-}
-module.exports = { videochat }
+	}
+	module.exports = { videochat }
+	function get_fake_msgs(n){
+	let s = '';
+	if(Array.isArray(n.fake_msgs)){
+		n.fake_msgs.forEach(function(el,i){
+			s+=`<div class="msg"><b>${el.fromi}:</b>&nbsp;<b>${esci(el.message)}</b></div>`;
+		});
+	}
+	return s;
+	} 
+	const html_sA={
+	'\n':' ',
+	'&':'&amp',
+	'<':'&lt;',
+	'>':'&gt;',
+	'"':'&quot;',
+	"'":'&#x27;',
+	'/':'&#x2F;'
+	}
+	const er_sA=/[\n&<>"'\/]/g;
+	function esci(str){
+		return (''+str).replace(er_sA,function(m){return html_sA[m];});
+		}
