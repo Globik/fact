@@ -52,8 +52,8 @@ let s= function(n){
 		<br><br>
 		${footer(n)}
 		${login(n)}
-		
-		<script src="/js/stream.js"></script>
+		<script src="/js/streamUtils.js"></script>
+		${n.owner?`<script src="/js/stream.js"></script>`:`<script src="/js/streamSub.js"></script>`}
 		<script src="/js/login4.js"></script>
 		${process.env.DEVELOPMENT=="yes"?'':`
 		 <script>

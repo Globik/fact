@@ -1,0 +1,32 @@
+version:  '3.8'
+services:
+  janus-gateway: 
+    image:  'sucwangsr/janus-webrtc-gateway-docker:latest'
+    #image:  'meetecho/janus-gateway:1.2.0'
+    container_name:  janus-gateway
+    command: ["/usr/local/bin/janus", "-F","/usr/local/etc/janus"]
+    #command: ["sh","-c","mkdir -p /opt/janus/lib/janus/plugins &&  ln -sf /usr/local/lib/janus/plugins/* /opt/janus/lib/janus/plugins/ 2>/dev/null || true && /usr/local/bin/janus", "-F", "/usr/local/etc/janus"]
+    network_mode: "host"
+    #extra_hosts:
+      #- "host.docker.internal:host-gateway"
+    volumes:
+      - "./conf/janus.transport.websockets.jcfg:/usr/local/etc/janus/janus.transport.websockets.jcfg"
+      - "./conf/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
+      - "./conf/janus.eventhandler.sampleevh.jcfg:/usr/local/lib/janus/events/janus.eventhandler.sampleevh.jcfg"
+      - "./conf/janus.eventhandler.wsevh.jcfg:/usr/local/lib/janus/events/jansu.eventhandler.wsevh.jcfg"
+      - "./conf/janus.plugin.videoroom.jcfg:/usr/local/etc/janus/janus.plugin.videoroom.jcfg"
+      - "./conf/janus.plugin.streaming.jcfg:/usr/local/etc/janus/janus.plugin.streaming.jcfg"
+      - "./conf/janus.transport.http.jcfg:/usr/local/etc/janus/janus.transport.http.jcfg"
+      - "./certs:/etc/janus/certs:ro"
+    environment:
+      - JANUS_CERT_PEM=/etc/janus/certs/fullchain.pem
+      - JANUS_CERT_KEY=/etc/janus/certs/privkey.pem  
+      #- "./janus-plugins/plugins:/opt/janus/lib/janus/plugins:ro"
+    #ports:
+     # - "0.0.0.0:8188:8188"
+    
+    restart: always
+#sudo docker run --rm -v $(pwd)/janus-plugins:/target sucwangsr/janus-webrtc-gateway-docker:latest cp -r /usr/local/lib/janus/plugins/ /target/
+#openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=US/ST=State/L=City/O=Organisation/CN=localhost"
+# sudo cp /etc/letsencrypt/live/chatikon.ru/fullchain.pem /etc/ssl/caddy/ \
+# sudo cp /etc/letsencrypt/live/chatikon.ru/privkey.pem /etc/ssl/caddy/

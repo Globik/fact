@@ -12,7 +12,13 @@ nat: {
 	}
 events: {
 	broadcast = true
-	combine_media_stats = true
-	#disable = "libjanus_sampleevh.so"
-	stats_period = 5
+	combine_media_stats = false
+	disable = "libjanus_wsevh.so,libjanus_gelfevh.so,libjanus_nanomsgevh.so,libjanus_rabbitmqevh.so"
+	stats_period = 0
+}
+plugins: {
+	disable = "libjanus_echotest.so,libjanus_recordplay.so,libjanus_sip.so,libjanus_videocall.so,libjanus_textroom.so,libjanus_recordplay.so,libjanus_nosip.so,libjanus_audiobridge.so"
+}
+transports: {
+	disable = "libjanus_rabbitmq.so,libjanus_nanomsg.so,libjanus_pfunix.so"
 }

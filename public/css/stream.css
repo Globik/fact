@@ -164,6 +164,7 @@ video.Vid{
 .panelbtn[disabled]{
 	background:rgba(65,23,30,0.8);
 }
+/*
 #glas{
 	position:absolute;
 	left:20px;
@@ -183,7 +184,19 @@ video.Vid{
 				justify-content: center;
 				color:white;
 }
-
+*/
+.viewers {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 1.0rem;
+    z-index:1;
+    line-height:1.6;
+  }
 #live-badge {
     position: absolute;
     top: 10px;

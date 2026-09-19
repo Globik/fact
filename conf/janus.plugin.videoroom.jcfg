@@ -1,5 +1,5 @@
 # room-<unique room ID>: {
-notify_joining = true
+# notify_joining = true sampleevh
 # description = This is my awesome room
 # is_private = true|false (whether this room should be in the public list, default=true)
 # secret = <optional password needed for manipulating (e.g. destroying) the room>
@@ -66,7 +66,8 @@ general: {
 									# enforced for RTP forwarding requests too
 	events = true					# Whether events should be sent to event
 									# handlers (default=true)
-
+	notify_joining = true
+	threads = 4
 	# By default, integers are used as a unique ID for both rooms and participants.
 	# In case you want to use strings instead (e.g., a UUID), set string_ids to true.
 	#string_ids = true

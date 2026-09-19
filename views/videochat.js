@@ -4,6 +4,7 @@ const videochat = function(n){
     <aside id="slotinfo">
     <div id="videobox"><section id="mobileloader"><div class="loader"></div></section>
     <span id="live-badge">LIVE</span>
+    <span class="viewers">👁 <b id="spanViews">0</b></span>
     <video id="local" autoplay muted class="Vid" playsinline></video>
     <button class="icon-btn play-btn" id="playBtn" aria-label="Воспроизвести" onclick="${n.owner?'letStart(this)':'subscribe(this)'}">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -18,13 +19,12 @@ const videochat = function(n){
       <rect x="15" y="4" width="4" height="16" rx="1" />
     </svg>
   </button>
-     <div id="glas"><div><img src="/img/eye2.svg"></div><div><span id="spanViews">0</span></div></div>
     </div>
     
             
        
        <footer id="foot"> 
-    ${n.owner?`<button class="panelbtn" id="pbtn" onclick="letStreaming(this);">Start</button>`:''}
+    ${n.owner?`<button class="panelbtn" id="pbtn" onclick="letStreaming(this);" disabled>Start</button>`:''}
         </footer> 
         </aside>
         <aside id="boxinfo">

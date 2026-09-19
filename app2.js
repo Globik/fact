@@ -316,7 +316,7 @@ app.get("/jstream", async(req, res)=>{
 //	res.rendel('jstream',{ tok: token,lang:'ru' });
 })
 app.post("/januscb", async(req,res)=>{
-	console.log('januscb', req.body);
+	console.log('januscb',JSON.stringify(req.body));
 	res.json({message:'ok'});
 })
 const devlovetok = "ulC59bAUDtkH_pXtfO5Zvg_IJECp242NcfmMcfrPxRZGnehZXjHGLgDBaAPbJdXO";
@@ -1691,9 +1691,9 @@ const peerServer = ExpressPeerServer(serverPeer, {
     //} : {}
 });
 app.use( peerServer);
-serverPeer.listen(9000, () => {
+//serverPeer.listen(9000, () => {
    // console.log('✅ PeerJS сервер запущен на порту 9000');
-});
+//});
 peerServer.on('connection', (client) => {
 	//console.log('peer connected ');
 })
@@ -1809,7 +1809,9 @@ console.log(e)
 	  
 	  try{
      msg = JSON.parse(message)
-    // console.log('msg ',msg);
+     //if(msg.emitter=='MyJanusInstance'){
+   // console.log('msg from websocket ',msg);
+//}
 }catch(e){return;}
 
   if(msg.request == 'janus'){
@@ -1878,12 +1880,12 @@ socket.on('error', function(e){
     broadcasti({ type: 'online', online: wsServer.clients.size })
     
     //hangUp(socket.id, { type: 'hang-up', partnerId: socket.userId, ignore: false }, true, "noabrupt")
-   // janusclose(socket);
+   janusclose(socket);
    // if(req.url==="/janusstream"){
 	// let ni = getJanusCount();
 	// broadcast_janus(socket,{type:"januscount", count: ni });
   //}
-   
+  
   })
 })
 function wsend(ws, obj) {
@@ -2054,6 +2056,7 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 	// broadcast({ type: "dynamic", sub: "add", id: socket.id, nick: socket.nick, status: 'free', camcount: onLine.size });
 	let a = janusonline.get(socket.roomid);
 	//console.log('a.views ', a.views);
+	console.log("add ", msg.streamid);
 	broadcast_gesamt({type:'janus', subtype: 'add', roomid: msg.roomid, src:msg.src,nick:msg.nick,userid:msg.userid, streamid: msg.streamid, views: a.views}); 
 }
 	}else if(msg.subtype == "remove"){
@@ -2067,26 +2070,58 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 		//console.log(a.src);
 		wsend(socket,{type:"janus",subtype: msg.subtype, src:a.src});
 	}else if(msg.subtype == "subscriber"){
+		console.log("subscriber");
 		socket.streamid = msg.streamid;
 		socket.roomid = msg.userid
 		if(janusonline.has(msg.userid)){
 			let a = janusonline.get(msg.userid);
 			let b = Number(a.views);
 			
-			b.views = b.views + 1;
-			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.roomid, views: b.views, userid: msg.userid, streamid: socket.streamid }); 
-			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b.views, streamid: socket.streamid });
+			b = b + 1;
+			a.views = b;
+			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.userid, views: b, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.userid, views: b, streamid: socket.streamid });
 		}
 	}else if(msg.subtype == "unsubscriber"){
 		if(janusonline.has(msg.roomid)){
 			let a = janusonline.get(msg.roomid);
-			let b = Number(a);
-			b.views = b.views - 1;
-			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.roomid, views: b.views, userid: msg.userid, streamid: socket.streamid }); 
-			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b.views, streamid: socket.streamid , userid:msg.roomid});
+			let b = Number(a.views);
+			console.log("unsubscriber ", b);
+			b = b - 1;
+			a.views = b;
+			console.log("unsubscriber a", a.views,' ', b);
+			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.userid, views: b, userid: msg.userid, streamid: socket.streamid }); 
+			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b, streamid: socket.streamid , userid:msg.roomid});
 			socket.roomid = 0;
 			socket.streamid = 0;
 			
+		}
+	}
+}
+function janusclose(socket){
+	if(socket.owner){
+		if(janusonline.has(socket.roomid)){
+			broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
+			janusonline.delete(socket.roomid);
+			
+			
+			socket.owner = false;
+			
+			console.log("streamer must disappear");
+			broadcast_streamid({ type: "janus", subtype: "disappear", streamid: socket.streamid });
+			socket.roomid = 0;
+			socket.streamid = 0;
+		}
+	}else{
+		if(janusonline.has(socket.roomid)){
+			let a = janusonline.get(socket.roomid);
+			let b = Number(a.views);
+			b = b - 1;
+			a.views = b;
+			broadcast_gesamt({ type: "janus", subtype: "onviews", views: b, streamid: socket.streamid, userid: socket.roomid, roomid:socket.roomid }); 
+			broadcast_streamid({ type: "janus", subtype: "onviews", views: b, streamid: socket.streamid, userid: socket.roomid, roomid:socket.roomid });
+			socket.roomid = 0;
+			socket.streamid = 0;
 		}
 	}
 }
@@ -2099,14 +2134,16 @@ function broadcast_gesamt(obj){
 	}
 	}
 }
+/*
 function clear_roomid(streamid){
 	for (let el of wsServer.clients) {
 		if(el.streamid === streamid){
 			el.streamid = 0;
 		}
 	}
-}
+}*/
 function broadcast_room(obj){
+	console.log("broadcast room ",obj);
 	for (let el of wsServer.clients) {
 		if(el.burl === obj.room){
 		//	console.log('broadcast room ', obj);
@@ -2114,34 +2151,14 @@ function broadcast_room(obj){
 		}}
 }
 function broadcast_streamid(obj){
+	console.log("broadcast streamid ",obj);
 	for (let el of wsServer.clients) {
+		console.log("if ", el.streamid,' ',obj.streamid, el.streamid===obj.streamid);
 		if(el.streamid === obj.streamid){
-			wsend(obj);
+			wsend(el,obj);
 		}}
 		}
-function janusclose(socket){
-	if(socket.owner){
-		if(janusonline.has(socket.roomid)){
-			broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
-			janusonline.delete(socket.roomid);
-			clear_roomid(socket.streamid);
-			//broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
-			socket.owner = false;
-			socket.roomid = 0;
-			socket.streamid = 0;
-			
-		}
-	}else{
-		if(janusonline.has(socket.roomid)){
-			let a = janusonline.get(socket.roomid);
-			let b = Number(a);
-			b.views = b.views - 1;
-			broadcast_gesamt({ type: "janus", subtype: "onviews", views: b.views, userid: socket.userid, streamid: socket.streamid }); 
-			broadcast_streamid({ type: "janus", subtype:"onviews", views: b.views, streamid: socket.streamid });
-			
-		}
-	}
-}
+
 const { ApiClient } = require('@donation-alerts/api');
 const { CentrifugoClient } = require('@donation-alerts/events');
 const { v4: uuidv4 } = require('uuid');
