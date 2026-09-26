@@ -137,6 +137,10 @@ function handleJanus(obj){
 	let a = document.querySelector(`[data-streamid="${obj.streamid}"]`);
 	//alert(a + ' '+ obj.streamid);
 	if(a)a.remove();
+}else if(obj.subtype == "removeroom"){
+	alert(obj.roomid);
+	let a = document.querySelector(`[data-roomid="${obj.roomid}"]`);
+	if(a)a.remove();
 }else if(obj.type == "onviews"){
 	let a = document.querySelector(`[data-nowroomid="${obj.roomid}"]`);
 	if(a)a.textContent = obj.views;

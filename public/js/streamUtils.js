@@ -182,8 +182,8 @@ function insertMessage(obj){
 	if(!local.srcObject) return;
     let cnv = document.createElement('canvas');
     let c = cnv.getContext('2d');
-    var ww = local.videoWidth;//4;
-    var hh = local.videoHeight;//4;
+    var ww = local.videoWidth/4;
+    var hh = local.videoHeight/4;
     cnv.width = ww;
     cnv.height = hh;
     c.filter = 'blur(9px)';

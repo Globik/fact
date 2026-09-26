@@ -5,7 +5,7 @@
 drop table if exists chat_messages cascade;
 CREATE TABLE chat_messages (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     message TEXT,
     from varchar(70) not null default 'anon',
     INDEX idx_created_at (created_at)

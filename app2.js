@@ -315,8 +315,49 @@ app.get("/jstream", async(req, res)=>{
 	res.json({message:'ok'});
 //	res.rendel('jstream',{ tok: token,lang:'ru' });
 })
+/*
+ [
+ {
+ "emitter":"MyJanusInstance","type":64,"timestamp":1790453316175419,"session_id":2950577386936459,"handle_id":4009232328809222,
+ * "event":
+ * {
+ * "plugin":"janus.plugin.videoroom",
+ * "data":
+ * {
+ * "event":"destroyed","room":10650909
+ * }}}]
+*/
+
+
+
 app.post("/januscb", async(req,res)=>{
-	console.log('januscb',JSON.stringify(req.body));
+	//console.log('januscb',JSON.stringify(req.body));
+	try{
+	if(Array.isArray(req.body)){
+		req.body.forEach(function(el, i){
+			if(el.emitter==="MyJanusInstance"){
+			if(el.event){
+				if(el.event.plugin==="janus.plugin.videoroom"){
+						if(el.event.data.event==="destroyed"){
+							let n = el.event.data.room;
+							if(n){
+								if(janusonline.has(n)){
+									//console.log("janusonline ", janusonline);
+									//console.log("it looks like we destroying room ", n);
+									janusonline.delete(n);
+									broadcast_gesamt({type: "janus", subtype: "removeroom", roomid: n });
+									//console.log("janusonline ", janusonline);
+								}
+							}
+						}
+						}
+			}	
+			}
+		});
+	}
+}catch(e){
+	//console.log(e);
+}
 	res.json({message:'ok'});
 })
 const devlovetok = "ulC59bAUDtkH_pXtfO5Zvg_IJECp242NcfmMcfrPxRZGnehZXjHGLgDBaAPbJdXO";
@@ -1537,7 +1578,7 @@ var janusonline = new Map();
 	wsServer.on('connection', async function (socket, req) {
 	socket.isAlive = true;
   socket.on("pong", heartbeat);
-  console.log('req.url ', req.url);
+ // console.log('req.url ', req.url);
   
 	socket.burl = req.url;
 	socket.dynamo = false;
@@ -1618,27 +1659,6 @@ console.log(e)
         case 'introduce':
         socket.nick = msg.nick;
         break
-       // case "janusstream":
-       // broadcast_janus(socket, msg);
-       // break
-       // case "messagepublished":
-      //  console.log('publish ', msg);
-       // broadcast_publish(socket, msg)
-       // break
-     // case 'search-peer':
-     //  socket.nick = msg.nick;
-     //   searchPeer(socket, { type: 'peer-matched', fingerPrint: msg.fingerPrint }, { src: msg.src, ignores: msg.ignores })
-      //  break
-      //  case 'srcdata':
-    //   ev.emit('suka', { id: socket.id })
-      //  dynamic({ type: "dynamic", sub: "srcdata", src: msg.src, id: socket.id });
-      // break
-      //  case 'krestik':
-      //  deleteConnection(msg.id);
-      //  break
-       // case 'ban_publish' :
-       // broadcasti({ type: msg.type, nick: msg.nick });
-      //  break
         case 'msg':
         //console.log('msg ', msg);
         broadcast_room(msg);
@@ -1712,7 +1732,7 @@ function broadcast_admin(obj){
 	function broadcast_janus_fake( obj){
 	for (let el of wsServer.clients) {
 		let b =(el.burl == "/600000" || el.burl == "/600001" || el.burl == "/600002" || el.burl == "/600003" || el.burl == "/600004" || el.burl == "/600005")
-		console.log("what the fuck  ",el.burl,' ',b);
+		//console.log("what the fuck  ",el.burl,' ',b);
 	if(el.burl == "/600000" || el.burl == "/600001" || el.burl == "/600002" || el.burl == "/600003" || el.burl == "/600004" || el.burl == "/600005"){
 	wsend(el, obj);
 		}
@@ -1728,14 +1748,14 @@ function broadcast_admin(obj){
 	async function broadcast_janus_msg(obj){
 		broadcast_janus_fake(obj);
 	let usid = obj.room;
-	console.log('obj ',obj);
+	//console.log('obj ',obj);
 	if(usid == "/600000" || usid == "/600001" || usid == "/600002" || usid == "/600003" || usid == "/600004" || usid == "/600005"){
 	try{
-		console.log('from ', obj.from,obj.txt);
+	//	console.log('from ', obj.from,obj.txt);
 	if(obj.txt)	await pool.query('insert into chat_messages(message,fromi) values(?,?)', [ obj.txt, obj.from ]);	
 	await pool.query(`DELETE FROM chat_messages WHERE created_at < CURDATE() - INTERVAL 7 DAY`);
 		}catch(e){
-			console.log(e);
+		//	console.log(e);
 			}
 		}		
 	}
@@ -1802,7 +1822,7 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 	// broadcast({ type: "dynamic", sub: "add", id: socket.id, nick: socket.nick, status: 'free', camcount: onLine.size });
 	let a = janusonline.get(socket.roomid);
 	//console.log('a.views ', a.views);
-	console.log("add ", msg.streamid);
+	//console.log("add ", msg.streamid);
 	broadcast_gesamt({type:'janus', subtype: 'add', roomid: msg.roomid, src:msg.src,nick:msg.nick,userid:msg.userid, streamid: msg.streamid, views: a.views}); 
 }
 	}else if(msg.subtype == "remove"){
@@ -1816,7 +1836,7 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 		//console.log(a.src);
 		wsend(socket,{type:"janus",subtype: msg.subtype, src:a.src});
 	}else if(msg.subtype == "subscriber"){
-		console.log("subscriber");
+		//console.log("subscriber");
 		socket.streamid = msg.streamid;
 		socket.roomid = msg.userid
 		if(janusonline.has(msg.userid)){
@@ -1832,10 +1852,10 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 		if(janusonline.has(msg.roomid)){
 			let a = janusonline.get(msg.roomid);
 			let b = Number(a.views);
-			console.log("unsubscriber ", b);
+			//console.log("unsubscriber ", b);
 			b = b - 1;
 			a.views = b;
-			console.log("unsubscriber a", a.views,' ', b);
+			//console.log("unsubscriber a", a.views,' ', b);
 			broadcast_gesamt({ type: "janus", subtype: "onviews", roomid: msg.userid, views: b, userid: msg.userid, streamid: socket.streamid }); 
 			broadcast_streamid({ type: "janus", subtype:"onviews", roomid: msg.roomid, views: b, streamid: socket.streamid , userid:msg.roomid});
 			socket.roomid = 0;
@@ -1847,13 +1867,13 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 function janusclose(socket){
 	if(socket.owner){
 		if(janusonline.has(socket.roomid)){
-			broadcast_gesamt({type: "janus", subtype: "remove", streamid: socket.streamid });
+			broadcast_gesamt({type: "janus", subtype: "remove", roomid: socket.roomid, streamid: socket.streamid });
 			janusonline.delete(socket.roomid);
 			
 			
 			socket.owner = false;
 			
-			console.log("streamer must disappear");
+			//console.log("streamer must disappear");
 			broadcast_streamid({ type: "janus", subtype: "disappear", streamid: socket.streamid });
 			socket.roomid = 0;
 			socket.streamid = 0;
@@ -1899,7 +1919,7 @@ function broadcast_room(obj){
 function broadcast_streamid(obj){
 	console.log("broadcast streamid ",obj);
 	for (let el of wsServer.clients) {
-		console.log("if ", el.streamid,' ',obj.streamid, el.streamid===obj.streamid);
+		//console.log("if ", el.streamid,' ',obj.streamid, el.streamid===obj.streamid);
 		if(el.streamid === obj.streamid){
 			wsend(el,obj);
 		}}

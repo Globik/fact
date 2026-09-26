@@ -67,7 +67,7 @@ general: {
 	events = true					# Whether events should be sent to event
 									# handlers (default=true)
 	notify_joining = true
-	threads = 4
+	#threads = 4
 	# By default, integers are used as a unique ID for both rooms and participants.
 	# In case you want to use strings instead (e.g., a UUID), set string_ids to true.
 	#string_ids = true
