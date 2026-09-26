@@ -21,5 +21,5 @@ services:
       # В официальном образе конфиги лежат в /opt/janus/etc/janus
       - ./conf:/usr/local/etc/janus
       #- "./certs:/etc/janus/certs:ro"
-      - /etc/letsencrypt/live/chatikon.ru:/etc/janus/certs:ro
+      - ./certs:/etc/janus/certs:ro
       #- ${FAKE_CERT:-/etc/letsencrypt/live/chatikon.ru}:/etc/janus/certs:ro
