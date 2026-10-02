@@ -40,7 +40,12 @@ const videochat = function(n){
         </footer> 
         </aside>
        <audio style="display:none;" id="audioel"></audio>
-       </article>`
+       </article>
+       <style>#ex1,#ex2{width:100%;height:300px;border:1px solid green;}</style><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+       <h2>iframe</h2>
+       <iframe id="ex1" src="https://tips.tips/ru/w/progress/486269/8b9845c67186fa270ca9b734c7c24ea0237989f38cccf6d7bd2b24be83903c8a"></iframe><br>
+       <iframe id="ex2" src="https://tips.tips/ru/w/donation-alert/486269/8b9845c67186fa270ca9b734c7c24ea0237989f38cccf6d7bd2b24be83903c8a"></iframe>
+       `
 	}
 	module.exports = { videochat }
 	function get_fake_msgs(n){
