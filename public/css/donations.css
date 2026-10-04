@@ -47,7 +47,7 @@ trasform:scale(calc(1.0));
 	overflow:hidden;
 	aspect-ratio: 1/1;
 	position:absolute;
-	z-idex:1;
+	z-index:1;
 }
 #ex2{
 	position: absolute;
@@ -65,7 +65,7 @@ trasform:scale(calc(1.0));
   background:transparent;
   border: 1px solid green;     /* Убираем рамку браузера вокруг iframe */
   pointer-events: none; /* ВАЖНО! См. ниже объяснение */
-  z-inex: 999;      
+  z-index: 1;      
 }
 
 @media screen and (max-width: 801px) and (orientation: portrait){
