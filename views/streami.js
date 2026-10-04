@@ -138,6 +138,7 @@ window.yaContextCb.push(() => {
 </script>
 <!-- Yandex.RTB R-A-14255767-5 -->
 <script>
+/*
 window.addEventListener("load", () => {
     const render = (imageId) => {
         window.yaContextCb.push(() => {
@@ -170,7 +171,7 @@ window.addEventListener("load", () => {
         renderInImage(images)
     }
     renderInImage(Array.from(document.querySelectorAll(".Vid")))
-}, { once: true })
+}, { once: true })*/
 </script>`}
 		</body></html>
     `;
