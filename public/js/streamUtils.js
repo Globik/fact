@@ -1,7 +1,7 @@
 	
 	const Spinner =  document.querySelector("#videobox section");
 	let spanViews = gid("spanViews");
-	
+	var chatboxcontainer = gid("chatboxcontainer");
 	var loc1 = location.hostname + ":" + location.port;
 	var loc2 = location.hostname;
 	var loc3 = loc1 || loc2;
@@ -96,6 +96,9 @@ function on_msg(d){
 			spanViews.textContent = d.views;
 		}else if(d.subtype === "getposter"){
 		local.poster = d.src;
+	}else if(d.subtype === 'disappear2'){
+		//alert('disappear');
+		endSession(d);
 	}
 	}else if(d.type === 'welcome'){
 		MYSOCKETID = d.socketid;
@@ -125,7 +128,8 @@ function on_msg(d){
 			
 		if(ev.target.value.length == 0)return;
 		
-			let str = esci(ev.target.value.trim());
+			//let str = esci(ev.target.value.trim());
+			let str = ev.target.value.trim();
 			if(str.length === 0){
 				ev.target.value = "";
 				return;
@@ -156,7 +160,7 @@ function check_fakes(){
 	}
 	
 	function set_fake_msgs(){
-		chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
+		chatboxcontainer.scrollTop = chatboxcontainer.clientHeight + chatboxcontainer.scrollHeight;
 	}
 	set_fake_msgs();
 function insertMessage(obj){
@@ -165,7 +169,7 @@ function insertMessage(obj){
 				div.className = "msg";
 				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + esci(obj.txt) + '</b>';
 				chatbox.appendChild(div);
-				chatbox.scrollTop = chatbox.clientHeight + chatbox.scrollHeight;
+				chatboxcontainer.scrollTop = chatboxcontainer.clientHeight + chatboxcontainer.scrollHeight;
 				txt.value = '';
 				sendbtn.classList.remove('puls');
 			}
@@ -182,11 +186,11 @@ function insertMessage(obj){
 	if(!local.srcObject) return;
     let cnv = document.createElement('canvas');
     let c = cnv.getContext('2d');
-    var ww = local.videoWidth/4;
-    var hh = local.videoHeight/4;
+    var ww = local.videoWidth/2;
+    var hh = local.videoHeight/2;
     cnv.width = ww;
     cnv.height = hh;
-    c.filter = 'blur(9px)';
+    c.filter = 'blur(2px)';
     c.drawImage(local, 0, 0, ww, hh);
     var imgdata = cnv.toDataURL('image/jpeg', 1.0);
  
@@ -196,7 +200,7 @@ function insertMessage(obj){
 	}
 	function fsend(obj){
 	if(!sfutest)return;
-    sfutest.send({ message: obj, success: function(d){console.log(d)},error:function(er){console.error(er)}});
+    sfutest.send({ message: obj, success: function(d){if(d)console.log(d)},error:function(er){if(er)console.error(er)}});
 	}
 
 function isexits(){

@@ -138,7 +138,7 @@ function handleJanus(obj){
 	//alert(a + ' '+ obj.streamid);
 	if(a)a.remove();
 }else if(obj.subtype == "removeroom"){
-	alert(obj.roomid);
+	//alert(obj.roomid);
 	let a = document.querySelector(`[data-roomid="${obj.roomid}"]`);
 	if(a)a.remove();
 }else if(obj.type == "onviews"){
@@ -146,17 +146,7 @@ function handleJanus(obj){
 	if(a)a.textContent = obj.views;
 }
 }
-function startTrans(el){
-	//if(isLogin.value === "false"){
-	//	window.location.href="#login";
-	//}else{
-		//alert(userId.value);
-		//window.location.href = "/stream/"+userId.value;
-		//alert(sess.value);
-		if(sock)sock.close();
-		window.location.href = "/stream/"+sess.value;
-	//}
-}
+
 function initPeer(id){
 	return;
 	  const iceServersConfig = {

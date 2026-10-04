@@ -1,4 +1,4 @@
-
+const pbtn = gid("pbtn");
 	var janus = null;
 	let localStream = null;
 //var opaqueId = "videoroomtest-"+Janus.randomString(12);
@@ -28,6 +28,11 @@ function createRoom(){
 	window.addEventListener("beforeunload", async function(ev){
 	destroy();
 		});
+	local.onloadedmetadata = function(){
+		
+			pbtn.style.background = "green";
+			pbtn.style.color = "white";
+		}
 	function getJanus(el){
 	//el.disabled = true;
 	let l = document.querySelector("#videobox section");
@@ -163,6 +168,8 @@ function createRoom(){
 					videobox.classList.remove('playing');
 					liveBadge.style.display = "flex";
 					note({ content: "Вы в эфире!", type:'info', time:5 });
+					pbtn.style.background = "red";
+			pbtn.style.color = "white";
 					setTimeout(function(){
 					let imgdata = Screenshot();
 					wsend({ request: 'janus', subtype: "owner", roomid: useridi, userid:useridi, nick: username.value, streamid: mystreamId, src: imgdata });
@@ -173,6 +180,8 @@ function createRoom(){
 					note({content:"Вышли из эфира!", type:"info", time: 5 });
 					el.disabled = false;
 					pbtn.textContent = "Start";
+					pbtn.style.background = "gray";
+			pbtn.style.color = "silver";
 					pbtn.setAttribute("onclick",`letStreaming(this);`);
 					playBtn.disabled = false;
 					playBtn.classList.add("play-btn");
@@ -182,7 +191,7 @@ function createRoom(){
 			},
 });
 }
-
+	function endSession(){}
  function freeLocalStream(){
 	if(!localStream)return;
 		 localStream.getTracks().forEach(track => {
@@ -224,6 +233,7 @@ function createRoom(){
 
 
 	function destroy(){
+		//alert('destroy');
 	fsend({ request: 'destroy', secret: TOK.value, room: useridi });
 	}
 

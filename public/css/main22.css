@@ -20,7 +20,11 @@ body.ondialog {
 }
 
 
-
+main.mymain{
+	margin-left:7px;
+	margin-right:7px;
+	padding:2px;
+}
 
 
 #transbtn2{

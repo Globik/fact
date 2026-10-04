@@ -346,6 +346,7 @@ app.post("/januscb", async(req,res)=>{
 									//console.log("it looks like we destroying room ", n);
 									janusonline.delete(n);
 									broadcast_gesamt({type: "janus", subtype: "removeroom", roomid: n });
+												broadcast_room({ type: "janus", subtype: "disappear2", room: "/"+n});
 									//console.log("janusonline ", janusonline);
 								}
 							}
@@ -1865,6 +1866,8 @@ function handleJanus(socket, msg, WebSocket, wsServer, pool){
 	}
 }
 function janusclose(socket){
+	//console.warn("jannus close");
+	//console.log("owner ", socket.owner);
 	if(socket.owner){
 		if(janusonline.has(socket.roomid)){
 			broadcast_gesamt({type: "janus", subtype: "remove", roomid: socket.roomid, streamid: socket.streamid });
@@ -1873,8 +1876,13 @@ function janusclose(socket){
 			
 			socket.owner = false;
 			
-			//console.log("streamer must disappear");
+			//console.log("streamer must disappear", socket.streamid);
 			broadcast_streamid({ type: "janus", subtype: "disappear", streamid: socket.streamid });
+			broadcast_room({ type:"janus", subtype: "disappear2", room:"/"+socket.roomid });
+			socket.roomid = 0;
+			socket.streamid = 0;
+		}else{
+			//console.log("it looks like no socker roomid");
 			socket.roomid = 0;
 			socket.streamid = 0;
 		}
@@ -1909,7 +1917,7 @@ function clear_roomid(streamid){
 	}
 }*/
 function broadcast_room(obj){
-	console.log("broadcast room ",obj);
+	//console.log("broadcast room ",obj);
 	for (let el of wsServer.clients) {
 		if(el.burl === obj.room){
 		//	console.log('broadcast room ', obj);
@@ -1917,7 +1925,7 @@ function broadcast_room(obj){
 		}}
 }
 function broadcast_streamid(obj){
-	console.log("broadcast streamid ",obj);
+	//console.log("broadcast streamid ",obj);
 	for (let el of wsServer.clients) {
 		//console.log("if ", el.streamid,' ',obj.streamid, el.streamid===obj.streamid);
 		if(el.streamid === obj.streamid){

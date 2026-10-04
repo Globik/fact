@@ -9,6 +9,7 @@
 		grid-template-columns:1fr 50px;
 		align-self:center;
 		position:relative;
+		margin-top:5px;
 	}
 	.nav{
 	jstify-self: center;
@@ -32,6 +33,7 @@
 		width:50px;
 	}
 	.ita{
+
 display:flex;
 	position:relative;
 	color:orange;
@@ -58,9 +60,9 @@ left:-1px;
 	#settingspanel{
 	display: none;
 	position:absolute;
-	right:0px;
+	right:0;
 	top:51px;
-	width:100vw;
+	
 	bckground:brown;
 	z-index:9999;
 	color:blue;
@@ -79,7 +81,7 @@ left:-1px;
 	height:auto;
 }
 .settingspanel{
-	width:100vw;
+	width:50vw;
 	background:rgba(106,201,199,0.96);
 	line-height:1.2;
 	font-size:1.5rem;
@@ -99,4 +101,12 @@ background:rgb(255,255,255);
 }
 .nav b{
 	color:white;
+}
+@media screen and (max-width: 801px) and (orientation: portrait){
+	.settingspanel{
+	let:0;
+	riht:0;
+	padding-left:5px;
+		width:calc(100vw - 14px - 4px);
+	}
 }

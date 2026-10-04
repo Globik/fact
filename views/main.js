@@ -4,6 +4,7 @@ const { streamsection } = require('./streams-section.js');
 const { getSeoText } = require('./getSeoText.js');
 const { footer } = require('./footer.js')
 const { warnig } = require('./warnig.js');
+const { mheader } = require('./mheader.js');
 
 function main(n){
 	const { lang , buser, user } = n;
@@ -77,7 +78,7 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
    <!-- <script src="/js/peerjs.min.js"></script> -->
 <script src="/js/globalik.js"></script>
 
- <script src="/js/adapter-latest.js"></script> 
+ <!-- <script src="/js/adapter-latest.js"></script> -->
 <!-- <script src="/js/sound.js"></script> -->
 
 <script async src="https://yastatic.net/share2/share.js"></script>
@@ -88,6 +89,7 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
     <script src="https://yandex.ru/ads/system/context.js" async></script>
   </head>
   <body>
+  <main class="mymain">
     <noscript>
     <div><img src="https://mc.yandex.ru/watch/103428143" style="position:absolute;left:-9999px;" alt=""/></div>
       <strong>We're sorry but chatikon doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
@@ -105,14 +107,12 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
    <input type="hidden" id="sess" value="${n.sess?n.sess:'no'}" />
     <script>const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
  ${nav(n)}
-<header class="mheader">
-  <h1>Chatikon</h1>
-  <p>Живые стримы с вебкой • Донаты в USDT • Горячий криптокошелёк</p>
-  <button class="btn-start" onclick="startTrans(this);">🔥 Начать трансляцию</button>
-</header>
+ ${mheader(n)}
+
 ${streamsection(n)}
 ${getSeoText()}
 ${footer(n)}
+</main>
 ${login(n)}
 <script src="/js/login4.js"></script>
     <script src="/js/hjanus.js"></script>

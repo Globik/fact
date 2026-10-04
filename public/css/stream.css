@@ -1,22 +1,40 @@
+.qrCont{
+	width:150px;
+	height:150px;
+	background:white;
+	margin-top:10px;
+}
+.someQr{
+	width:100%;
+	height:100%;
+}
+#someNick{
+	margin-top:10px;
+}
 article.slot{
-				width:99.9%;
-				height:80vh;
-				border:1px solid #445d71;
-				border-radius:10px;
-	
-				display:grid;
-				
-				grid-template-columns:50% 50%;
-		
+				width:100%;
+				height:81vh;
+				border:2px solid silver;/*#445d71;* 81vh*/
+				brder-radius:10px;
+	position:relative;
+				diplay:grid;
+				display:block;
+				grd-template-columns:50% 50%;
+		margin-top:10px;
 			}
 			footer#foot{
-	background:rgba(255,254,240,0.8);
+	bacground:rgba(255,254,240,0.8);
+	border-right:1px solid silver;
 	height:100px;
 	width:100%;
 	display:flex;
 	align-items: center;
 				justify-content: end;
 				
+}
+#pbtn{
+	background:gray;
+	color:silver;
 }
 #pbtn:hover{
 cursor:pointer;	
@@ -35,7 +53,7 @@ background-color: #0056b3;
 	background-color:red;
 }
 footer#pdf{
-	backgound:blue;
+	border-top:1px solid silver;
 	width:100%;
 	height:100px;
 	position:relative;
@@ -65,19 +83,31 @@ footer#pdf{
 					height:80%;
 					boder:1px solid black;
 				}
-aside#slotinfo{
-							bckground:rgba(0,23,45,0.5);
-							hight:100%;
+	aside#slotinfo{
+	display:block;
+	posiion:relative;
+	position:absolute;
+	top:0;
+	left:0;
+	width:50%;
+							bakground:rgba(0,23,45,0.5);
+							
 							height:calc(100% - 100px);
-							mx-height:calc(100% - 100px);
+							
+							border-right:1px solid silver;
+							border-bottom:1px solid silver;
 							
 						}
 						aside#boxinfo{
-						position:relative;
+						display:block;
+						position:absolute;
+						top:0;
+						left:50%;
+						
 							bacground:red;
-							width:99.9%;
-							height:100%;
-							hight:calc(100% - 100px);
+							width:50%;
+							heght:100%;
+							height:calc(100% - 100px);
 							
 							lign-self: flex-end;
 							order:1px solid green;
@@ -93,16 +123,29 @@ aside#slotinfo{
 		font-size:1.2rem;
 		color:#280218;
 	}
+	#chatboxcontainer{
+	display:block;
+	position:relative;
+	width:100%;
+		bckground:red;
+		hight:100px;
+		height:calc(100% - 2rem);
+		overflow:auto;
+	}
 				#chatbox{
 				bakground:#df9b9b;
+				bakground:blue;
 				width:100%;
-				height:calc(100% - 100px - 2rem);
-				overflow:auto;
+				height:100%;
+				in-height:calc(100% - 100px - 2rem);
+				brder-bottom:1px solid silver;
+				ovrflow:hidden;
 				position:relative;
 				display:block;
 				white-space: pre-line;
 	word-wrap: break-word;
 	overflow-wrap:break-word;
+	
 				}
 			
 			div.msg{
@@ -122,7 +165,7 @@ aside#slotinfo{
 	diplay:block;
 	width:100%;
 	height:100%;
-	background: rgba(4,45,34,0.5);
+	background: rgba(4,4,3,0.9);
 	overflow:hidden;
 	object-fit:cover;
   
@@ -136,7 +179,7 @@ left:0;
 	justify-content: center;  
   align-items: center;
   display:flex;
-  background:rgba(0,0,0,0);
+  backgound:red;
   z-index:1;
 }
 #videobox section{
@@ -145,8 +188,9 @@ left:0;
 video.Vid{
 	height:100%;
 	width:100%;
+	bckground-color:red;
+	obect-fit:cover;
 	
-	object-fit:cover;
 }
 .panelbtn{
 	height:88%;
@@ -164,27 +208,7 @@ video.Vid{
 .panelbtn[disabled]{
 	background:rgba(65,23,30,0.8);
 }
-/*
-#glas{
-	position:absolute;
-	left:20px;
-	bottom:5px;
-	display:grid;
-			backround:red;	
-				grid-template-columns:50% 50%;
-	width:60px;
-	height:30px;
-}
-#glas div{
-	width:50%;
-	height:100%;
-	pading:8px;
-	display:flex;
-	align-items: center;
-				justify-content: center;
-				color:white;
-}
-*/
+
 .viewers {
     position: absolute;
     top: 10px;
@@ -231,34 +255,45 @@ video.Vid{
 		display:block;
 		position:relative;
 		width:100%;
-		brder:10px solid lightgreen;
-		height:89vh;
-		heiht:auto;
+		
+		height:81vh;
+		
 	}
 	aside#slotinfo{
-	ight:auto;
+	top:0;
+	left:0;
 		height: 50%;
+		width:100%;
+		
 		display:block;
 		position:relative;
 		order:1px solid silver;
 	}
 	aside#boxinfo{
-	borer:1px solid gold;
+	
+	
+	top:0;left:0;
 		height:50%;
-		magin-top:100px;
+		width:100%;
+		display:block;
+		
 		position:relative;
 	}
-	
+	#chatboxcontainer{
+		backgound:blue;
+		height: calc(100% - 20% - 2rem);
+	}
 	#chatbox{
 	display:block;
 		backround:red;
-		height:calc(80% - 2rem);
+		hight:calc(80% - 2rem);
 		
 	}
 	
 	#videobox{
 		boder:4px solid brown;
 		height:80%;
+		bacground:red;
 	}
 	footer#foot{
 		background:lightgreen;
@@ -291,7 +326,7 @@ video.Vid{
 	position:relative;
 		height:20%;
 		backgrund:green;
-		boder:1px solid pink;	
+		border:1px solid pink;	
 		}
 		div.msg{
 		borer:1px solid black;

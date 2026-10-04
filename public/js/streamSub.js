@@ -1,6 +1,7 @@
 	var janus = null;
 	const local = document.querySelector(".Vid");
 	window.addEventListener('pagehide', () => {
+		//alert('pagehide');
   if (sock && sock.readyState === WebSocket.OPEN) {
     sock.close();
   }
@@ -9,9 +10,13 @@
 	document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') {
   //  sock.close();
+ // alert("hidden");
+  }else{
+	//  alert("not hidden");
   }
 	});
 	window.addEventListener("beforeunload", async function(ev){
+		//alert(1);
 	doleave();
 	 });
 
@@ -66,6 +71,9 @@ function letUnsubscribe(el){
 		unsubscribe(el);
 	}
 }
+ function endSession(){
+	 doleave();
+ }
 function unsubscribe(el){
 	if(!sfutest)return;
 	//sfutest.send({message:{request:"unsubscribe", streams:[{feed: Number(streamId.value)}]}});
@@ -204,10 +212,25 @@ function unsubscribe(el){
            
             pluginHandle.onmessage = function(msg, jsep) {
                 console.log("📨 Сообщение от плагина:", msg);
+               // alert("podsuka");
                 //{videoroom: 'event', error_code: 428, error: 'No such feed (0)'}
+                if(msg.videoroom === "event" && msg.error_code === 428){
+					//if(msg.error_code===428){
+					//alert('suka');
+						note({ content: "По ходу никого нет.", type: "error", time: 5 });
+						
+						window.location.href="/";
+						return;
+					//}
+				}
+				if(msg.videoroom === "event" && msg.error_code === 426){
+					window.location.href="/";
+					return;
+				}
                 if (msg.videoroom === "attached") {
                     let streams = msg["streams"];
                     if (!streams || streams.length === 0) {
+						window.location.href = '/';
                         return;
                     }
                     
@@ -247,13 +270,16 @@ function unsubscribe(el){
                 
 							  }
 							  if(msg.videoroom === 'event'&& msg.left === 'ok'){
+								  note({ content: "Offline", type: "warn", time: 5 });
 								  if (local) {
 									  
         local.srcObject = null;
+        local.poster = "";
     }
 							  }
 					  },
 					  pluginHandle.oncleanup = function(){
+						  window.location.href = "/"
 						 // note({content:'clean',type:'info',time:5});
 						  }
             },
@@ -278,3 +304,9 @@ function unsubscribe(el){
 	function doleave(){
 	fsend({ request:"leave" });
 	}
+function donateFake(){
+	
+}
+function donateNotFake(){
+	
+}

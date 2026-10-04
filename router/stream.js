@@ -32,30 +32,40 @@ function createJWT(payload, secret){
 
 
 router.get('/:id/:streamid', async(req, res)=>{
-	//console.log('params ', req.params);
+	//console.log('params ', req.params,' queries ', req.query);
+	//console.log("sess ", req.session.suka);
 	let owner=false;
+	let donprog = (req.query.donprog && req.query.donprog === "yes"?"yes":"no");
+	let donalert = (req.query.donalert && req.query.donalert === "yes"?"yes":"no");
+	let nick = (req.query.nick?req.query.nick:(req.user?req.user.name:'anon'));
 	//if(req.params&&req.params.id && req.user){
 	//	if(Number(req.params.id)===req.user.id){
 		//	owner=true;
 		//}
 	//}
+	if(req.params.streamid === "no"){
+		return res.redirect('/');
+	}
 	//console.log('user ', req.user);
 	let usid = Number(req.params.id);
 	let db = req.db;
 	let fake_msgs;
+	let fake = "no";
 	if(usid == 600000 || usid == 600001 || usid == 600002 || usid == 600003 || usid == 600004 || usid == 600005){
 		//console.warn("we here");
+		fake = "yes";
 		try{
 		let a = await db.query("SELECT * FROM chat_messages ORDER BY created_at LIMIT 100");
 		//console.log("messages ", a);
 		if(a.length > 0)fake_msgs = a
 	}catch(e){
-		console.log(e);
+		//console.log(e);
 	}
 	}
 	let token = createJWT({ mama: shortid()}, jwtsecret );
 	//botMessage('on streaming');
-	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid:req.params.id, streamid: req.params.streamid ,user:req.user, fake_msgs });
+	res.rendel('streami',{ sess: (req.user?req.user.id:req.session.suka),tok: token, owner:owner, lang: 'ru' , userid:req.params.id, 
+		streamid: req.params.streamid ,user:req.user, fake_msgs,donprog, donalert, nick, fake });
 })
 
 
