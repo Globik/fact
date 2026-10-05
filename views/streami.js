@@ -4,9 +4,8 @@ const { videochat } = require('./videochat.js')
 const { warnig } = require('./warnig.js');
 const { footer } = require('./footer.js');
 const { mheader } = require('./mheader.js');
-const streami =function(n){
-	return 'hallo world'
-}
+const { settingsDonation } = require('./settingsDonation.js');
+
 
 
 
@@ -66,14 +65,17 @@ let s= function(n){
 		</p>
 		<p>
 		Там же в личном кабинете можно получить и настроить виджет прогресса сбора средств, виджет оповещения о поступлении денег.
-		Ссылки на виджеты можно вставить прямо здесь, если Вы не ведете стрим через <strong>OBS Studio</strong>. 
+		Ссылки на виджеты можно вставить прямо <a href="/stream/${n.sess?n.sess:'no'}#settingsDonation">здесь</a>, если Вы не ведете стрим через <strong>OBS Studio</strong>. 
 		</p>
 		</section>
 		${footer(n)}
 		</main>
+		${settingsDonation(n)}
 		${login(n)}
 		<script src="/js/streamUtils.js"></script>
-		${n.owner?`<script src="/js/stream.js"></script>`:`<script src="/js/streamSub.js"></script>`}
+		${n.owner?`<script src="/js/stream.js"></script>
+		<script src="/js/settingsDonation.js"></script>
+		`:`<script src="/js/streamSub.js"></script>`}
 		<script src="/js/login4.js"></script>
 		${process.env.DEVELOPMENT=="yes"?'':`
 		 <script>

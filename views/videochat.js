@@ -59,7 +59,13 @@ const videochat = function(n){
         </footer> 
         </aside>
         <aside id="boxinfo">
-        <div id="chatnav"><span>Chat</span></div>
+        <div id="chatnav"><div id="chatSpanCont"><span><b>Чат</b></span></div>
+        <div id="settingsStream" class="ita2" onclick="panelOpenStream(this);"><img class="setimg2" src="/img/set2.svg"></div>
+        <div id="settingspanel2" class="">
+
+${n.owner?`<div class="settingspanel2"><p class="navp2"><a href="#settingsDonation" onclick="getSettingDonation();">Настроить донат</a></p></div>`:''}
+</div>
+        </div>
        <div id="chatboxcontainer"><div id="chatbox">${n.fake_msgs?get_fake_msgs(n):''}</div></div>
        <footer id="pdf"> 
        <div class="part">

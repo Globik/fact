@@ -68,7 +68,7 @@ trasform:scale(calc(1.0));
   z-index: 1;      
 }
 
-@media screen and (max-width: 801px) and (orientation: portrait){
+	@media screen and (max-width: 801px) and (orientation: portrait){
 	#alertdon-container{}
 	#ex2{
 		top:-463px;

@@ -29,7 +29,7 @@ form * {
 .modal-body{
 	background:white;
 }
-label {
+#myform label {
   display: block;
   margin-top: 15px;
   font-size: 16px;
@@ -37,7 +37,7 @@ label {
   color:black;
 }
 
-input {
+#myform input {
   display: block;
   height: 50px;
   width: 100%;

@@ -223,3 +223,16 @@ function isexits(){
 	function unpublish(){
 	fsend({ request: "unpublish"  });
 	}
+	var isOpenStream = false;
+	function panelOpenStream(el){
+		
+			//let settingspanel = gid("settingspanel");
+			let settingspanel2 = gid("settingspanel2");
+			if(!isOpenStream){
+			settingspanel2.className = "open";
+			isOpenStream = true;
+			}else{
+				settingspanel2.className = "";
+				isOpenStream = false;
+			}
+		}

@@ -2,7 +2,16 @@ const nav = function(n){
 	const lang = n.lang;
 	return ` <nav id="navpanel"><div class="nav"><b>Онлайн: <span id="onlineCount">0</span></b>&nbsp;&nbsp;&nbsp; <b id="VKUSERNAME">${n.user?n.user.name:'anon'}</b> </div>
     
-    <div id="settings" class="ita" onclick="panelOpen(this);"><img class="setimg" src="/img/set2.svg"></div>
+    <div id="settings" class="ita" onclick="panelOpen(this);">
+  <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <!-- Верхняя линия -->
+    <line x1="10" y1="18" x2="40" y2="18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    <!-- Средняя линия -->
+    <line x1="10" y1="25" x2="40" y2="25" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    <!-- Нижняя линия -->
+    <line x1="10" y1="32" x2="40" y2="32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+    </div>
 
 
 <div id="settingspanel">
