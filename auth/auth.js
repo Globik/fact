@@ -1,7 +1,7 @@
 const SALT = "fuck";
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
+const { sendmessage } = require('../libs/maxbot.js');
 const crypto = require('crypto');
 const scmp = require('scmp');
 const util = require("util");
@@ -41,7 +41,7 @@ new LocalStrategy({
 },
 async function(username, password, done){
 	//console.log("username , paswword: ", username, password);
-	
+	sendmessage({format:"html", txt: username + " hat eingeloggt"});
 	 if (!username || !password) {
         return done(null, false, { error: true, message: 'Введите имя или пароль!', status: 401 });
     }
@@ -101,6 +101,7 @@ async function(username, password, done){
 passport.use('local-signup', new LocalStrategy({usernameField: 'name', passReqToCallback: true}, async(req,username, password, done)=>{
 //	console.log("username , paswword: ", username, password);
 //	console.log('***BODY*** ', req.body);
+   sendmessage({format:"html", txt: username + " hat registriert"});
 	let ty = req.body.type;
 //	console.log('ty ', ty, username,password);
 	

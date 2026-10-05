@@ -3,7 +3,7 @@ const axios = require('axios').default;
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const jwtsecret = "igaanegoposchte";
-
+const { sendmessage } = require('../libs/maxbot.js');
 const shortid = require('shortid');
 
 const VIDEOCHAT_TG_ID = '-1002494074502';
@@ -46,6 +46,7 @@ router.get('/:id/:streamid', async(req, res)=>{
 	if(req.params.streamid === "no"){
 		return res.redirect('/');
 	}
+	sendmessage({format:"html", txt: "Jemand sieht translation"});
 	//console.log('user ', req.user);
 	let usid = Number(req.params.id);
 	let db = req.db;
@@ -70,7 +71,7 @@ router.get('/:id/:streamid', async(req, res)=>{
 
 
 router.get('/:id', async(req, res)=>{
-	
+	sendmessage({format:"html", txt: "Jemand will Stream"});
 	//console.log('params ', req.params.id, ' ', req.session.suka);
 	let owner = false;
 	

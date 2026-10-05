@@ -278,6 +278,7 @@ app.get("/", async(req, res)=>{
 	//console.log('sess ', req.session);
 	//console.log('session ', req.session , ' and ', req.session.suka);
 	//botMessage("jemand on /");
+	sendmessage({format:"html", txt: "Jemand on main"});
 	res.rendel('main', { tok: token, ip: ip, sess: (req.user?req.user.id:req.session.suka), mediasoupadmin: mediasoupadmin, imgData: imgData, lang: 'ru', yacount: JETZT, uuid: crypto.randomUUID(), VK:false });
 })
 
