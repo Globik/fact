@@ -135,7 +135,7 @@ function on_msg(d){
 				return;
 			}
 			
-			wsend({ type: (check_fakes()?"fakemsg":"msg"), txt: str, from: username.value, room: '/' + userid.value, owner: owner.value });	
+			wsend({ type: (check_fakes()?"fakemsg":"msg"), message: str, fromi: username.value, room: '/' + userid.value, owner: owner.value });	
 		}
 	}
 	function handle_message(obj){
@@ -154,7 +154,7 @@ function check_fakes(){
 	el.classList.add('puls');
 	
 	if(!txt.value) return;
-	wsend({ type: (check_fakes()?"fakemsg":"msg"), txt: txt.value, from: username.value, room: '/' + userid.value, owner: owner.value });
+	wsend({ type: (check_fakes()?"fakemsg":"msg"), message: txt.value, fromi: username.value, room: '/' + userid.value, owner: owner.value });
 	//insertMessage(txt.value);
 	el.classList.add('puls');
 	}
@@ -166,12 +166,25 @@ function check_fakes(){
 function insertMessage(obj){
 				
 				let div = document.createElement("div");
-				div.className = "msg";
-				div.innerHTML = '<b>'+obj.from+':</b>&nbsp;<b>' + esci(obj.txt) + '</b>';
+				div.className = "msg-cont";
+				div.innerHTML =  get_string_chat(obj);
 				chatbox.appendChild(div);
 				chatboxcontainer.scrollTop = chatboxcontainer.clientHeight + chatboxcontainer.scrollHeight;
 				txt.value = '';
 				sendbtn.classList.remove('puls');
+			}
+		
+		function get_string_chat(el){
+			let s = ''
+			//alert(new Date().toString());
+			let r = formatChatTime(new Date().toString());
+			let day = (r.day?r.day:undefined);
+			if(day){
+			s+= `<div class="date-divider"><h1 class="h5-day">${day}</h1></div>`
+			}
+//	s+= `<div class="nick-cont"><b>${el.fromi}:</b></div><div class="msg">${esci(el.message)}</div><div class="time-cont"><span class="msg-time">${r.time}</span></div>`;
+     s+= getStrForChat(el);
+	        return s
 			}
 	function wsend(obj){
 	if(!sock) return;

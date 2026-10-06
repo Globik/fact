@@ -1754,10 +1754,13 @@ function broadcast_admin(obj){
 	if(usid == "/600000" || usid == "/600001" || usid == "/600002" || usid == "/600003" || usid == "/600004" || usid == "/600005"){
 	try{
 	//	console.log('from ', obj.from,obj.txt);
-	if(obj.txt)	await pool.query('insert into chat_messages(message,fromi) values(?,?)', [ obj.txt, obj.from ]);	
+	if(obj.message)	{
+		await pool.query('insert into chat_messages(message,fromi) values(?,?)', [ obj.message, obj.fromi ]);
+		await sendmessage({ format: 'html', txt: '<b>' + obj.fromi + ':</b> ' + obj.message});
+	}	
 	await pool.query(`DELETE FROM chat_messages WHERE created_at < CURDATE() - INTERVAL 7 DAY`);
 		}catch(e){
-		//	console.log(e);
+			console.log(e);
 			}
 		}		
 	}

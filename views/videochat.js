@@ -1,3 +1,4 @@
+const {esci, formatChatTime, getStrForChat, formatTimeOnly, get_fake_msgs  } = require('../libs/utils.js');
 const videochat = function(n){
 	return `
 	${n.donprog && n.donprog === "yes"?`
@@ -55,7 +56,8 @@ const videochat = function(n){
        
        <footer id="foot"> 
     ${n.owner?`<button class="panelbtn" id="pbtn" onclick="letStreaming(this);">Start</button>`:`
-    <a href="https://tips.tips/000486269" target="_blank" onclick="${n.fake&&n.fake==='yes'?'donateFake(this);':'donateNotFake(this);'}"><button class="panelbtn">Donate</button></a>`}
+    Поддержать донатом&nbsp;<a href="https://tips.tips/000486269" target="_blank" onclick="${n.fake&&n.fake==='yes'?'donateFake(this);':'donateNotFake(this);'}">
+    https://tips.tips/000486269</a>`}
         </footer> 
         </aside>
         <aside id="boxinfo">
@@ -92,29 +94,11 @@ ${n.owner?`<div class="settingspanel2"><p class="navp2"><a href="#settingsDonati
     // Now you can update your UI based on this data
     // e.g., show a custom HTML notification instead of relying on the iframe's internal rendering
 });
-       </script>
-       `
+	const formatChatTime = ${formatChatTime}
+	const getStrForChat = ${getStrForChat}
+	const formatTimeOnly = ${formatTimeOnly}
+       </script>`
 	}
+	
 	module.exports = { videochat }
-	function get_fake_msgs(n){
-	let s = '';
-	if(Array.isArray(n.fake_msgs)){
-		n.fake_msgs.forEach(function(el,i){
-			s+=`<div class="msg"><b>${el.fromi}:</b>&nbsp;<b>${esci(el.message)}</b></div>`;
-		});
-	}
-	return s;
-	} 
-	const html_sA={
-	'\n':' ',
-	'&':'&amp',
-	'<':'&lt;',
-	'>':'&gt;',
-	'"':'&quot;',
-	"'":'&#x27;',
-	'/':'&#x2F;'
-	}
-	const er_sA=/[\n&<>"'\/]/g;
-	function esci(str){
-		return (''+str).replace(er_sA,function(m){return html_sA[m];});
-		}
+	
