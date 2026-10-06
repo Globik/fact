@@ -1,4 +1,5 @@
-const {esci, formatChatTime, getStrForChat, formatTimeOnly, get_fake_msgs  } = require('../libs/utils.js');
+const {esci, formatChatTime, getStrForChat, formatTimeOnly, get_fake_msgs, replaceSmilesInText, smilesMap   } = require('../libs/utils.js');
+const { smiles } = require('./smiles.js');
 const videochat = function(n){
 	return `
 	${n.donprog && n.donprog === "yes"?`
@@ -60,7 +61,7 @@ const videochat = function(n){
     https://tips.tips/000486269</a>`}
         </footer> 
         </aside>
-        <aside id="boxinfo">
+        <aside id="boxinfo">${smiles()}
         <div id="chatnav"><div id="chatSpanCont"><span><b>Чат</b></span></div>
         <div id="settingsStream" class="ita2" onclick="panelOpenStream(this);"><img class="setimg2" src="/img/set2.svg"></div>
         <div id="settingspanel2" class="">
@@ -71,7 +72,7 @@ ${n.owner?`<div class="settingspanel2"><p class="navp2"><a href="#settingsDonati
        <div id="chatboxcontainer"><div id="chatbox">${n.fake_msgs?get_fake_msgs(n):''}</div></div>
        <footer id="pdf"> 
        <div class="part">
-       <textarea id="txt" class="textarea" placeholder="Your message"></textarea>
+       <textarea id="txt" class="textarea" placeholder="Your message" maxlength="500"></textarea>
        </div>
        <div class="part" id="sendbtn" onclick="sendMessage(this);">
        <img id="sukaimg" src="/img/send1.svg"/>
@@ -97,6 +98,8 @@ ${n.owner?`<div class="settingspanel2"><p class="navp2"><a href="#settingsDonati
 	const formatChatTime = ${formatChatTime}
 	const getStrForChat = ${getStrForChat}
 	const formatTimeOnly = ${formatTimeOnly}
+	const smilesMap = ${JSON.stringify(smilesMap)};
+	const replaceSmilesInText = ${replaceSmilesInText} 
        </script>`
 	}
 	

@@ -32,7 +32,7 @@ const obid = function () {
 	return html;
 	} 
 	const getStrForChat = function(msg){
- return `<div class="nick-cont"><b>${msg.fromi}:</b></div><div class="msg">${esci(msg.message)}</div><div class="time-cont"><span class="msg-time">${formatTimeOnly(msg.created_at?msg.created_at:Date().toString())}</span></div>`;
+ return `<div class="nick-cont"><b>${msg.fromi}:</b></div><div class="msg">${replaceSmilesInText(esci(msg.message))}</div><div class="time-cont"><span class="msg-time">${formatTimeOnly(msg.created_at?msg.created_at:Date().toString())}</span></div>`;
 
 	}
 	
@@ -206,5 +206,56 @@ console.log(formatChatTime(rawTime));
 // Допустим, сегодня 6 октября 2026 года:
 // Результат будет: "октября 4" (или "4 окт" в зависимости от настроек локали браузера/системы)
 */
+	const smilesMap = {
+    'abascaka': 'abascaka.gif',
+    'balai': 'balai.gif',
+    'beseda': 'beseda.gif',
+    'biggrin': 'biggrin.gif',
+     'bye': 'bye.gif',
+     'cry': 'cry.gif',
+     'dance2':'dance2.gif', 
+     'dgiga': 'dgiga.gif',
+     'drag': 'drag.gif',
+     'drinks': 'drinks.gif',
+      'fool': 'fool.gif',
+       'friends': 'friends.gif',
+         'good':'good.gif',
+          'hi':'hi.gif',
+           'kurit':'kurit.gif',
+            'obnim':'obnim.gif',
+             'pardon':'pardon.gif',
+              'pisaka':'pisaka.gif',
+    'pleasantry':'pleasantry.gif',
+     'rzhunemogu':'rzhunemogu.gif',
+      'smile':'smile.gif',
+       'tongue':'tongue.gif',
+        'undecide':'undecide.gif',
+         'unknw':'unknw.gif',
+          'wink':'wink.gif',
+           'yahoo':'yahoo.gif',
+            'yes':'yes.gif',
+             'yes3':'yes3.gif'
+};
 
-module.exports = { obid ,esci, formatChatTime, get_fake_msgs, getStrForChat,formatTimeOnly }
+	const replaceSmilesInText = function(text) {
+    // Регулярное выражение для поиска всех маркеров
+    const regex = /::([a-zA-Z0-9_]+)::/g;
+
+    return text.replace(regex, (match, smileName) => {
+        // match - это весь найденный фрагмент, например "::smile::"
+        // smileName - это то, что попало в скобки, например "smile"
+
+        // Проверяем, есть ли такой смайл в нашей карте
+        if (smilesMap[smileName]) {
+            const imgUrl = smilesMap[smileName];
+            // Возвращаем HTML-код тега <img>
+            // Важно: добавляем alt для доступности и стилизацию размера, если нужно
+            return `<img src="/img1/faces/${imgUrl}" alt="${smileName}" class="smile-inline" style="height: 1em; vertical-align: middle;">`;
+        } else {
+            // Если смайл неизвестен, оставляем текст как есть (не заменяем)
+            return match;
+        }
+    });
+}
+
+module.exports = { obid ,esci, formatChatTime, get_fake_msgs, getStrForChat,formatTimeOnly, replaceSmilesInText, smilesMap }

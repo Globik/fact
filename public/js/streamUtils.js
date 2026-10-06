@@ -152,11 +152,12 @@ function check_fakes(){
 	function sendMessage(el){
 	
 	el.classList.add('puls');
-	
+	console.log('here text ', txt.value);
 	if(!txt.value) return;
 	wsend({ type: (check_fakes()?"fakemsg":"msg"), message: txt.value, fromi: username.value, room: '/' + userid.value, owner: owner.value });
 	//insertMessage(txt.value);
 	el.classList.add('puls');
+	txt.value = "";
 	}
 	
 	function set_fake_msgs(){
@@ -168,6 +169,7 @@ function insertMessage(obj){
 				let div = document.createElement("div");
 				div.className = "msg-cont";
 				div.innerHTML =  get_string_chat(obj);
+				console.log(div.innerHTML);
 				chatbox.appendChild(div);
 				chatboxcontainer.scrollTop = chatboxcontainer.clientHeight + chatboxcontainer.scrollHeight;
 				txt.value = '';
@@ -183,6 +185,8 @@ function insertMessage(obj){
 			s+= `<div class="date-divider"><h1 class="h5-day">${day}</h1></div>`
 			}
 //	s+= `<div class="nick-cont"><b>${el.fromi}:</b></div><div class="msg">${esci(el.message)}</div><div class="time-cont"><span class="msg-time">${r.time}</span></div>`;
+    
+    console.log('here txt 2 ', el.message);
      s+= getStrForChat(el);
 	        return s
 			}
@@ -249,3 +253,45 @@ function isexits(){
 				isOpenStream = false;
 			}
 		}
+		var isSmileOpen = false;
+		const smilesProkladka = gid("smilesProkladka");
+		function openSmiles(el){
+			
+		if(!isSmileOpen){
+			smilesProkladka.className = "open";
+			isSmileOpen = true;
+		}else{
+			smilesProkladka.className = "";
+			isSmileOpen = false;
+		}	
+		}
+	function setSmile(el){
+	
+	
+    const textarea = txt;
+    
+    // Текст, который хотим вставить
+    const textToInsert = el.getAttribute('data-marker');
+    if(!textToInsert)return;
+    // Получаем текущие позиции курсора
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    
+    // Формируем новое значение текстового поля
+    // Берем все до курсора + наш маркер + все после курсора
+    const newValue = 
+        textarea.value.substring(0, start) + 
+        textToInsert + 
+        textarea.value.substring(end);
+    
+    // Обновляем значение textarea
+    textarea.value = newValue;
+    
+    // Устанавливаем новый курсор сразу после вставленного текста
+    const newCursorPos = start + textToInsert.length;
+    textarea.setSelectionRange(newCursorPos, newCursorPos);
+    
+    // Возвращаем фокус в поле ввода, чтобы можно было сразу продолжить печать
+    textarea.focus();
+    openSmiles();
+}
