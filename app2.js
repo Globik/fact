@@ -1268,7 +1268,7 @@ const limiter = rateLimit({
 	max:100
 })
 app.post("/faketurn", limiter, async(req, res)=>{
-	res.json({txt: 'some text'});
+	res.json({txt: 'some text'});/lplplplplppl
 })
 app.post("/turn", async(req,res)=>{
 	let { tok } = req.body;
