@@ -1281,8 +1281,8 @@ app.post("/turn", async(req,res)=>{
 		console.log('origin ', origin);
 	var gridi = '887539364';
 	
-	sendTelega({grid:gridi, txt: origin });
-		return res.json({ username: 'realik', password: '1234'});
+	//sendTelega({grid:gridi, txt: origin });
+	//	return res.json({ username: 'realik', password: '1234'});
 	}
 	
 }
