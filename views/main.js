@@ -89,7 +89,7 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
     <script src="https://yandex.ru/ads/system/context.js" async></script>
   </head>
   <body>
-  <main class="mymain">
+  <div class="mymain">
     <noscript>
     <div><img src="https://mc.yandex.ru/watch/103428143" style="position:absolute;left:-9999px;" alt=""/></div>
       <strong>We're sorry but chatikon doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
@@ -108,11 +108,12 @@ lang=='zh'?`与女孩和男孩进行的随机匿名视频聊天轮盘。 在Chat
     <script>const DEVELOPMENT = "${process.env.DEVELOPMENT === "yes"?"yes":"no"}";</script>
  ${nav(n)}
  ${mheader(n)}
-
+<main class="pagemain">
 ${streamsection(n)}
 ${getSeoText()}
-${footer(n)}
 </main>
+${footer(n)}
+</div>
 ${login(n)}
 <script src="/js/login4.js"></script>
     <script src="/js/hjanus.js"></script>

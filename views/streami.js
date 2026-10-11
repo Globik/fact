@@ -39,11 +39,11 @@ let s= function(n){
 	${process.env.DEVELOPMENT=="yes"?'':`<script>window.yaContextCb=window.yaContextCb||[]</script>
     <script src="https://yandex.ru/ads/system/context.js" async></script> `}
 		</head><body>
-		<main class="mymain">
+		<div class="mymain">
 		${nav(n)}
 		<!-- ${warnig(n)} -->
 		${mheader(n)}
-		
+		<main class="pagemain">
 		<input type="hidden" id="owner" value="${n.owner?'true':'false'}">
 		<input type="hidden" id="roomid" value="${n.roomid?n.roomid:0}">
 		<input type="hidden" id="userid" value="${n.userid?n.userid:0}">
@@ -68,8 +68,9 @@ let s= function(n){
 		Ссылки на виджеты можно вставить прямо <a href="/stream/${n.sess?n.sess:'no'}#settingsDonation">здесь</a>, если Вы не ведете стрим через <strong>OBS Studio</strong>. 
 		</p>
 		</section>
-		${footer(n)}
 		</main>
+		${footer(n)}
+		</div>
 		${settingsDonation(n)}
 		${login(n)}
 		<script src="/js/streamUtils.js"></script>

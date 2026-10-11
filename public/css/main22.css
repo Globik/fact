@@ -1,5 +1,15 @@
 
- * { margin: 0; padding: 0; box-sizing: border-box; }
+ *,
+  *::before,
+*::after{ margin: 0; padding: 0; box-sizing: border-box; }
+html,
+body {
+  height: 100%;
+}
+  body {
+      margin: 0;
+      
+    }
 .warnig{
 	padding:5px;
 	background: rgb(34,200,145);
@@ -20,12 +30,28 @@ body.ondialog {
 }
 
 
-main.mymain{
+div.mymain{
 	margin-left:7px;
 	margin-right:7px;
 	padding:2px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
+.mymain > .pagemain {
+  flex: 1 0 auto;
+}
+
+/*
+  Чтобы nav, header и footer не сжимались,
+  если вдруг они окажутся прямыми детьми .page
+*/
+.mymain > * {
+  flex-shrink: 0;
+}
 
 #transbtn2{
 	color:green;

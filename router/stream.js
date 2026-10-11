@@ -31,6 +31,7 @@ function createJWT(payload, secret){
 }
 
 
+
 router.get('/:id/:streamid', async(req, res)=>{
 	//console.log('params ', req.params,' queries ', req.query);
 	//console.log("sess ", req.session.suka);
@@ -91,5 +92,7 @@ router.get('/:id', async(req, res)=>{
 let token = createJWT({ mama: shortid()}, jwtsecret );
 	res.rendel('streami',{ tok: token, owner:owner, lang: 'ru' , userid: usid, user:req.user });
 })
-function get_msg_history(){}
+
+
+
 module.exports = router;

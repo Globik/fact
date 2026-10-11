@@ -1,0 +1,47 @@
+header.walletHeader{
+	text-align:center;
+	font-size:23px;
+	margin-bottom:10px;
+	margin-top:10px;
+}
+#walletContainer{
+	border:1px solid silver;
+	width:calc(100% - 15px);
+	margin:0 auto;
+	padding-left:5px;
+	padding-right:5px;
+	border-radius:10px;
+	display:flex;
+	position:relative;
+	justify-content: space-around;
+		align-items: center;
+}
+button.wbtn{
+	height:50px;
+	background:lightgreen;
+	border-radius:5px;
+	font-weight: bold;
+	padding:50px;
+	font-size:20px;
+	line-height:1.5;
+	margin:6px;
+	display:flex;
+	justify-content: space-around;
+		align-items: center;
+}
+.forout{
+	width:100%;
+	height:auto;
+	padding:20px;
+	display:flex;
+	position:relative;
+	justify-content: space-around;
+		align-items: center;
+}
+	output#out{
+ width:80%;
+ border:1px solid silver;
+	margin: 10px auto;
+	padding:10px;
+	
+}
