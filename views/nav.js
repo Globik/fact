@@ -17,6 +17,7 @@ const nav = function(n){
 <div id="settingspanel">
 ${n.user && n.user.brole=='admin'?'<div class="settingspanel" onclick="toAdminPanel(this);">В админку</div>':''}
 <div class="settingspanel"><a href="/wallet"><p class="navp">Криптокошелек</p></a></div>
+<div class="settingspanel"><a href="/games"><p class="navp">Игры</p></a></div>
 ${n.user?`<div class="settingspanel" onclick="logout(this);">Выйти</div>`:`<div class="settingspanel"><a href="#login" onclick="panelOpen();"><p class="navp">Войти</p></a></div>`}
 </div>
 </nav><script>

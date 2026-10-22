@@ -1,0 +1,23 @@
+ html,body{margin:0;height:100%;overflow:hidden;background:#000}
+ div.cont{
+ display:block;
+ position:relative;
+	 width:98%;
+  height:calc(98% - 10px);
+  margin:10px auto;
+ }
+  #cnv{
+  display:block;
+  position:relative;
+  width:100%;
+  height:100%;
+  
+  border:1px solid transparent;
+  }
+  .nava{
+	  position:absolute;
+	  z-index:1;
+	  top:10px;
+	  left:10px;
+	  display:inline-block;
+  }
