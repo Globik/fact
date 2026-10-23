@@ -42,11 +42,11 @@ const { mheader } = require('./mheader.js');
 		<p>
 		<img src="/img1/Pattern-hiro.png" alt="AR marker" style="border:1px solid #ccc;">
 		 <!-- 2. AR Сцена -->
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: true; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
         
         <!-- 3. Определяем маркер, тип pattern, url указывает на твой .patt файл -->
         <!-- preset="custom" означает использование пользовательского маркера -->
-        <a-marker type="custom" preset="pattern" url="/img1/marker.patt" emitevents="true" id="corridor-marker"> 
+        <a-marker type="custom" preset="custom" url="/img1/marker.patt" emitevents="true" id="corridor-marker"> 
                    <!-- <a-marker preset="hiro"> -->
             <!-- 4. Монтируем наш пользовательский компонент коридора -->
             <!-- Позиция и поворот корректируются в соответствии с системой координат AR.js -->
