@@ -13,5 +13,8 @@ const map = new Map();
 		sendmessage({format:"html", txt: "Jemand in " + req.params.name });
 		res.rendel('game', { gamename:req.params.name,scripts:(a?a.scripts:undefined), css:(a?a.css:undefined)});
 	})
+	app.get('/ar', async (req,res)=>{
+		res.rendel('ar',{});
+	})
 	}
 	module.exports = games;
