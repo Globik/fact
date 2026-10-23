@@ -14,19 +14,42 @@ const { login } = require('./login.js')
     <meta itemprop="description" content="${n.gamename?n.gamename:'Game'}">
    <link rel="icon" href="/favicon.ico">
    <script src="/js/globalik.js"></script>
-		<link href="/css/login.css" rel="stylesheet">
+		<!-- <link href="/css/login.css" rel="stylesheet"> -->
 		<link href="/css/loader.css" rel="stylesheet">
-	<link href="/css/game.css" rel="stylesheet">
-		
+	
+		${n.css?set_css(n.css):''}
 		</head><body>
 		
 		
 		<div class="cont">
 		<a class="nava" href="/games/">Back</a>
+		<div id="info"></div>
 		<canvas id="cnv"></canvas>
 	</div>
-		<script src="/js/game.js"></script>
 		
+		${n.scripts?set_scripts(n.scripts):''}
 		</body></html>`;
 	}
 	module.exports = { game }
+   function set_scripts(arr){
+	   let s = '';
+	   if(Array.isArray(arr)){
+		   if(arr.length > 0){
+			   arr.forEach(function(el,i){
+				   s+=`<script src="/js/games/${el}"></script>`;
+			   });
+		   }
+	   }
+	   return s;
+   }
+   function set_css(arr){
+	   let s = '';
+	   if(Array.isArray(arr)){
+		   if(arr.length > 0){
+			   arr.forEach(function(el,i){
+				   s+=`<link href="/css/games/${el}" rel="stylesheet">`;
+			   });
+		   }
+	   }
+	   return s;
+   }
