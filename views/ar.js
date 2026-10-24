@@ -23,23 +23,39 @@ const ar=function(n){
     </style>
 </head>
 <body>
-    <!-- AR сцена с маркером Hiro -->
-    <a-scene embedded arjs>
+  
+    
+    <a-scene 
+        embedded 
+        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
         
-        <!-- Маркер Hiro -->
-        <a-marker preset="hiro">
+        <!-- Маркер Hiro с настройками сглаживания -->
+        <a-marker 
+            preset="hiro"
+            smooth="true"
+            smoothCount="10"
+            smoothTolerance="0.01"
+            smoothThreshold="5">
             
-            <!-- Красный куб на маркере -->
+            <!-- Маленький красный куб (размер 0.2 вместо 1) -->
             <a-box 
-                position="0 0.5 0" 
+                position="0 0.1 0" 
                 color="red" 
-                depth="1" 
-                height="1" 
-                width="1"
+                depth="0.2" 
+                height="0.2" 
+                width="0.2"
                 animation="property: rotation; to: 360 360 360; dur: 5000; easing: linear; loop: true">
             </a-box>
             
-        </a-marker>
+            <!-- Можно добавить еще объекты для примера -->
+            <!-- Маленькая синяя сфера рядом -->
+            <a-sphere 
+                position="0.3 0.1 0" 
+                radius="0.05" 
+                color="blue"
+                animation="property: position; to: 0.3 0.15 0; dir: alternate; dur: 1000; loop: true">
+            </a-sphere>
+             </a-marker>
         
         <!-- Камера -->
         <a-entity camera></a-entity>
