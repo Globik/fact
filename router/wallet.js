@@ -5,7 +5,7 @@ const { sendmessage } = require('../libs/maxbot.js');
 const wallet = function(app){
 app.get('/wallet', async(req, res)=>{
 	 sendmessage({format:"html", txt: "Jemand in hot wallet"});
-	console.log('wallet');
+//	console.log('wallet');
 	res.rendel('wallet', {});
 });
 app.post('/getUSDTErc20wallet', async(req,res)=>{

@@ -14,7 +14,7 @@ header.walletHeader{
 	display:flex;
 	position:relative;
 	justify-content: space-around;
-		align-items: center;
+	align-items: center;
 }
 button.wbtn{
 	height:50px;
@@ -32,16 +32,15 @@ button.wbtn{
 .forout{
 	width:100%;
 	height:auto;
-	padding:20px;
-	display:flex;
+	display:block;
 	position:relative;
 	justify-content: space-around;
 		align-items: center;
 }
-	output#out{
- width:80%;
+	pre#out{
+ width:100%;
  border:1px solid silver;
-	margin: 10px auto;
+	mrgin: 10px auto;
 	padding:10px;
-	
+	overflow-x:auto;
 }

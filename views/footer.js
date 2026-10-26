@@ -1,7 +1,11 @@
 const  footer=function(n){
 	return `<footer id="myfooter">
   © 2026 Chatikon — живые стримы и крипто-донаты
-  
+  <div class="contacts-wrapper">
+  <a href="/games">Игры</a>
+  <a href="/wallet">Криптокошелек</a>
+  <a href="/developers">Разработчикам</a>
+  </div>
 <div class="contacts-wrapper">
   <!-- Email -->
   <a href="mailto:globichatikon@gmail.com" class="contact-link email">

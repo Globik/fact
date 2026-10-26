@@ -26,12 +26,12 @@ const pay = require('./router/pay.js');
 const stream = require('./router/stream.js');
 const wallet = require('./router/wallet.js');
 const games = require('./router/games.js');
+const developers = require('./router/developers.js');
 const rateLimit = require('express-rate-limit');
 
 const { sendmessage, maximg } = require('./libs/maxbot.js');
 const axios = require('axios').default;
-const grid = '-1002095475544';
-const tg_api = '7129138329:AAGl9GvZlsK3RsL9Vb3PQGoXOdeoc97lpJ4';
+
 const VIDEOCHAT_TG_ID = '-1002494074502';
 
 const me = '4100118676103827'; 
@@ -215,9 +215,10 @@ app.use('/admin', admin);
 app.use('/stream', stream);
 app.use('/pay', pay);
 app.use('/donationalerts', donationalerts.router);
-//console.log(wallet)
+
  wallet(app);
  games(app);
+ developers(app);
 var imgData = {};
 const getUservkUrl = `https://api.vk.com/method/users.get`;
 const skey='48b5165748b5165748b516572a4ba88941448b548b516572e682a9cdaa4cd958d2d985d';

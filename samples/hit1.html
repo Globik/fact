@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smash Hit Room Renderer (Real Shaders)</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #info { position: absolute; top: 10px; left: 10px; color: white; font-family: monospace; pointer-events: none; z-index: 10; }
+    </style>
+</head>
+<body>
+    <div id="info">Space: Pause/Resume Move<br>WASD: Manual Control</div>
+    <canvas id="glcanvas"></canvas>
+
+    <!-- ШЕЙДЕР КОМНАТЫ (ROOM.GLSL) -->
+    <script id="vs-room" type="x-shader/x-vertex">
+        precision highp float;
+
+        uniform mat4 uMvpMatrix;
+        uniform sampler2D uTexture0; // Не используется в VS, но объявлен для совместимости
+        
+        attribute vec3 aPosition;
+        attribute vec2 aTexCoord;
+        attribute vec4 aColor;
+
+        varying vec4 vColor;
+        varying vec2 vTexCoord;
+        varying float vShadow;
+        varying vec4 vFog;
+
+        void main(void)
+        {
+            gl_Position = uMvpMatrix * vec4(aPosition, 1.0);
+
+            float nearPlane = 0.4;
+            vec4 upperFog = vec4(0.5, 0.7, 1.0, 1.0); // Светло-голубой верх
+            vec4 lowerFog = vec4(0.0, 0.0, 0.1, 1.0); // Темно-синий низ
+            
+            // Логика градиента тумана по высоте экрана
+            float t = gl_Position.y / (gl_Position.z + nearPlane) * 0.5 + 0.5;
+            vec4 fogColor = mix(lowerFog, upperFog, clamp(t, 0.0, 1.0));
+            
+            // Линейный туман по глубине Z
+            // При Z=5 -> Fog=0. При Z=25 -> Fog=1.
+            float fog = clamp(0.05 * (-5.0 + gl_Position.z), 0.0, 1.0);
+            
+            // Цвет вершины с учетом затухания от тумана
+            // В оригинале альфа канала aColor.a используется как "shadow", здесь просто умножаем RGB
+            vColor = vec4(aColor.rgb, 0.5) * (2.0 * (1.0 - fog));
+            
+            // Передача цвета тумана во фрагментный шейдер
+            vFog = fogColor * fog;
+
+            // Тень (в оригинале это инверсия альфы, для комнаты обычно 0)
+            vShadow = 1.0 - aColor.a;
+            
+            vTexCoord = aTexCoord;
+        }
+    </script>
+
+    <script id="fs-room" type="x-shader/x-fragment">
+        precision mediump float;
+
+        uniform sampler2D uTexture0;
+        
+        varying vec4 vColor;
+        varying vec2 vTexCoord;
+        varying float vShadow;
+        varying vec4 vFog;
+
+        void main(void) 
+        {
+            // Освещение через "тень" (в комнате shadow обычно 0, так что light=1)
+            float light = (1.0 - vShadow * vShadow);
+            
+            // Выборка текстуры (если есть) или белый цвет
+            vec4 texColor = texture2D(uTexture0, vTexCoord);
+            
+            // Финальный цвет: Текстура * ЦветВершины * Свет + Туман
+            gl_FragColor = texColor * vColor * light + vFog;
+        }
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>

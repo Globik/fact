@@ -1,4 +1,4 @@
-	async function getUSDTERC20(el){
+	async function getUSDCERC20(el){
 	try{
 	let sip = 	await fetch('/getUSDTErc20wallet', {method: "POST", headers: {"Content-Type": "application/json",},body: JSON.stringify({str:  'str' })});
 	  if(sip.ok){
@@ -11,10 +11,10 @@
 		  let out=gid("out");
 		  console.log(di.message);
 		  if(out){
-			  
-			  out.textContent+=di.message+"\n";
-			  out.textContent+=di.data.wallet_id+"\n";
-			  out.textContent +=di.data.warning+"\n";
+			  out.textContent = JSON.stringify(di.data);
+			 // out.textContent+=di.message+"\n";
+			 // out.textContent+=di.data.wallet_id+"\n";
+			 // out.textContent +=di.data.warning+"\n";
 		  }
 	}
 	}catch(er){

@@ -37,9 +37,10 @@ const { mheader } = require('./mheader.js');
 		${mheader(n)}
 		<main class="pagemain">
 		<section class="article-section">
+		<h1>В разработке</h1>
 		<p><a href="/games/smash_hit">Mediocre smash hit</a></p>
 		<p><a href="/games/smash_hit_1">Mediocre smash hit AR</a></p>
-		<p><a href="/ar">ar</a></p>
+		<!-- <p><a href="/ar">ar</a></p> -->
 		</section>
 		</main>
 		${footer(n)}

@@ -25,13 +25,14 @@ let wallet=function(n){
 		${nav(n)}
 		${mheader(n)}
 		<main class="pagemain">
-		<div><span class="alfa">alfa</span></div>
+		<div><span class="alfa">В разработке</span></div>
 		<header class="walletHeader">Wallet</header>
 		<section id="walletContainer">
-		<button class="wbtn" onclick="getUSDTERC20(this);">Создать USDT ERC-20 кошелек</button>
-		</section>
+		<button class="wbtn" onclick="getUSDCERC20(this);">Создать USDC ERC-20 кошелек</button>
+		</section><br><br><br>
 		<div class="forout">
-		<output id="out" style="white-space:pre-wrap;"></output>
+		<pre id="out" style="white-space:pre-wrap;"></pre><br><br>
+		<p>Просто создает горячий криптокошелек USDC-ERC20 пока в тестовой сети. Регистрироваться и логиниться не надо</p>
 		</div>
 		</main>
 		${footer(n)}
